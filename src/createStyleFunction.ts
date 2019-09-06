@@ -1,0 +1,102 @@
+import {
+  ResponsiveValue,
+  BaseTheme,
+  Dimensions,
+  StyleFunctionContainer,
+} from './types';
+
+type StyleTransformFunction = (params: {
+  value: any;
+  theme: BaseTheme;
+  themeKey?: string;
+}) => any;
+
+const getValueForScreenSize = ({
+  responsiveValue,
+  breakpoints,
+  dimensions,
+}: {
+  responsiveValue: {[key in keyof BaseTheme['breakpoints']]: any};
+  breakpoints: BaseTheme['breakpoints'];
+  dimensions: Dimensions;
+}) => {
+  const sortedBreakpoints = Object.entries(breakpoints).sort((valA, valB) => {
+    return valA[1] - valB[1];
+  });
+  const {width} = dimensions;
+  return sortedBreakpoints.reduce((acc, [breakpoint, minWidth]) => {
+    if (width >= minWidth && responsiveValue[breakpoint] !== undefined)
+      return responsiveValue[breakpoint];
+    return acc;
+  }, null);
+};
+
+const isResponsiveObjectValue = <Theme extends BaseTheme>(
+  val: ResponsiveValue<any, Theme>,
+  theme: Theme,
+): val is {[key: string]: any} => {
+  if (typeof val !== 'object') return false;
+  return Object.keys(val).reduce((acc: boolean, key) => {
+    return acc && theme.breakpoints[key] !== undefined;
+  }, true);
+};
+
+const getValue = <Theme extends BaseTheme>(
+  propValue: ResponsiveValue<string | number, Theme>,
+  {
+    theme,
+    transform,
+    dimensions,
+    themeKey,
+  }: {
+    theme: Theme;
+    transform?: StyleTransformFunction;
+    dimensions: Dimensions;
+    themeKey?: string;
+  },
+) => {
+  const val = isResponsiveObjectValue(propValue, theme)
+    ? getValueForScreenSize({
+        responsiveValue: propValue,
+        breakpoints: theme.breakpoints,
+        dimensions,
+      })
+    : propValue;
+  if (transform) return transform({value: val, theme, themeKey});
+  return themeKey && theme[themeKey] && val ? theme[themeKey][val] : val;
+};
+
+const createStyleFunction = ({
+  property,
+  transform,
+  styleProperty = property,
+  themeKey,
+}: {
+  property: string;
+  transform?: StyleTransformFunction;
+  styleProperty?: string;
+  themeKey?: string;
+}): StyleFunctionContainer => {
+  return {
+    property,
+    themeKey,
+    variant: false,
+    func: (
+      props: any,
+      {theme, dimensions}: {theme: BaseTheme; dimensions: Dimensions},
+    ): {[key: string]: any} => {
+      const value = getValue(props[property], {
+        theme,
+        dimensions,
+        themeKey,
+        transform,
+      });
+      if (value === undefined) return {};
+      return {
+        [styleProperty]: value,
+      };
+    },
+  };
+};
+
+export default createStyleFunction;

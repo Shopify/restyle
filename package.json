@@ -1,0 +1,37 @@
+{
+  "name": "@shopify/style-system",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "A system for building constraint-based UI components",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "yarn eslint '**/*.{ts,tsx}' && yarn tsc -p tsconfig.json --noEmit",
+    "lint-fix": "yarn eslint --fix '**/*.{ts,tsx}'"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/react": "^16.9.2",
+    "@types/react-native": "^0.60.10",
+    "eslint": "^5.16.0",
+    "eslint-plugin-shopify": "^30.0.1",
+    "prettier": "^1.18.2",
+    "react": "^16.9.0",
+    "react-native": "0.60.5",
+    "typescript": "~3.2.1"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-native": "^0.59.0"
+  },
+  "files": [
+    "dist/*"
+  ]
+}
