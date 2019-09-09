@@ -19,6 +19,7 @@
     "import/named": "off",
     "func-style": "off",
     "react/display-name": "off",
+    "id-length": "off",
     "shopify/restrict-full-import": ["error", "lodash"],
     "shopify/jest/no-vague-titles": [
       "error",

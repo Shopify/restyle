@@ -32,8 +32,7 @@ const createVariant = ({
     ) => {
       const {expandedProps} = styleFunction.func(props, {theme, dimensions});
       if (!expandedProps) return {};
-      return allStyleFunctions.buildStyle({
-        props: expandedProps,
+      return allStyleFunctions.buildStyle(expandedProps, {
         theme,
         dimensions,
       });

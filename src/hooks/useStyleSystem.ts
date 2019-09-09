@@ -33,14 +33,14 @@ const useStyleSystem = (
     [styleFunctions],
   );
 
-  const style = composedStyleFunction.buildStyle({props, theme, dimensions});
+  const style = composedStyleFunction.buildStyle(props, {theme, dimensions});
   const cleanProps = filterStyleSystemProps(
     props,
     composedStyleFunction.properties,
   );
   return {
     ...cleanProps,
-    style: [style, cleanProps.style],
+    style: [style, cleanProps.style].filter(Boolean),
   };
 };
 

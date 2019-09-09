@@ -63,7 +63,14 @@ const getValue = <Theme extends BaseTheme>(
       })
     : propValue;
   if (transform) return transform({value: val, theme, themeKey});
-  return themeKey && theme[themeKey] && val ? theme[themeKey][val] : val;
+  if (themeKey && theme[themeKey]) {
+    if (val && !theme[themeKey][val])
+      throw new Error(`Value '${val}' does not exist in theme['${themeKey}']`);
+
+    return val ? theme[themeKey][val] : val;
+  }
+
+  return val;
 };
 
 const createStyleFunction = ({

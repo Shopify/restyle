@@ -22,15 +22,16 @@ const composeStyleFunctions = (
       return styleFunc.func;
     });
 
-  const buildStyle = ({
-    props,
-    theme,
-    dimensions,
-  }: {
-    props: {[key: string]: any};
-    theme: BaseTheme;
-    dimensions: Dimensions;
-  }) => {
+  const buildStyle = (
+    props: {[key: string]: any},
+    {
+      theme,
+      dimensions,
+    }: {
+      theme: BaseTheme;
+      dimensions: Dimensions;
+    },
+  ) => {
     return funcs.reduce((acc, func) => {
       return {...acc, ...func(props, {theme, dimensions})};
     }, {});
