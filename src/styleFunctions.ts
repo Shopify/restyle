@@ -237,7 +237,10 @@ export type PositionProps<Theme extends BaseTheme> = {
     Theme
   >;
 } & {
-  zIndex?: ResponsiveValue<keyof Theme['zIndices'], Theme>;
+  zIndex?: ResponsiveValue<
+    Theme['zIndices'] extends {} ? keyof Theme['zIndices'] : number,
+    Theme
+  >;
 };
 
 export type BorderProps<Theme extends BaseTheme> = {
@@ -254,7 +257,7 @@ export type BorderProps<Theme extends BaseTheme> = {
   } &
   {
     [Key in keyof typeof borderRadiusProperties]?: ResponsiveValue<
-      keyof Theme['borderRadii'],
+      Theme['borderRadii'] extends {} ? keyof Theme['borderRadii'] : number,
       Theme
     >;
   };
