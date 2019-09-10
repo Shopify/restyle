@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-### Added
+## 0.1.0 - 2019-09-10
+
+- Initial release
 
 - `@shopify/style-system` package
