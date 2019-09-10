@@ -13,8 +13,7 @@
     "lint-fix": "eslint --fix '**/*.{ts,tsx}'"
   },
   "publishConfig": {
-    "access": "public",
-    "@shopify:registry": "https://registry.npmjs.org"
+    "access": "restricted"
   },
   "author": "Shopify Inc.",
   "dependencies": {},
