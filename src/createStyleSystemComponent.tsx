@@ -25,7 +25,10 @@ const createStyleSystemComponent = <
     const props = useStyleSystem(styleFunctions, rest);
     return <Component {...(props as OverrideComponentProps)} />;
   };
-  return StyleSystemComponent;
+  type StyleSystemComponentType = typeof StyleSystemComponent;
+  return StyleSystemComponent as (StyleSystemComponentType & {
+    defaultProps?: Partial<React.ComponentProps<StyleSystemComponentType>>;
+  });
 };
 
 export default createStyleSystemComponent;
