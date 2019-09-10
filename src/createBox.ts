@@ -1,3 +1,4 @@
+import {View} from 'react-native';
 import createStyleSystemComponent from './createStyleSystemComponent';
 import {BaseTheme} from './types';
 import {
@@ -35,8 +36,13 @@ export const boxStyleFunctions = [
   position,
 ];
 
-const createBox = <Theme extends BaseTheme>() => {
-  return createStyleSystemComponent<BoxProps<Theme>>(boxStyleFunctions);
+const createBox = <Theme extends BaseTheme>(
+  BaseComponent: React.ComponentType = View,
+) => {
+  return createStyleSystemComponent<BoxProps<Theme>>(
+    boxStyleFunctions,
+    BaseComponent,
+  );
 };
 
 export default createBox;

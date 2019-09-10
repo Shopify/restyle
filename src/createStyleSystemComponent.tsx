@@ -8,12 +8,12 @@ const createStyleSystemComponent = <
   BaseComponentProps = ViewProps
 >(
   styleFunctions: (StyleFunctionContainer | StyleFunctionContainer[])[],
-  baseComponent: React.ComponentType<BaseComponentProps> = View as any,
+  BaseComponent: React.ComponentType<BaseComponentProps> = View as any,
 ) => {
   const StyleSystemComponent = <
     OverrideComponentProps extends BaseComponentProps
   >({
-    component = baseComponent as any,
+    component = BaseComponent as any,
     ...rest
   }: {
     component?: React.ComponentType<OverrideComponentProps>;

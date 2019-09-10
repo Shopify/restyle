@@ -31,8 +31,13 @@ export const textStyleFunctions = [
   createVariant({themeKey: 'textVariants'}),
 ];
 
-const createText = <Theme extends BaseTheme>() => {
-  return createStyleSystemComponent<TextProps<Theme>>(textStyleFunctions, Text);
+const createText = <Theme extends BaseTheme>(
+  BaseComponent: React.ComponentType = Text,
+) => {
+  return createStyleSystemComponent<TextProps<Theme>>(
+    textStyleFunctions,
+    BaseComponent,
+  );
 };
 
 export default createText;

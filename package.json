@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "lint": "eslint '**/*.{ts,tsx}' && yarn tsc -p tsconfig.json --noEmit",
+    "lint": "eslint '**/*.{ts,tsx}' && yarn tsc --noEmit",
     "lint-fix": "eslint --fix '**/*.{ts,tsx}'"
   },
   "publishConfig": {
