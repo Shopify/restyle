@@ -11,7 +11,7 @@
     "noUnusedLocals": true,
     "moduleResolution": "node",
     "strict": true,
-    "target": "esnext",
+    "target": "es5",
     "skipLibCheck": true,
     "outDir": "./dist",
     "baseUrl": "./src",
