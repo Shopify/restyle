@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 0.1.1 - 2019-09-11
+
+- Changed TypeScript compile target to `es5` (instead of `esnext`)
+
 ## 0.1.0 - 2019-09-10
 
 - Initial release
