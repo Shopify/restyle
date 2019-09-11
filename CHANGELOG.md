@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 0.1.2 - 2019-09-11
+
+- Compile library without JSX
+
 ## 0.1.1 - 2019-09-11
 
 - Changed TypeScript compile target to `es5` (instead of `esnext`)
