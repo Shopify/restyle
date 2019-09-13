@@ -23,12 +23,12 @@ const WelcomeView = () => {
           tablet: 'row',
         }}
       >
-        <Box margin="s" backgroundColor="greenPrimary" borderRadius={3}>
+        <Card margin="s" variant="primary">
           <GetStartedView />
         </Box>
-        <Box margin="s" backgroundColor="purplePrimary" borderRadius={3}>
+        <Card margin="s" variant="secondary">
           <NextStepsView />
-        </Box>
+        </Card>
       </Box>
     </Box>
   );
@@ -45,49 +45,42 @@ $ yarn add @shopify/style-system
 
 ### Defining Your Theme
 
-Any project using this library should have a global theme object. It specifies set values for spacing, colors, breakpoints, and more. These values are made available to any style-system component, so that you can for example write `backgroundColor="purpleDark"` to use the named color from your theme.
+Any project using this library should have a global theme object. It specifies set values for spacing, colors, breakpoints, and more. These values are made available to style-system components that include the corresponding [style function](#style-functions), so that you can for example write `backgroundColor="cardPrimary"` to use the named color from your theme.
 
-The theme object could look something like this:
+Below is an example of how a basic theme could look. Make sure to read the sections below for more details on how to set up your different theme values.
 
 ```ts
+const palette = {
+  purpleLight: '#8C6FF7',
+  purplePrimary: '#5A31F4',
+  purpleDark: '#3F22AB',
+
+  greenLight: '#56DCBA',
+  greenPrimary: '#0ECD9D',
+  greenDark: '#0A906E',
+
+  black: '#0B0B0B',
+  white: '#F0F2F3',
+};
+
 const theme = {
-  // We recommend the t-shirt size convention for naming spacing constants.
+  colors: {
+    mainBackground: palette.white,
+    cardPrimaryBackground: palette.purplePrimary,
+  },
   spacing: {
-    xs: 8,
-    s: 16,
-    m: 24,
-    l: 32,
+    s: 8,
+    m: 16,
+    l: 24,
     xl: 40,
   },
-  // Be vary of having too many colors defined here. Consult your design team
-  // to make sure this doesn't go overboard. Colors will likely follow a convention
-  // of a primary color with a number of lighter / darker shades.
-  colors: {
-    purpleLighter: '#BDADFB',
-    purpleLight: '#8C6FF7',
-    purplePrimary: '#5A31F4',
-    purpleDark: '#3F22AB',
-    purpleDarker: '#241462',
-
-    greenLighter: '#9FEBD8',
-    greenLight: '#56DCBA',
-    greenPrimary: '#0ECD9D',
-    greenDark: '#0A906E',
-    greenDarker: '#06523F',
-
-    black: '#0B0B0B',
-    white: '#F0F2F3',
-  },
-  // Breakpoints defined by minimum width (inclusive).
   breakpoints: {
     phone: 0,
     tablet: 768,
   },
 };
 
-// This type will be used to add prop validation to components
 export type Theme = typeof theme;
-
 export default theme;
 ```
 
@@ -102,9 +95,75 @@ const App = () => (
 );
 ```
 
-Having your theme defined in the context makes it easy to swap it out with variants of it, for example if you have a dark mode in your app.
+#### Colors
 
-#### Accessing the Theme
+When working with colors in a design system a common pattern is to have a palette including a number of base colors with darker and lighter shades, see for example the [Polaris Color Palette](https://polaris.shopify.com/design/colors#color-palette).
+
+This palette should preferrably not be directly included as values in the theme. The naming of colors in the theme object should instead be used to assign semantic meaning to the palette, see this example:
+
+```ts
+const palette = {
+  purpleLight: '#8C6FF7',
+  purplePrimary: '#5A31F4',
+  purpleDark: '#3F22AB',
+
+  greenLight: '#56DCBA',
+  greenPrimary: '#0ECD9D',
+  greenDark: '#0A906E',
+
+  black: '#0B0B0B',
+  white: '#F0F2F3',
+};
+
+const theme = {
+  colors: {
+    mainBackground: palette.white,
+    mainForeground: palette.black,
+    cardPrimaryBackground: palette.purplePrimary,
+    buttonPrimaryBackground: palette.purplePrimary,
+  },
+};
+```
+
+Taking the time to define these semantic meanings comes with a number of benefits:
+
+- It's easy to understand where and in what context colors are applied throughout the app
+- If changes are made to the palette (e.g. the purple colors are changed to a shade of blue instead), we only have to update what the semantic names point to instead of updating all references to `purplePrimary` throughout the app.
+- Even though `cardPrimaryBackground` and `buttonPrimaryBackground` point to the same color in the example above, deciding that buttons should instead be green (while cards remain purple) becomes a trivial change.
+- A theme can easily be [swapped at runtime](#implementing-dark-mode).
+
+#### Spacing
+
+Spacing tends to follow multiples of a given base spacing number, for example `8`. We prefer using the t-shirt size naming convention, because of the scalability of it (any number of `x`'s can be prepended for smaller and larger sizes):
+
+```ts
+const theme = {
+  spacing: {
+    s: 8,
+    m: 16,
+    l: 24,
+    xl: 40,
+  },
+};
+```
+
+#### Breakpoints
+
+Breakpoints are defined as minimum widths (inclusive) for different target screen sizes where we want to apply differing styles. Consider giving your breakpoints names that give a general idea of the type of device the user is using:
+
+```ts
+const theme = {
+  breakpoints: {
+    phone: 0,
+    tablet: 768,
+    largeTablet: 1024,
+  },
+};
+```
+
+See the [Responsive Values](#responsive-values) section to see how these can be used.
+
+### Accessing the Theme
 
 If you need to manually access the theme outside of a component created with style-system, use the `useTheme` hook:
 
@@ -115,6 +174,8 @@ const Component = () => {
   // ...
 };
 ```
+
+By doing this instead of directly importing the theme object, it becomes easy to swap the theme out during runtime to for example implement a [dark mode switch](#implementing-dark-mode) in your app.
 
 ### Predefined Components
 
@@ -325,7 +386,7 @@ const theme = {
     l: 24,
   },
   colors: {
-    cardWhite: '#EEEEEE',
+    cardRegularBackground: '#EEEEEE',
   },
   breakpoints: {
     phone: 0,
@@ -338,14 +399,14 @@ const theme = {
         phone: 's',
         tablet: 'm',
       },
-      backgroundColor: 'cardWhite',
+      backgroundColor: 'cardRegularBackground',
     }
     elevated: {
       padding: {
         phone: 's',
         tablet: 'm',
       },
-      backgroundColor: 'cardWhite',
+      backgroundColor: 'cardRegularBackground',
       shadowColor: '#000',
       shadowOpacity: 0.2,
       shadowOffset: {width: 0, height: 5},
@@ -392,3 +453,120 @@ const theme = {
 ### Overriding Styles
 
 Any style-system component also accepts a regular `style` property and will apply it after all other styles, which means that you can use this to do any overrides that you might find necessary.
+
+```tsx
+<Box
+  margin="s"
+  padding="m"
+  style={{
+    backgroundColor: '#F00BAA',
+  }}
+/>
+```
+
+### Implementing Dark Mode
+
+Of course, no app is complete without a dark mode. Here a simple example of how you would implement it:
+
+```tsx
+import React, {useState} from 'react';
+import {Switch} from 'react-native';
+import {ThemeProvider, createBox, createText} from '@shopify/style-system';
+
+export const palette = {
+  purple: '#5A31F4',
+  white: '#FFF',
+  black: '#111',
+  darkGray: '#333',
+  lightGray: '#EEE',
+};
+
+const theme = {
+  spacing: {
+    s: 8,
+    m: 16,
+  },
+  colors: {
+    mainBackground: palette.lightGray,
+    mainForeground: palette.black,
+
+    primaryCardBackground: palette.purple,
+    secondaryCardBackground: palette.white,
+    primaryCardText: palette.white,
+    secondaryCardText: palette.black,
+  },
+  breakpoints: {},
+  textVariants: {
+    body: {
+      fontSize: 16,
+      lineHeight: 24,
+      color: 'mainForeground',
+    },
+  },
+  cardVariants: {
+    primary: {
+      backgroundColor: 'primaryCardBackground',
+      shadowOpacity: 0.3,
+    },
+    secondary: {
+      backgroundColor: 'secondaryCardBackground',
+      shadowOpacity: 0.1,
+    },
+  },
+};
+
+type Theme = typeof theme;
+
+const darkTheme = {
+  ...theme,
+  colors: {
+    ...theme.colors,
+    mainBackground: palette.black,
+    mainForeground: palette.white,
+
+    secondaryCardBackground: palette.darkGray,
+    secondaryCardText: palette.white,
+  },
+};
+
+const Box = createBox<Theme>();
+const Text = createText<Theme>();
+
+const App = () => {
+  const [darkMode, setDarkMode] = useState(false);
+  return (
+    <ThemeProvider theme={darkMode ? darkTheme : theme}>
+      <Box padding="m" backgroundColor="mainBackground" flex={1}>
+        <Box
+          backgroundColor="primaryCardBackground"
+          margin="s"
+          padding="m"
+          flexGrow={1}
+        >
+          <Text variant="body" color="primaryCardText">
+            Primary Card
+          </Text>
+        </Box>
+        <Box
+          backgroundColor="secondaryCardBackground"
+          margin="s"
+          padding="m"
+          flexGrow={1}
+        >
+          <Text variant="body" color="secondaryCardText">
+            Secondary Card
+          </Text>
+        </Box>
+        <Box
+          component={Switch}
+          marginTop="m"
+          value={darkMode}
+          onValueChange={(value: boolean) => setDarkMode(value)}
+        />
+      </Box>
+    </ThemeProvider>
+  );
+};
+
+export default App;
+```
