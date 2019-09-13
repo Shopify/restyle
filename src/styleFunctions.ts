@@ -275,3 +275,14 @@ export type TextShadowProps<Theme extends BaseTheme> = {
     Theme
   >;
 };
+
+export type AllProps<Theme extends BaseTheme> = BackgroundColorProps<Theme> &
+  ColorProps<Theme> &
+  OpacityProps<Theme> &
+  SpacingProps<Theme> &
+  TypographyProps<Theme> &
+  LayoutProps<Theme> &
+  PositionProps<Theme> &
+  BorderProps<Theme> &
+  ShadowProps<Theme> &
+  TextShadowProps<Theme>;

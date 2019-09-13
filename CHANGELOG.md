@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 0.1.3 - 2019-09-13
+
+### Added
+
+- Added `defaults` parameter to `createVariant` to set default values that should be applied before anything from the theme.
+
 ## 0.1.2 - 2019-09-11
 
 - Compile library without JSX

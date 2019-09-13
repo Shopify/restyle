@@ -48,6 +48,20 @@ describe('createVariant', () => {
     });
   });
 
+  it('accepts default values', () => {
+    const variant = createVariant({
+      themeKey: 'textVariants',
+      defaults: {
+        opacity: 0.5,
+      },
+    });
+    expect(variant.func({variant: 'body'}, {theme, dimensions})).toStrictEqual({
+      fontSize: 14,
+      lineHeight: 18,
+      opacity: 0.5,
+    });
+  });
+
   it('supports referencing other theme values in the variant', () => {
     const variant = createVariant({themeKey: 'textVariants'});
     expect(

@@ -399,14 +399,12 @@ const theme = {
         phone: 's',
         tablet: 'm',
       },
-      backgroundColor: 'cardRegularBackground',
     }
     elevated: {
       padding: {
         phone: 's',
         tablet: 'm',
       },
-      backgroundColor: 'cardRegularBackground',
       shadowColor: '#000',
       shadowOpacity: 0.2,
       shadowOffset: {width: 0, height: 5},
@@ -416,10 +414,16 @@ const theme = {
   }
 }
 
-import {createVariant, createStyleSystemComponent} from '@shopify/style-system'
-const variant = createVariant({themeKey: 'cardVariants'})
+import {createVariant, createStyleSystemComponent, VariantProps} from '@shopify/style-system'
+const variant = createVariant<Theme>({themeKey: 'cardVariants', defaults: {
+  margin: {
+    phone: 's',
+    tablet: 'm',
+  }
+  backgroundColor: 'cardRegularBackground',
+}})
 
-const Card = createStyleSystemComponent([variant])
+const Card = createStyleSystemComponent<VariantProps<Theme, 'cardVariants'>>([variant])
 
 <Card variant="elevated" />
 ```
@@ -428,6 +432,7 @@ Arguments:
 
 - `property`: The name of the component prop that will map to a variant. Defaults to `variant`.
 - `themeKey`: A key in the theme to map values from. Unlike `createStyleFunction`, this option _is required_ to create a variant.
+- `defaults`: The default values to apply before applying anything from the values in the theme.
 
 ### Responsive Values
 

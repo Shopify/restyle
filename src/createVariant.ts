@@ -5,17 +5,19 @@ import {
   ResponsiveValue,
 } from './types';
 import createStyleFunction from './createStyleFunction';
-import {all} from './styleFunctions';
+import {all, AllProps} from './styleFunctions';
 import composeStyleFunctions from './composeStyleFunctions';
 
 const allStyleFunctions = composeStyleFunctions(all);
 
-const createVariant = ({
+const createVariant = <Theme extends BaseTheme = BaseTheme>({
   property = 'variant',
   themeKey,
+  defaults = {},
 }: {
   property?: string;
   themeKey: string;
+  defaults?: AllProps<Theme>;
 }): StyleFunctionContainer => {
   const styleFunction = createStyleFunction({
     property,
@@ -32,10 +34,13 @@ const createVariant = ({
     ) => {
       const {expandedProps} = styleFunction.func(props, {theme, dimensions});
       if (!expandedProps) return {};
-      return allStyleFunctions.buildStyle(expandedProps, {
-        theme,
-        dimensions,
-      });
+      return allStyleFunctions.buildStyle(
+        {...defaults, ...expandedProps},
+        {
+          theme,
+          dimensions,
+        },
+      );
     },
   };
 };
