@@ -87,7 +87,6 @@ const borderColorProperties = {
 };
 
 const shadowProperties = {
-  shadowColor: true,
   shadowOpacity: true,
   shadowOffset: true,
   shadowRadius: true,
@@ -171,11 +170,17 @@ export const border = [
   }),
 ];
 
-export const shadow = Object.keys(shadowProperties).map(property => {
-  return createStyleFunction({
-    property,
-  });
-});
+export const shadow = [
+  ...Object.keys(shadowProperties).map(property => {
+    return createStyleFunction({
+      property,
+    });
+  }),
+  createStyleFunction({
+    property: 'shadowColor',
+    themeKey: 'colors',
+  }),
+];
 
 export const textShadow = Object.keys(textShadowProperties).map(property => {
   return createStyleFunction({
@@ -267,6 +272,8 @@ export type ShadowProps<Theme extends BaseTheme> = {
     ViewStyle[Key],
     Theme
   >;
+} & {
+  shadowColor: ResponsiveValue<keyof Theme['colors'], Theme>;
 };
 
 export type TextShadowProps<Theme extends BaseTheme> = {

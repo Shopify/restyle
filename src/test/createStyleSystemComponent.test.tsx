@@ -9,6 +9,8 @@ import {
   spacing,
   OpacityProps,
   opacity,
+  ShadowProps,
+  shadow,
 } from '../styleFunctions';
 import {ThemeProvider} from '../context';
 
@@ -70,6 +72,20 @@ describe('createStyleSystemComponent', () => {
       const {root} = render(<Component opacity={0.5} component={Text} />);
       expect(() => root.findByType(View)).toThrow();
       expect(() => root.findByType(Text)).not.toThrow();
+    });
+
+    it('supports shadowcolor', () => {
+      const Component = createStyleSystemComponent<ShadowProps<Theme>>([
+        shadow,
+      ]);
+      const {root} = render(
+        <ThemeProvider theme={theme}>
+          <Component shadowColor="coral" />
+        </ThemeProvider>,
+      );
+      expect(root.findByType(View).props).toStrictEqual({
+        style: [{shadowColor: '#FFE6E4'}],
+      });
     });
 
     it('picks up values from the theme provided with ThemeProvider', () => {

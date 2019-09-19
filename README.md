@@ -344,7 +344,8 @@ The style-system library comes with a number of predefined style functions for y
 | border          | borderBottomWidth, borderLeftWidth, borderRightWidth, borderStyle, borderTopWidth, borderWidth                                                                                                      | _none_      |
 | border          | borderColor, borderTopColor, borderRightColor, borderLeftColor, borderBottomColor                                                                                                                   | colors      |
 | border          | borderRadius, borderBottomLeftRadius, borderBottomRightRadius, borderTopLeftRadius, borderTopRightRadius                                                                                            | borderRadii |
-| shadow          | shadowColor, shadowOpacity, shadowOffset, shadowRadius, elevation                                                                                                                                   | _none_      |
+| shadow          | shadowOpacity, shadowOffset, shadowRadius, elevation                                                                                                                                                | _none_      |
+| shadow          | shadowColor                                                                                                                                                                                         | colors      |
 | textShadow      | textShadowColor, textShadowOffset, textShadowRadius                                                                                                                                                 | _none_      |
 | typography      | fontFamily, fontSize, fontStyle, fontWeight, letterSpacing, lineHeight, textAlign, textDecorationLine, textDecorationStyle, textTransform                                                           | _none_      |
 
