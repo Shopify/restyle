@@ -74,20 +74,6 @@ describe('createStyleSystemComponent', () => {
       expect(() => root.findByType(Text)).not.toThrow();
     });
 
-    it('supports shadowcolor', () => {
-      const Component = createStyleSystemComponent<ShadowProps<Theme>>([
-        shadow,
-      ]);
-      const {root} = render(
-        <ThemeProvider theme={theme}>
-          <Component shadowColor="coral" />
-        </ThemeProvider>,
-      );
-      expect(root.findByType(View).props).toStrictEqual({
-        style: [{shadowColor: '#FFE6E4'}],
-      });
-    });
-
     it('picks up values from the theme provided with ThemeProvider', () => {
       const {root} = render(
         <ThemeProvider theme={theme}>
