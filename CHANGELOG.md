@@ -7,9 +7,9 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## 0.1.4 - 2019-09-19
+## 0.1.5 - 2019-09-19
 
-- Map `shadowColor` to `colors` theme key
+- Map `shadowColor` and `textShadowColor` to `colors` theme key
 
 ## 0.1.3 - 2019-09-13
 
