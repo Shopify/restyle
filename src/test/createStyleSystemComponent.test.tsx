@@ -9,8 +9,6 @@ import {
   spacing,
   OpacityProps,
   opacity,
-  ShadowProps,
-  shadow,
 } from '../styleFunctions';
 import {ThemeProvider} from '../context';
 
