@@ -346,7 +346,8 @@ The style-system library comes with a number of predefined style functions for y
 | border          | borderRadius, borderBottomLeftRadius, borderBottomRightRadius, borderTopLeftRadius, borderTopRightRadius                                                                                            | borderRadii |
 | shadow          | shadowOpacity, shadowOffset, shadowRadius, elevation                                                                                                                                                | _none_      |
 | shadow          | shadowColor                                                                                                                                                                                         | colors      |
-| textShadow      | textShadowColor, textShadowOffset, textShadowRadius                                                                                                                                                 | _none_      |
+| textShadow      | textShadowOffset, textShadowRadius                                                                                                                                                                  | _none_      |
+| textShadow      | textShadowColor                                                                                                                                                                                     | colors      |
 | typography      | fontFamily, fontSize, fontStyle, fontWeight, letterSpacing, lineHeight, textAlign, textDecorationLine, textDecorationStyle, textTransform                                                           | _none_      |
 
 #### Custom Style Functions
