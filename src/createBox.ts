@@ -7,12 +7,14 @@ import {
   layout,
   spacing,
   border,
+  shadow,
   position,
   BackgroundColorProps,
   OpacityProps,
   LayoutProps,
   SpacingProps,
   BorderProps,
+  ShadowProps,
   PositionProps,
   visible,
   VisibleProps,
@@ -24,6 +26,7 @@ export type BoxProps<Theme extends BaseTheme> = BackgroundColorProps<Theme> &
   LayoutProps<Theme> &
   SpacingProps<Theme> &
   BorderProps<Theme> &
+  ShadowProps<Theme> &
   PositionProps<Theme>;
 
 export const boxStyleFunctions = [
@@ -33,6 +36,7 @@ export const boxStyleFunctions = [
   layout,
   spacing,
   border,
+  shadow,
   position,
 ];
 

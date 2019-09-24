@@ -193,7 +193,7 @@ const Box = createBox<Theme>();
 export default Box;
 ```
 
-The Box component comes with the following [style functions](#predefined-style-functions): `backgroundColor`, `opacity`, `visible`, `layout`, `spacing`, `border`, `position`.
+The Box component comes with the following [style functions](#predefined-style-functions): `backgroundColor`, `opacity`, `visible`, `layout`, `spacing`, `border`, `shadow`, `position`.
 
 #### Text
 
@@ -207,7 +207,7 @@ const Text = createText<Theme>();
 export default Text;
 ```
 
-The Text component comes with the following [style functions](#predefined-style-functions): `color`, `opacity`, `visible`, `typography`, `spacing`. It also includes a [variant](#Variants) that picks up styles under the `textVariants` key in your theme:
+The Text component comes with the following [style functions](#predefined-style-functions): `color`, `opacity`, `visible`, `typography`, `textShadow`, `spacing`. It also includes a [variant](#Variants) that picks up styles under the `textVariants` key in your theme:
 
 ```tsx
 // In your theme

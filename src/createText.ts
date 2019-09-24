@@ -6,12 +6,14 @@ import {
   opacity,
   spacing,
   typography,
+  textShadow,
+  visible,
   ColorProps,
   OpacityProps,
   SpacingProps,
-  visible,
-  VisibleProps,
+  TextShadowProps,
   TypographyProps,
+  VisibleProps,
 } from './styleFunctions';
 import createVariant, {VariantProps} from './createVariant';
 
@@ -20,6 +22,7 @@ export type TextProps<Theme extends BaseTheme> = ColorProps<Theme> &
   VisibleProps<Theme> &
   TypographyProps<Theme> &
   SpacingProps<Theme> &
+  TextShadowProps<Theme> &
   VariantProps<Theme, 'textVariants'>;
 
 export const textStyleFunctions = [
@@ -28,6 +31,7 @@ export const textStyleFunctions = [
   visible,
   typography,
   spacing,
+  textShadow,
   createVariant({themeKey: 'textVariants'}),
 ];
 

@@ -7,6 +7,13 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 0.1.6 - 2019-09-24
+
+### Added
+
+- Added `shadow` style function to `createBox`
+- Added `textShadow` style function to `createText`
+
 ## 0.1.5 - 2019-09-19
 
 - Map `shadowColor` and `textShadowColor` to `colors` theme key
