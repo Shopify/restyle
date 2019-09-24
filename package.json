@@ -1,6 +1,6 @@
 {
   "name": "@shopify/style-system",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "license": "MIT",
   "description": "A system for building constraint-based UI components",
   "main": "dist/index.js",
