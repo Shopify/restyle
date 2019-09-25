@@ -7,6 +7,12 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 0.1.7 - 2019-09-25
+
+### Added
+
+- Added optional type argument to `useTheme` to set the returned type, e.g. `useTheme<Theme>()`
+
 ## 0.1.6 - 2019-09-24
 
 ### Added

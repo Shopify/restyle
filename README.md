@@ -169,7 +169,7 @@ If you need to manually access the theme outside of a component created with sty
 
 ```tsx
 const Component = () => {
-  const theme = useTheme();
+  const theme = useTheme<Theme>();
   const {cardPrimaryBackground} = theme.colors;
   // ...
 };
