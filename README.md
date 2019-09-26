@@ -241,28 +241,6 @@ const theme = {
 <Text variant="header">Header</Text>
 ```
 
-#### Wrapping Components
-
-If you want to use the styling properties of `Box` or `Text` with a different underlying component than the default `View` and `Text` React Native primitives, there are two approaches available to you.
-
-For one-off overrides, use the `component` prop:
-
-```tsx
-<Box
-  component={Image}
-  width={100}
-  height={100}
-  borderRadius={3}
-  source={{uri: '...'}}
-/>
-```
-
-If you instead want to create a reusable component that always renders with the given underlying component, pass the component as the first argument to your `createBox` or `createText` call:
-
-```ts
-const BoxImage = createBox<Theme>(Image);
-```
-
 ### Custom Components
 
 If you want to create your own component similar to `Box` or `Text`, but decide yourself which [style-functions](#style-functions) to use, use the `createStyleSystemComponent` helper:

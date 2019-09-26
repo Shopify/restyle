@@ -1,4 +1,4 @@
-import {View} from 'react-native';
+import {View, ViewProps} from 'react-native';
 import createStyleSystemComponent from './createStyleSystemComponent';
 import {BaseTheme} from './types';
 import {
@@ -27,7 +27,8 @@ export type BoxProps<Theme extends BaseTheme> = BackgroundColorProps<Theme> &
   SpacingProps<Theme> &
   BorderProps<Theme> &
   ShadowProps<Theme> &
-  PositionProps<Theme>;
+  PositionProps<Theme> &
+  ViewProps;
 
 export const boxStyleFunctions = [
   backgroundColor,
@@ -40,13 +41,8 @@ export const boxStyleFunctions = [
   position,
 ];
 
-const createBox = <Theme extends BaseTheme>(
-  BaseComponent: React.ComponentType = View,
-) => {
-  return createStyleSystemComponent<BoxProps<Theme>>(
-    boxStyleFunctions,
-    BaseComponent,
-  );
+const createBox = <Theme extends BaseTheme>() => {
+  return createStyleSystemComponent<BoxProps<Theme>>(boxStyleFunctions, View);
 };
 
 export default createBox;

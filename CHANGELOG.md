@@ -7,6 +7,14 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 0.1.8 - 2019-09-26
+
+- Fix component created with `createText` not accepting React Native `Text` properties.
+
+### Removed
+
+- Removed component override prop, it's not really needed in practice and it makes managing the types much more complicated.
+
 ## 0.1.7 - 2019-09-25
 
 ### Added

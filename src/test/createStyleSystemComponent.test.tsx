@@ -1,6 +1,6 @@
 import React from 'react';
 import {create as render, act} from 'react-test-renderer';
-import {View, Text, Dimensions} from 'react-native';
+import {View, Dimensions, ViewProps} from 'react-native';
 import createStyleSystemComponent from '../createStyleSystemComponent';
 import {
   backgroundColor,
@@ -27,6 +27,7 @@ const theme = {
   },
 };
 type Theme = typeof theme;
+
 jest.mock('Dimensions', () => {
   return {
     get: () => ({
@@ -37,7 +38,10 @@ jest.mock('Dimensions', () => {
   };
 });
 const Component = createStyleSystemComponent<
-  BackgroundColorProps<Theme> & SpacingProps<Theme> & OpacityProps<Theme>
+  BackgroundColorProps<Theme> &
+    SpacingProps<Theme> &
+    OpacityProps<Theme> &
+    ViewProps
 >([backgroundColor, spacing, opacity]);
 
 describe('createStyleSystemComponent', () => {
@@ -64,12 +68,6 @@ describe('createStyleSystemComponent', () => {
         style: [{opacity: 0.5}],
         pointerEvents: 'auto',
       });
-    });
-
-    it('allows overriding the underlying component with a prop', () => {
-      const {root} = render(<Component opacity={0.5} component={Text} />);
-      expect(() => root.findByType(View)).toThrow();
-      expect(() => root.findByType(Text)).not.toThrow();
     });
 
     it('picks up values from the theme provided with ThemeProvider', () => {
