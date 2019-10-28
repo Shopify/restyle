@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 0.1.9 - 2019-10-28
+
+- Accept optional underlying component to use in `createText` and `createBox`.
+
 ## 0.1.8 - 2019-09-26
 
 - Fix component created with `createText` not accepting React Native `Text` properties.
