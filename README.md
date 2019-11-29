@@ -1,6 +1,6 @@
-# `@shopify/style-system`
+# `@shopify/restyle`
 
-The `@shopify/style-system` library provides a system for building constraint-based UI components. You might want to see it as a library for building component libraries.
+The `@shopify/restyle` library provides a system for building constraint-based UI components. You might want to see it as a library for building component libraries.
 
 This library is heavily inspired by [https://styled-system.com](https://styled-system.com/), but adapted for React Native and with added TypeScript prop types. It's also more restrictive to better match our taste, with the notable differences being:
 
@@ -10,7 +10,7 @@ This library is heavily inspired by [https://styled-system.com](https://styled-s
 
 This library assumes that the design is built upon a well defined design system that at the very least defines a set of colors and spacing constants that lays as a foundation for the whole app design. While the library acknowledges that there can be exceptions to the system by allowing any style to be overridden, it keeps the developer most productive when one-off values are kept to a minimum.
 
-Here's an example of how a view built with style-system components could look:
+Here's an example of how a view built with Restyle components could look:
 
 ```tsx
 const WelcomeView = () => {
@@ -38,14 +38,14 @@ const WelcomeView = () => {
 ## Installation
 
 ```bash
-$ yarn add @shopify/style-system
+$ yarn add @shopify/restyle
 ```
 
 ## Usage
 
 ### Defining Your Theme
 
-Any project using this library should have a global theme object. It specifies set values for spacing, colors, breakpoints, and more. These values are made available to style-system components that include the corresponding [style function](#style-functions), so that you can for example write `backgroundColor="cardPrimary"` to use the named color from your theme.
+Any project using this library should have a global theme object. It specifies set values for spacing, colors, breakpoints, and more. These values are made available to Restyle components that include the corresponding [style function](#style-functions), so that you can for example write `backgroundColor="cardPrimary"` to use the named color from your theme.
 
 Below is an example of how a basic theme could look. Make sure to read the sections below for more details on how to set up your different theme values.
 
@@ -87,7 +87,7 @@ export default theme;
 This theme should be passed to a `ThemeProvider` at the top of your React tree:
 
 ```tsx
-import {ThemeProvider} from '@shopify/style-system';
+import {ThemeProvider} from '@shopify/restyle';
 import theme from './theme';
 
 const App = () => (
@@ -165,7 +165,7 @@ See the [Responsive Values](#responsive-values) section to see how these can be 
 
 ### Accessing the Theme
 
-If you need to manually access the theme outside of a component created with style-system, use the `useTheme` hook:
+If you need to manually access the theme outside of a component created with Restyle, use the `useTheme` hook:
 
 ```tsx
 const Component = () => {
@@ -185,7 +185,7 @@ This library comes with predefined functions to create a `Box` and `Text` compon
 
 ```tsx
 // In Box.tsx
-import {createBox} from '@shopify/style-system';
+import {createBox} from '@shopify/restyle';
 import {Theme} from './theme';
 
 const Box = createBox<Theme>();
@@ -199,7 +199,7 @@ The Box component comes with the following [style functions](#predefined-style-f
 
 ```tsx
 // In Text.tsx
-import {createText} from '@shopify/style-system';
+import {createText} from '@shopify/restyle';
 import {Theme} from './theme';
 
 const Text = createText<Theme>();
@@ -252,7 +252,7 @@ import {
   spacing,
   SpacingProps,
   VariantProps
-} from '@shopify/style-system';
+} from '@shopify/restyle';
 import {Theme} from './theme'
 
 type Props = SpacingProps<Theme> & VariantProps<Theme, 'cardVariants'>
@@ -276,7 +276,7 @@ import {
   SpacingProps,
   BorderProps,
   BackgroundColorProps,
-} from '@shopify/style-system';
+} from '@shopify/restyle';
 
 import Text from './Text';
 import {Theme} from './theme';
@@ -303,11 +303,11 @@ const Button = ({onPress, label, ...rest}: Props) => {
 
 ### Style Functions
 
-Style functions are the bread and butter of style-system. They specify how props should be mapped to values in a resulting style object, that can then be passed down to a React Native component. The props support [responsive values](#responsive-values) and can be mapped to values in your theme.
+Style functions are the bread and butter of Restyle. They specify how props should be mapped to values in a resulting style object, that can then be passed down to a React Native component. The props support [responsive values](#responsive-values) and can be mapped to values in your theme.
 
 #### Predefined Style Functions
 
-The style-system library comes with a number of predefined style functions for your convenience.
+The Restyle library comes with a number of predefined style functions for your convenience.
 
 | Style Function  | Props                                                                                                                                                                                               | Theme Key   |
 | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
@@ -333,7 +333,7 @@ The style-system library comes with a number of predefined style functions for y
 To define your own style function, use the `createStyleFunction` helper:
 
 ```ts
-import {createStyleFunction, createStyleSystemComponent} from '@shopify/style-system'
+import {createStyleFunction, createStyleSystemComponent} from '@shopify/restyle'
 const transparency = createStyleFunction({
   property: 'transparency',
   styleProperty: 'opacity',
@@ -394,7 +394,7 @@ const theme = {
   }
 }
 
-import {createVariant, createStyleSystemComponent, VariantProps} from '@shopify/style-system'
+import {createVariant, createStyleSystemComponent, VariantProps} from '@shopify/restyle'
 const variant = createVariant<Theme>({themeKey: 'cardVariants', defaults: {
   margin: {
     phone: 's',
@@ -416,7 +416,7 @@ Arguments:
 
 ### Responsive Values
 
-Any prop powered by style-system can optionally accept a value for each screen size, as defined by the `breakpoints` object in the theme:
+Any prop powered by Restyle can optionally accept a value for each screen size, as defined by the `breakpoints` object in the theme:
 
 ```tsx
 // In your theme
@@ -437,7 +437,7 @@ const theme = {
 
 ### Overriding Styles
 
-Any style-system component also accepts a regular `style` property and will apply it after all other styles, which means that you can use this to do any overrides that you might find necessary.
+Any Restyle component also accepts a regular `style` property and will apply it after all other styles, which means that you can use this to do any overrides that you might find necessary.
 
 ```tsx
 <Box
@@ -456,7 +456,7 @@ Of course, no app is complete without a dark mode. Here a simple example of how 
 ```tsx
 import React, {useState} from 'react';
 import {Switch} from 'react-native';
-import {ThemeProvider, createBox, createText} from '@shopify/style-system';
+import {ThemeProvider, createBox, createText} from '@shopify/restyle';
 
 export const palette = {
   purple: '#5A31F4',
