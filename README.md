@@ -45,7 +45,7 @@ $ yarn add @shopify/restyle
 
 ### Defining Your Theme
 
-Any project using this library should have a global theme object. It specifies set values for spacing, colors, breakpoints, and more. These values are made available to Restyle components that include the corresponding [style function](#style-functions), so that you can for example write `backgroundColor="cardPrimary"` to use the named color from your theme.
+Any project using this library should have a global theme object. It specifies set values for spacing, colors, breakpoints, and more. These values are made available to Restyle components that include the corresponding [Restyle function](#restyle-functions), so that you can for example write `backgroundColor="cardPrimary"` to use the named color from your theme.
 
 Below is an example of how a basic theme could look. Make sure to read the sections below for more details on how to set up your different theme values.
 
@@ -193,7 +193,7 @@ const Box = createBox<Theme>();
 export default Box;
 ```
 
-The Box component comes with the following [style functions](#predefined-style-functions): `backgroundColor`, `opacity`, `visible`, `layout`, `spacing`, `border`, `shadow`, `position`.
+The Box component comes with the following [Restyle functions](#predefined-restyle-functions): `backgroundColor`, `opacity`, `visible`, `layout`, `spacing`, `border`, `shadow`, `position`.
 
 #### Text
 
@@ -207,7 +207,7 @@ const Text = createText<Theme>();
 export default Text;
 ```
 
-The Text component comes with the following [style functions](#predefined-style-functions): `color`, `opacity`, `visible`, `typography`, `textShadow`, `spacing`. It also includes a [variant](#Variants) that picks up styles under the `textVariants` key in your theme:
+The Text component comes with the following [Restyle functions](#predefined-restyle-functions): `color`, `opacity`, `visible`, `typography`, `textShadow`, `spacing`. It also includes a [variant](#Variants) that picks up styles under the `textVariants` key in your theme:
 
 ```tsx
 // In your theme
@@ -243,11 +243,13 @@ const theme = {
 
 ### Custom Components
 
-If you want to create your own component similar to `Box` or `Text`, but decide yourself which [style-functions](#style-functions) to use, use the `createStyleSystemComponent` helper:
+If you want to create your own component similar to `Box` or `Text`, but decide
+yourself which [Restyle functions](#restyle-functions) to use, use the
+`createRestyleComponent` helper:
 
 ```ts
 import {
-  createStyleSystemComponent,
+  createRestyleComponent,
   createVariant,
   spacing,
   SpacingProps,
@@ -256,7 +258,7 @@ import {
 import {Theme} from './theme'
 
 type Props = SpacingProps<Theme> & VariantProps<Theme, 'cardVariants'>
-const Card = createStyleSystemComponent<Props>([
+const Card = createRestyleComponent<Props>([
   spacing,
   createVariant({themeKey: 'cardVariants')})
 ])
@@ -264,12 +266,12 @@ const Card = createStyleSystemComponent<Props>([
 export default Card
 ```
 
-For more advanced components, you may want to instead use the `useStyleSystem` hook:
+For more advanced components, you may want to instead use the `useRestyle` hook:
 
 ```tsx
 import {TouchableOpacity, View} from 'react-native';
 import {
-  useStyleSystem,
+  useRestyle,
   spacing,
   border,
   backgroundColor,
@@ -281,7 +283,7 @@ import {
 import Text from './Text';
 import {Theme} from './theme';
 
-const styleFunctions = [spacing, border, backgroundColor];
+const restyleFunctions = [spacing, border, backgroundColor];
 type Props = SpacingProps<Theme> &
   BorderProps<Theme> &
   BackgroundColorProps<Theme> & {
@@ -289,7 +291,7 @@ type Props = SpacingProps<Theme> &
   };
 
 const Button = ({onPress, label, ...rest}: Props) => {
-  const props = useStyleSystem(styleFunctions, rest);
+  const props = useRestyle(restyleFunctions, rest);
 
   return (
     <TouchableOpacity onPress={onPress}>
@@ -301,46 +303,46 @@ const Button = ({onPress, label, ...rest}: Props) => {
 };
 ```
 
-### Style Functions
+### Restyle Functions
 
-Style functions are the bread and butter of Restyle. They specify how props should be mapped to values in a resulting style object, that can then be passed down to a React Native component. The props support [responsive values](#responsive-values) and can be mapped to values in your theme.
+Restyle functions are the bread and butter of Restyle. They specify how props should be mapped to values in a resulting style object, that can then be passed down to a React Native component. The props support [responsive values](#responsive-values) and can be mapped to values in your theme.
 
-#### Predefined Style Functions
+#### Predefined Restyle Functions
 
-The Restyle library comes with a number of predefined style functions for your convenience.
+The Restyle library comes with a number of predefined Restyle functions for your convenience.
 
-| Style Function  | Props                                                                                                                                                                                               | Theme Key   |
-| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| backgroundColor | backgroundColor                                                                                                                                                                                     | colors      |
-| color           | color                                                                                                                                                                                               | colors      |
-| opacity         | opacity                                                                                                                                                                                             | _none_      |
-| visible         | display (maps `true` / `false` to `flex` / `none`)                                                                                                                                                  | _none_      |
-| spacing         | margin, marginTop, marginRight, marginBottom, marginLeft, marginHorizontal, marginVertical, padding, paddingTop, paddingRight, paddingBottom, paddingLeft, paddingHorizontal, paddingVertical       | spacing     |
-| layout          | width, height, minWidth, maxWidth, minHeight, maxHeight, overflow, aspectRatio, alignContent, alignItems, alignSelf, justifyContent, flex, flexBasis, flexDirection, flexGrow, flexShrink, flexWrap | _none_      |
-| position        | position, top, right, bottom, left                                                                                                                                                                  | _none_      |
-| position        | zIndex                                                                                                                                                                                              | zIndices    |
-| border          | borderBottomWidth, borderLeftWidth, borderRightWidth, borderStyle, borderTopWidth, borderWidth                                                                                                      | _none_      |
-| border          | borderColor, borderTopColor, borderRightColor, borderLeftColor, borderBottomColor                                                                                                                   | colors      |
-| border          | borderRadius, borderBottomLeftRadius, borderBottomRightRadius, borderTopLeftRadius, borderTopRightRadius                                                                                            | borderRadii |
-| shadow          | shadowOpacity, shadowOffset, shadowRadius, elevation                                                                                                                                                | _none_      |
-| shadow          | shadowColor                                                                                                                                                                                         | colors      |
-| textShadow      | textShadowOffset, textShadowRadius                                                                                                                                                                  | _none_      |
-| textShadow      | textShadowColor                                                                                                                                                                                     | colors      |
-| typography      | fontFamily, fontSize, fontStyle, fontWeight, letterSpacing, lineHeight, textAlign, textDecorationLine, textDecorationStyle, textTransform                                                           | _none_      |
+| Restyle Function | Props                                                                                                                                                                                               | Theme Key   |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| backgroundColor  | backgroundColor                                                                                                                                                                                     | colors      |
+| color            | color                                                                                                                                                                                               | colors      |
+| opacity          | opacity                                                                                                                                                                                             | _none_      |
+| visible          | display (maps `true` / `false` to `flex` / `none`)                                                                                                                                                  | _none_      |
+| spacing          | margin, marginTop, marginRight, marginBottom, marginLeft, marginHorizontal, marginVertical, padding, paddingTop, paddingRight, paddingBottom, paddingLeft, paddingHorizontal, paddingVertical       | spacing     |
+| layout           | width, height, minWidth, maxWidth, minHeight, maxHeight, overflow, aspectRatio, alignContent, alignItems, alignSelf, justifyContent, flex, flexBasis, flexDirection, flexGrow, flexShrink, flexWrap | _none_      |
+| position         | position, top, right, bottom, left                                                                                                                                                                  | _none_      |
+| position         | zIndex                                                                                                                                                                                              | zIndices    |
+| border           | borderBottomWidth, borderLeftWidth, borderRightWidth, borderStyle, borderTopWidth, borderWidth                                                                                                      | _none_      |
+| border           | borderColor, borderTopColor, borderRightColor, borderLeftColor, borderBottomColor                                                                                                                   | colors      |
+| border           | borderRadius, borderBottomLeftRadius, borderBottomRightRadius, borderTopLeftRadius, borderTopRightRadius                                                                                            | borderRadii |
+| shadow           | shadowOpacity, shadowOffset, shadowRadius, elevation                                                                                                                                                | _none_      |
+| shadow           | shadowColor                                                                                                                                                                                         | colors      |
+| textShadow       | textShadowOffset, textShadowRadius                                                                                                                                                                  | _none_      |
+| textShadow       | textShadowColor                                                                                                                                                                                     | colors      |
+| typography       | fontFamily, fontSize, fontStyle, fontWeight, letterSpacing, lineHeight, textAlign, textDecorationLine, textDecorationStyle, textTransform                                                           | _none_      |
 
-#### Custom Style Functions
+#### Custom Restyle Functions
 
-To define your own style function, use the `createStyleFunction` helper:
+To define your own Restyle function, use the `createRestyleFunction` helper:
 
 ```ts
-import {createStyleFunction, createStyleSystemComponent} from '@shopify/restyle'
-const transparency = createStyleFunction({
+import {createRestyleFunction, createRestyleFunction} from '@shopify/restyle'
+const transparency = createRestyleFunction({
   property: 'transparency',
   styleProperty: 'opacity',
   transform: ({value}: {value: number}) => 1 - value,
 });
 
-const TransparentComponent = createStyleSystemComponent([transparency])
+const TransparentComponent = createRestyleFunction([transparency])
 
 <TransparentComponent transparency={0.5} />
 ```
@@ -354,7 +356,7 @@ Arguments:
 
 #### Variants
 
-A variant is a form of style function that maps a prop into multiple other props to use with style functions. A variant needs to always map to a key in the theme.
+A variant is a form of Restyle function that maps a prop into multiple other props to use with Restyle functions. A variant needs to always map to a key in the theme.
 
 ```ts
 // In theme
@@ -394,7 +396,7 @@ const theme = {
   }
 }
 
-import {createVariant, createStyleSystemComponent, VariantProps} from '@shopify/restyle'
+import {createVariant, createRestyleComponent, VariantProps} from '@shopify/restyle'
 const variant = createVariant<Theme>({themeKey: 'cardVariants', defaults: {
   margin: {
     phone: 's',
@@ -403,7 +405,7 @@ const variant = createVariant<Theme>({themeKey: 'cardVariants', defaults: {
   backgroundColor: 'cardRegularBackground',
 }})
 
-const Card = createStyleSystemComponent<VariantProps<Theme, 'cardVariants'>>([variant])
+const Card = createRestyleComponent<VariantProps<Theme, 'cardVariants'>>([variant])
 
 <Card variant="elevated" />
 ```
@@ -411,7 +413,7 @@ const Card = createStyleSystemComponent<VariantProps<Theme, 'cardVariants'>>([va
 Arguments:
 
 - `property`: The name of the component prop that will map to a variant. Defaults to `variant`.
-- `themeKey`: A key in the theme to map values from. Unlike `createStyleFunction`, this option _is required_ to create a variant.
+- `themeKey`: A key in the theme to map values from. Unlike `createRestyleFunction`, this option _is required_ to create a variant.
 - `defaults`: The default values to apply before applying anything from the values in the theme.
 
 ### Responsive Values

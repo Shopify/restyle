@@ -1,5 +1,5 @@
 import {Text, TextProps as RNTextProps} from 'react-native';
-import createStyleSystemComponent from './createStyleSystemComponent';
+import createRestyleComponent from './createRestyleComponent';
 import {BaseTheme} from './types';
 import {
   color,
@@ -14,7 +14,7 @@ import {
   TextShadowProps,
   TypographyProps,
   VisibleProps,
-} from './styleFunctions';
+} from './restyleFunctions';
 import createVariant, {VariantProps} from './createVariant';
 
 export type TextProps<Theme extends BaseTheme> = ColorProps<Theme> &
@@ -26,7 +26,7 @@ export type TextProps<Theme extends BaseTheme> = ColorProps<Theme> &
   VariantProps<Theme, 'textVariants'> &
   RNTextProps;
 
-export const textStyleFunctions = [
+export const textRestyleFunctions = [
   color,
   opacity,
   visible,
@@ -39,8 +39,8 @@ export const textStyleFunctions = [
 const createText = <Theme extends BaseTheme>(
   BaseComponent: React.ComponentType = Text,
 ) => {
-  return createStyleSystemComponent<TextProps<Theme>>(
-    textStyleFunctions,
+  return createRestyleComponent<TextProps<Theme>>(
+    textRestyleFunctions,
     BaseComponent,
   );
 };

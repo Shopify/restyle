@@ -2,7 +2,7 @@ import {
   ResponsiveValue,
   BaseTheme,
   Dimensions,
-  StyleFunctionContainer,
+  RestyleFunctionContainer,
 } from './types';
 
 type StyleTransformFunction = (params: {
@@ -73,7 +73,7 @@ const getValue = <Theme extends BaseTheme>(
   return val;
 };
 
-const createStyleFunction = ({
+const createRestyleFunction = ({
   property,
   transform,
   styleProperty = property,
@@ -83,7 +83,7 @@ const createStyleFunction = ({
   transform?: StyleTransformFunction;
   styleProperty?: string;
   themeKey?: string;
-}): StyleFunctionContainer => {
+}): RestyleFunctionContainer => {
   return {
     property,
     themeKey,
@@ -106,4 +106,4 @@ const createStyleFunction = ({
   };
 };
 
-export default createStyleFunction;
+export default createRestyleFunction;

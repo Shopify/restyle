@@ -1,5 +1,5 @@
 import {TextStyle, FlexStyle, ViewStyle} from 'react-native';
-import createStyleFunction from './createStyleFunction';
+import createRestyleFunction from './createRestyleFunction';
 import {BaseTheme, ResponsiveValue} from './types';
 
 const spacingProperties = {
@@ -98,52 +98,52 @@ const textShadowProperties = {
   textShadowRadius: true,
 };
 
-export const backgroundColor = createStyleFunction({
+export const backgroundColor = createRestyleFunction({
   property: 'backgroundColor',
   themeKey: 'colors',
 });
 
-export const color = createStyleFunction({
+export const color = createRestyleFunction({
   property: 'color',
   themeKey: 'colors',
 });
 
-export const opacity = createStyleFunction({
+export const opacity = createRestyleFunction({
   property: 'opacity',
 });
 
-export const visible = createStyleFunction({
+export const visible = createRestyleFunction({
   property: 'visible',
   styleProperty: 'display',
   transform: ({value}) => (value === false ? 'none' : 'flex'),
 });
 
 export const spacing = Object.keys(spacingProperties).map(property => {
-  return createStyleFunction({
+  return createRestyleFunction({
     property,
     themeKey: 'spacing',
   });
 });
 
 export const typography = Object.keys(typographyProperties).map(property => {
-  return createStyleFunction({
+  return createRestyleFunction({
     property,
   });
 });
 
 export const layout = Object.keys(layoutProperties).map(property => {
-  return createStyleFunction({
+  return createRestyleFunction({
     property,
   });
 });
 
 export const position = [
   ...Object.keys(positionProperties).map(property => {
-    return createStyleFunction({
+    return createRestyleFunction({
       property,
     });
   }),
-  createStyleFunction({
+  createRestyleFunction({
     property: 'zIndex',
     themeKey: 'zIndices',
   }),
@@ -151,18 +151,18 @@ export const position = [
 
 export const border = [
   ...Object.keys(borderProperties).map(property => {
-    return createStyleFunction({
+    return createRestyleFunction({
       property,
     });
   }),
   ...Object.keys(borderColorProperties).map(property => {
-    return createStyleFunction({
+    return createRestyleFunction({
       property,
       themeKey: 'colors',
     });
   }),
   ...Object.keys(borderRadiusProperties).map(property => {
-    return createStyleFunction({
+    return createRestyleFunction({
       property,
       themeKey: 'borderRadii',
     });
@@ -171,11 +171,11 @@ export const border = [
 
 export const shadow = [
   ...Object.keys(shadowProperties).map(property => {
-    return createStyleFunction({
+    return createRestyleFunction({
       property,
     });
   }),
-  createStyleFunction({
+  createRestyleFunction({
     property: 'shadowColor',
     themeKey: 'colors',
   }),
@@ -183,11 +183,11 @@ export const shadow = [
 
 export const textShadow = [
   ...Object.keys(textShadowProperties).map(property => {
-    return createStyleFunction({
+    return createRestyleFunction({
       property,
     });
   }),
-  createStyleFunction({
+  createRestyleFunction({
     property: 'textShadowColor',
     themeKey: 'colors',
   }),
