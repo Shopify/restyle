@@ -37,3 +37,5 @@ export type StyleFunction = (
   props: {[key: string]: any},
   context: {theme: BaseTheme; dimensions: Dimensions},
 ) => {[key: string]: any};
+
+export type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;

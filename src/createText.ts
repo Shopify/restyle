@@ -1,6 +1,6 @@
-import {Text, TextProps as RNTextProps} from 'react-native';
+import {Text} from 'react-native';
 import createStyleSystemComponent from './createStyleSystemComponent';
-import {BaseTheme} from './types';
+import {BaseTheme, Omit} from './types';
 import {
   color,
   opacity,
@@ -23,8 +23,7 @@ export type TextProps<Theme extends BaseTheme> = ColorProps<Theme> &
   TypographyProps<Theme> &
   SpacingProps<Theme> &
   TextShadowProps<Theme> &
-  VariantProps<Theme, 'textVariants'> &
-  RNTextProps;
+  VariantProps<Theme, 'textVariants'>;
 
 export const textStyleFunctions = [
   color,
@@ -36,13 +35,15 @@ export const textStyleFunctions = [
   createVariant({themeKey: 'textVariants'}),
 ];
 
-const createText = <Theme extends BaseTheme>(
-  BaseComponent: React.ComponentType = Text,
+const createText = <
+  Theme extends BaseTheme,
+  Props = React.ComponentProps<typeof Text>
+>(
+  BaseComponent: React.ComponentType<any> = Text,
 ) => {
-  return createStyleSystemComponent<TextProps<Theme>>(
-    textStyleFunctions,
-    BaseComponent,
-  );
+  return createStyleSystemComponent<
+    TextProps<Theme> & Omit<Props, keyof TextProps<Theme>>
+  >(textStyleFunctions, BaseComponent);
 };
 
 export default createText;
