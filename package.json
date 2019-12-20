@@ -1,6 +1,6 @@
 {
   "name": "@shopify/restyle",
-  "version": "0.1.10",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "A system for building constraint-based UI components",
   "main": "dist/index.js",
