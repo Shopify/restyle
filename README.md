@@ -1,14 +1,8 @@
 # `@shopify/restyle`
 
-The `@shopify/restyle` library provides a system for building constraint-based UI components. You might want to see it as a library for building component libraries.
+The `@shopify/restyle` library provides a type-enforced system for building UI components in React Native. It's a library for building UI libraries.
 
-This library is heavily inspired by [https://styled-system.com](https://styled-system.com/), but adapted for React Native and with added TypeScript prop types. It's also more restrictive to better match our taste, with the notable differences being:
-
-- Any prop that accepts values from the theme will _only_ allow theme-defined values. Any one-off values that are not in the theme will instead have to be overriden through a `style` prop.
-- Responsive values are defined with named breakpoints, e.g. `height={{phone: 40, tablet: 60}}`, instead of arrays.
-- All property names are verbose, e.g. `marginTop` instead of `mt`.
-
-This library assumes that the design is built upon a well defined design system that at the very least defines a set of colors and spacing constants that lays as a foundation for the whole app design. While the library acknowledges that there can be exceptions to the system by allowing any style to be overridden, it keeps the developer most productive when one-off values are kept to a minimum.
+This library assumes that the UI is built upon a design system that (at the very least) defines a set of colors and spacing constants that lays as a foundation. While the library acknowledges that there can be exceptions to the system by allowing any style to be overridden, it keeps the developer most productive when one-off values are kept to a minimum.
 
 Here's an example of how a view built with Restyle components could look:
 
@@ -45,7 +39,7 @@ $ yarn add @shopify/restyle
 
 ### Defining Your Theme
 
-Any project using this library should have a global theme object. It specifies set values for spacing, colors, breakpoints, and more. These values are made available to Restyle components that include the corresponding [Restyle function](#restyle-functions), so that you can for example write `backgroundColor="cardPrimary"` to use the named color from your theme.
+Any project using this library should have a global theme object. It specifies set values for spacing, colors, breakpoints, and more. These values are made available to Restyle components, so that you can for example write `backgroundColor="cardPrimary"` to use the named color from your theme.
 
 Below is an example of how a basic theme could look. Make sure to read the sections below for more details on how to set up your different theme values.
 
@@ -557,3 +551,11 @@ const App = () => {
 
 export default App;
 ```
+
+### Inspiration
+
+Restyle is heavily inspired by [https://styled-system.com](https://styled-system.com/).
+
+### Roadmap
+
+- Add web support
