@@ -26,14 +26,14 @@ export interface Dimensions {
   height: number;
 }
 
-export interface StyleFunctionContainer {
+export interface RestyleFunctionContainer {
   property: string;
   themeKey?: string;
   variant: boolean;
-  func: StyleFunction;
+  func: RestyleFunction;
 }
 
-export type StyleFunction = (
+export type RestyleFunction = (
   props: {[key: string]: any},
   context: {theme: BaseTheme; dimensions: Dimensions},
 ) => {[key: string]: any};

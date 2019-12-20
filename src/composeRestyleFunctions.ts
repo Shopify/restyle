@@ -1,19 +1,19 @@
-import {StyleFunctionContainer, BaseTheme, Dimensions} from './types';
+import {RestyleFunctionContainer, BaseTheme, Dimensions} from './types';
 
-const composeStyleFunctions = (
-  styleFunctions: (StyleFunctionContainer | StyleFunctionContainer[])[],
+const composeRestyleFunctions = (
+  restyleFunctions: (RestyleFunctionContainer | RestyleFunctionContainer[])[],
 ) => {
-  const flattenedStyleFunctions = styleFunctions.reduce(
-    (acc: StyleFunctionContainer[], item) => {
+  const flattenedRestyleFunctions = restyleFunctions.reduce(
+    (acc: RestyleFunctionContainer[], item) => {
       return acc.concat(item);
     },
     [],
-  ) as StyleFunctionContainer[];
+  ) as RestyleFunctionContainer[];
 
-  const properties = flattenedStyleFunctions.map(styleFunc => {
+  const properties = flattenedRestyleFunctions.map(styleFunc => {
     return styleFunc.property;
   });
-  const funcs = flattenedStyleFunctions
+  const funcs = flattenedRestyleFunctions
     .sort(
       (styleFuncA, styleFuncB) =>
         Number(styleFuncB.variant) - Number(styleFuncA.variant),
@@ -42,4 +42,4 @@ const composeStyleFunctions = (
   };
 };
 
-export default composeStyleFunctions;
+export default composeRestyleFunctions;

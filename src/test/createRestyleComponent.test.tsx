@@ -1,7 +1,7 @@
 import React from 'react';
 import {create as render, act} from 'react-test-renderer';
 import {View, Dimensions, ViewProps} from 'react-native';
-import createStyleSystemComponent from '../createStyleSystemComponent';
+import createRestyleComponent from '../createRestyleComponent';
 import {
   backgroundColor,
   BackgroundColorProps,
@@ -9,7 +9,7 @@ import {
   spacing,
   OpacityProps,
   opacity,
-} from '../styleFunctions';
+} from '../restyleFunctions';
 import {ThemeProvider} from '../context';
 
 const theme = {
@@ -37,14 +37,14 @@ jest.mock('Dimensions', () => {
     addEventListener: jest.fn(),
   };
 });
-const Component = createStyleSystemComponent<
+const Component = createRestyleComponent<
   BackgroundColorProps<Theme> &
     SpacingProps<Theme> &
     OpacityProps<Theme> &
     ViewProps
 >([backgroundColor, spacing, opacity]);
 
-describe('createStyleSystemComponent', () => {
+describe('createRestyleComponent', () => {
   describe('creates a component that', () => {
     beforeEach(() => {
       (Dimensions.addEventListener as jest.Mock).mockClear();

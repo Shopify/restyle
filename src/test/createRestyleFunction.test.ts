@@ -1,4 +1,4 @@
-import createStyleFunction from '../createStyleFunction';
+import createRestyleFunction from '../createRestyleFunction';
 
 const theme = {
   colors: {},
@@ -17,10 +17,10 @@ const dimensions = {
   height: 667,
 };
 
-describe('createStyleFunction', () => {
+describe('createRestyleFunction', () => {
   describe('creates a function that', () => {
     it('accepts props and returns a style object', () => {
-      const styleFunc = createStyleFunction({property: 'opacity'});
+      const styleFunc = createRestyleFunction({property: 'opacity'});
       expect(styleFunc.func({opacity: 0.5}, {theme, dimensions})).toStrictEqual(
         {
           opacity: 0.5,
@@ -29,7 +29,7 @@ describe('createStyleFunction', () => {
     });
 
     it('allows configuring the style object output key', () => {
-      const styleFunc = createStyleFunction({
+      const styleFunc = createRestyleFunction({
         property: 'opacity',
         styleProperty: 'testOpacity',
       });
@@ -41,7 +41,7 @@ describe('createStyleFunction', () => {
     });
 
     it('allows transforming the value', () => {
-      const styleFunc = createStyleFunction({
+      const styleFunc = createRestyleFunction({
         property: 'transparency',
         styleProperty: 'opacity',
         transform: ({value}: {value: number}) => 1 - value,
@@ -54,7 +54,7 @@ describe('createStyleFunction', () => {
     });
 
     it('accepts screen-size specific props', () => {
-      const styleFunc = createStyleFunction({property: 'opacity'});
+      const styleFunc = createRestyleFunction({property: 'opacity'});
 
       expect(
         styleFunc.func(
@@ -86,7 +86,7 @@ describe('createStyleFunction', () => {
     });
 
     describe('with themeKey', () => {
-      const styleFunc = createStyleFunction({
+      const styleFunc = createRestyleFunction({
         property: 'opacity',
         themeKey: 'opacities',
       });

@@ -1,5 +1,5 @@
 {
-  "name": "@shopify/style-system",
+  "name": "@shopify/restyle",
   "version": "0.1.10",
   "license": "MIT",
   "description": "A system for building constraint-based UI components",

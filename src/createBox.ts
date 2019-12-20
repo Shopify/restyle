@@ -1,6 +1,7 @@
 import {View} from 'react-native';
-import createStyleSystemComponent from './createStyleSystemComponent';
+import createRestyleComponent from './createRestyleComponent';
 import {BaseTheme, Omit} from './types';
+
 import {
   backgroundColor,
   opacity,
@@ -18,7 +19,7 @@ import {
   PositionProps,
   visible,
   VisibleProps,
-} from './styleFunctions';
+} from './restyleFunctions';
 
 export type BoxProps<Theme extends BaseTheme> = BackgroundColorProps<Theme> &
   OpacityProps<Theme> &
@@ -29,7 +30,7 @@ export type BoxProps<Theme extends BaseTheme> = BackgroundColorProps<Theme> &
   ShadowProps<Theme> &
   PositionProps<Theme>;
 
-export const boxStyleFunctions = [
+export const boxRestyleFunctions = [
   backgroundColor,
   opacity,
   visible,
@@ -46,9 +47,9 @@ const createBox = <
 >(
   BaseComponent: React.ComponentType<any> = View,
 ) => {
-  return createStyleSystemComponent<
+  return createRestyleComponent<
     BoxProps<Theme> & Omit<Props, keyof BoxProps<Theme>>
-  >(boxStyleFunctions, BaseComponent);
+  >(boxRestyleFunctions, BaseComponent);
 };
 
 export default createBox;

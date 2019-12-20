@@ -1,4 +1,4 @@
-export * from './styleFunctions';
+export * from './restyleFunctions';
 export * from './types';
 export * from './createVariant';
 export * from './createBox';
@@ -9,8 +9,6 @@ export {default as createBox} from './createBox';
 export {default as createText} from './createText';
 export {ThemeProvider} from './context';
 export {default as useTheme} from './hooks/useTheme';
-export {default as useStyleSystem} from './hooks/useStyleSystem';
-export {default as createStyleFunction} from './createStyleFunction';
-export {
-  default as createStyleSystemComponent,
-} from './createStyleSystemComponent';
+export {default as useRestyle} from './hooks/useRestyle';
+export {default as createRestyleFunction} from './createRestyleFunction';
+export {default as createRestyleComponent} from './createRestyleComponent';

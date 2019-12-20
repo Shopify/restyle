@@ -1,10 +1,10 @@
 import {useMemo} from 'react';
-import {StyleFunctionContainer} from '../types';
-import composeStyleFunctions from '../composeStyleFunctions';
+import {RestyleFunctionContainer} from '../types';
+import composeRestyleFunctions from '../composeRestyleFunctions';
 import useDimensions from './useDimensions';
 import useTheme from './useTheme';
 
-const filterStyleSystemProps = (
+const filterRestyleProps = (
   props: {[key: string]: any},
   omitList: string[],
 ) => {
@@ -21,22 +21,22 @@ const filterStyleSystemProps = (
   );
 };
 
-const useStyleSystem = (
-  styleFunctions: (StyleFunctionContainer | StyleFunctionContainer[])[],
+const useRestyle = (
+  restyleFunctions: (RestyleFunctionContainer | RestyleFunctionContainer[])[],
   props: {[key: string]: any},
 ): {[key: string]: any} => {
   const theme = useTheme();
   const dimensions = useDimensions();
 
-  const composedStyleFunction = useMemo(
-    () => composeStyleFunctions(styleFunctions),
-    [styleFunctions],
+  const composedRestyleFunction = useMemo(
+    () => composeRestyleFunctions(restyleFunctions),
+    [restyleFunctions],
   );
 
-  const style = composedStyleFunction.buildStyle(props, {theme, dimensions});
-  const cleanProps = filterStyleSystemProps(
+  const style = composedRestyleFunction.buildStyle(props, {theme, dimensions});
+  const cleanProps = filterRestyleProps(
     props,
-    composedStyleFunction.properties,
+    composedRestyleFunction.properties,
   );
   return {
     ...cleanProps,
@@ -44,4 +44,4 @@ const useStyleSystem = (
   };
 };
 
-export default useStyleSystem;
+export default useRestyle;
