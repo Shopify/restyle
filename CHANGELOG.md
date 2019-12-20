@@ -7,6 +7,13 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 1.0.0 - 2019-12-20
+
+- Rename library to `@shopify/restyle`
+- [BREAKING] Rename `useStyleSystem` to `useRestyle`
+- [BREAKING] Rename `createStyleSystemFunction` to `createRestyleFunction`
+- [BREAKING] Rename `createStyleSystemComponent` to `createRestyleComponent`
+
 ## 0.1.10 - 2019-12-05
 
 - Accept override component prop types in `createText` and `createBox`.
