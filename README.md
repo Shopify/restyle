@@ -39,7 +39,7 @@ $ yarn add @shopify/restyle
 
 ### Defining Your Theme
 
-Any project using this library should have a global theme object. It specifies set values for spacing, colors, breakpoints, and more. These values are made available to Restyle components, so that you can for example write `backgroundColor="cardPrimary"` to use the named color from your theme.
+Any project using this library should have a global theme object. It specifies set values for spacing, colors, breakpoints, and more. These values are made available to Restyle components, so that you can for example write `backgroundColor="cardPrimary"` to use the named color from your theme. In fact, TypeScript enforces the `backgroundColor` property to _only_ accept colors that have been defined in your theme, and autocompletes values for you in a modern editor.
 
 Below is an example of how a basic theme could look. Make sure to read the sections below for more details on how to set up your different theme values.
 
