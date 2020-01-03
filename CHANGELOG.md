@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 1.0.2 - 2020-01-03
+
+- Accept `children` by default in components created with `createBox` and `createText`.
+
 ## 1.0.1 - 2020-01-03
 
 - Fix a bug where `children` would always be a required prop in `createRestyleComponent`.
