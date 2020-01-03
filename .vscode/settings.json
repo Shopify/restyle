@@ -22,8 +22,6 @@
     "**/*.js": true
   },
   "editor.formatOnSave": true,
-  "prettier.stylelintIntegration": true,
-  "prettier.eslintIntegration": true,
   "eslint.validate": ["typescript", "typescriptreact"],
   "javascript.implicitProjectConfig.experimentalDecorators": true
 }

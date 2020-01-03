@@ -5,11 +5,10 @@ import useRestyle from './hooks/useRestyle';
 
 const createRestyleComponent = <Props extends {}>(
   restyleFunctions: (RestyleFunctionContainer | RestyleFunctionContainer[])[],
-  BaseComponent: React.ComponentType = View,
+  BaseComponent: React.ComponentType<any> = View,
 ) => {
   const RestyleComponent = (
     props: {
-      children?: React.ReactNode;
       style?: any;
     } & Props,
   ) => {
