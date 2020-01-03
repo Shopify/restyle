@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 1.0.1 - 2020-01-03
+
+- Fix a bug where `children` would always be a required prop in `createRestyleComponent`.
+
 ## 1.0.0 - 2019-12-20
 
 - Rename library to `@shopify/restyle`
