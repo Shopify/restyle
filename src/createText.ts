@@ -37,7 +37,7 @@ export const textRestyleFunctions = [
 
 const createText = <
   Theme extends BaseTheme,
-  Props = React.ComponentProps<typeof Text>
+  Props = React.ComponentProps<typeof Text> & {children?: React.ReactNode}
 >(
   BaseComponent: React.ComponentType<any> = Text,
 ) => {

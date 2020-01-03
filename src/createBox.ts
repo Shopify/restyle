@@ -43,7 +43,7 @@ export const boxRestyleFunctions = [
 
 const createBox = <
   Theme extends BaseTheme,
-  Props = React.ComponentProps<typeof View>
+  Props = React.ComponentProps<typeof View> & {children?: React.ReactNode}
 >(
   BaseComponent: React.ComponentType<any> = View,
 ) => {
