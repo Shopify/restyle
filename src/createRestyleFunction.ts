@@ -64,7 +64,7 @@ const getValue = <Theme extends BaseTheme>(
     : propValue;
   if (transform) return transform({value: val, theme, themeKey});
   if (themeKey && theme[themeKey]) {
-    if (val && !theme[themeKey][val])
+    if (val && theme[themeKey][val] === undefined)
       throw new Error(`Value '${val}' does not exist in theme['${themeKey}']`);
 
     return val ? theme[themeKey][val] : val;

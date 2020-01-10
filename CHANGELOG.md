@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 1.0.3 - 2020-01-10
+
+- Fix bug where `0` or other falsy values aren't allowed in the theme.
+
 ## 1.0.2 - 2020-01-03
 
 - Accept `children` by default in components created with `createBox` and `createText`.

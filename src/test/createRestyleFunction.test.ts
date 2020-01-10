@@ -8,6 +8,7 @@ const theme = {
     tablet: 376,
   },
   opacities: {
+    invisible: 0,
     barelyVisible: 0.1,
     almostOpaque: 0.9,
   },
@@ -118,6 +119,12 @@ describe('createRestyleFunction', () => {
         expect(() =>
           styleFunc.func({opacity: 'veryVisible'}, {theme, dimensions}),
         ).toThrow(/does not exist/);
+      });
+
+      it('allows 0 as a theme value', () => {
+        expect(() =>
+          styleFunc.func({opacity: 'invisible'}, {theme, dimensions}),
+        ).not.toThrow(/does not exist/);
       });
     });
   });
