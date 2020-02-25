@@ -66,9 +66,13 @@ const App = () => {
 
 
 ## Installation
-
+### Yarn
 ```bash
 $ yarn add @shopify/restyle
+```
+### NPM
+```bash
+$ npm install @shopify/restyle
 ```
 
 ## Usage
