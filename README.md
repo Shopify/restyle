@@ -55,6 +55,10 @@ const App = () => {
   );
 };
 ```
+#### Working with Restyle Components
+![Restyle Component Workflow](https://user-images.githubusercontent.com/688415/75268259-95346900-57f7-11ea-8f1f-22aec4bb4f39.gif)
+#### Theming Restyle Components
+![RestyleTheme 2020-02-25 17_43_51](https://user-images.githubusercontent.com/688415/75268245-91084b80-57f7-11ea-905b-2a9046aa5ca3.gif)
 
 ## Installation
 
