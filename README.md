@@ -1,6 +1,8 @@
 # `@shopify/restyle`
 
-The Restyle library provides a type-enforced system for building UI components in React Native with TypeScript. It's a library for building UI libraries.
+![RestyleTheme 2020-02-25 17_43_51](https://user-images.githubusercontent.com/688415/75268245-91084b80-57f7-11ea-905b-2a9046aa5ca3.gif)
+
+The Restyle library provides a type-enforced system for building UI components in React Native with TypeScript. It's a library for building UI libraries, with themability as the core focus. 
 
 This library assumes that the UI is built upon a design system that (at the very least) defines a set of colors and spacing constants that lays as a foundation. While the library acknowledges that there can be exceptions to the system by allowing any style to be overridden, it keeps the developer most productive when one-off values are kept to a minimum.
 
@@ -28,7 +30,11 @@ const Card = createRestyleComponent<
 
 const Welcome = () => {
   return (
-    <Box paddingVertical="m" paddingHorizontal="s">
+    <Box
+      flex={1}
+      backgroundColor="mainBackground"
+      paddingVertical="xl"
+      paddingHorizontal="m">
       <Text variant="header">Welcome</Text>
       <Box
         flexDirection={{
@@ -36,11 +42,11 @@ const Welcome = () => {
           tablet: 'row',
         }}
       >
-        <Card margin="s" variant="primary">
-          <GetStarted />
-        </Card>
         <Card margin="s" variant="secondary">
-          <NextSteps />
+          <Text variant="body">This is a simple example</Text>
+        </Card>
+        <Card margin="s" variant="primary">
+          <Text variant="body">Displaying how to use Restyle</Text>
         </Card>
       </Box>
     </Box>
@@ -55,10 +61,9 @@ const App = () => {
   );
 };
 ```
-#### Working with Restyle Components
+
 ![Restyle Component Workflow](https://user-images.githubusercontent.com/688415/75268259-95346900-57f7-11ea-8f1f-22aec4bb4f39.gif)
-#### Theming Restyle Components
-![RestyleTheme 2020-02-25 17_43_51](https://user-images.githubusercontent.com/688415/75268245-91084b80-57f7-11ea-905b-2a9046aa5ca3.gif)
+
 
 ## Installation
 
