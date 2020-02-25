@@ -1,13 +1,32 @@
 # `@shopify/restyle`
 
-The `@shopify/restyle` library provides a type-enforced system for building UI components in React Native. It's a library for building UI libraries.
+The Restyle library provides a type-enforced system for building UI components in React Native with TypeScript. It's a library for building UI libraries.
 
 This library assumes that the UI is built upon a design system that (at the very least) defines a set of colors and spacing constants that lays as a foundation. While the library acknowledges that there can be exceptions to the system by allowing any style to be overridden, it keeps the developer most productive when one-off values are kept to a minimum.
 
 Here's an example of how a view built with Restyle components could look:
 
 ```tsx
-const WelcomeView = () => {
+import {
+  ThemeProvider,
+  createBox,
+  createText,
+  createRestyleComponent,
+  createVariant,
+  VariantProps,
+} from '@shopify/restyle';
+
+// See the "Defining Your Theme" readme section below
+import theme, {Theme} from './theme';
+
+const Box = createBox<Theme>();
+const Text = createText<Theme>();
+
+const Card = createRestyleComponent<
+  VariantProps<Theme, 'cardVariants'> & React.ComponentProps<typeof Box>
+>([createVariant({themeKey: 'cardVariants'})], Box);
+
+const Welcome = () => {
   return (
     <Box paddingVertical="m" paddingHorizontal="s">
       <Text variant="header">Welcome</Text>
@@ -18,13 +37,21 @@ const WelcomeView = () => {
         }}
       >
         <Card margin="s" variant="primary">
-          <GetStartedView />
-        </Box>
+          <GetStarted />
+        </Card>
         <Card margin="s" variant="secondary">
-          <NextStepsView />
+          <NextSteps />
         </Card>
       </Box>
     </Box>
+  );
+};
+
+const App = () => {
+  return (
+    <ThemeProvider theme={theme}>
+      <Welcome />
+    </ThemeProvider>
   );
 };
 ```
