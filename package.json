@@ -14,7 +14,8 @@
     "prepublishOnly": "yarn run build"
   },
   "publishConfig": {
-    "access": "restricted"
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
   "dependencies": {},
