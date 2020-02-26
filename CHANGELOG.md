@@ -7,6 +7,10 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## 1.0.4 - 2020-02-26
+
+- Public release
+
 ## 1.0.3 - 2020-01-10
 
 - Fix bug where `0` or other falsy values aren't allowed in the theme.
