@@ -13,6 +13,11 @@
     "lint-fix": "eslint --fix '**/*.{ts,tsx}'",
     "prepublishOnly": "yarn run build"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint && yarn test"
+    }
+  },
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -27,6 +32,7 @@
     "babel-jest": "^24.9.0",
     "eslint": "^5.16.0",
     "eslint-plugin-shopify": "^30.0.1",
+    "husky": "^4.2.3",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
     "react": "^16.9.0",
