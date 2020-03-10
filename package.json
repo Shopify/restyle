@@ -18,6 +18,10 @@
     "@shopify:registry": "https://registry.npmjs.org"
   },
   "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/restyle.git"
+  },
   "dependencies": {},
   "devDependencies": {
     "@types/jest": "^24.0.18",
