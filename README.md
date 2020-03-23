@@ -578,12 +578,12 @@ const App = () => {
             Secondary Card
           </Text>
         </Box>
-        <Box
-          component={Switch}
-          marginTop="m"
-          value={darkMode}
-          onValueChange={(value: boolean) => setDarkMode(value)}
-        />
+        <Box marginTop="m">
+          <Switch
+            value={darkMode}
+            onValueChange={(value: boolean) => setDarkMode(value)}
+          />
+        </Box>
       </Box>
     </ThemeProvider>
   );
