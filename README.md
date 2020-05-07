@@ -2,7 +2,7 @@
 
 ![RestyleTheme 2020-02-25 17_43_51](https://user-images.githubusercontent.com/688415/75268245-91084b80-57f7-11ea-905b-2a9046aa5ca3.gif)
 
-The Restyle library provides a type-enforced system for building UI components in React Native with TypeScript. It's a library for building UI libraries, with themability as the core focus. 
+The Restyle library provides a type-enforced system for building UI components in React Native with TypeScript. It's a library for building UI libraries, with themability as the core focus.
 
 This library assumes that the UI is built upon a design system that (at the very least) defines a set of colors and spacing constants that lays as a foundation. While the library acknowledges that there can be exceptions to the system by allowing any style to be overridden, it keeps the developer most productive when one-off values are kept to a minimum.
 
@@ -294,7 +294,7 @@ import {Theme} from './theme'
 type Props = SpacingProps<Theme> & VariantProps<Theme, 'cardVariants'>
 const Card = createRestyleComponent<Props>([
   spacing,
-  createVariant({themeKey: 'cardVariants')})
+  createVariant({themeKey: 'cardVariants'})
 ])
 
 export default Card
