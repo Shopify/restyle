@@ -6,3 +6,6 @@ npm-debug.log
 .jest
 
 dist
+
+# IDE
+.idea
