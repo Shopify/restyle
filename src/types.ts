@@ -41,7 +41,7 @@ export interface RestyleFunctionContainer<
 }
 
 export type RestyleFunction<
-  TProps extends Record<string, unknown> = Record<string, unknown>,
+  TProps extends Record<string, any> = Record<string, any>,
   Theme extends BaseTheme = BaseTheme
 > = (
   props: TProps,
