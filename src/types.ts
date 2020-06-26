@@ -26,16 +26,24 @@ export interface Dimensions {
   height: number;
 }
 
-export interface RestyleFunctionContainer {
-  property: string;
-  themeKey?: string;
+export interface RestyleFunctionContainer<
+  TProps = Record<string, unknown>,
+  Theme extends BaseTheme = BaseTheme,
+  P extends keyof TProps = keyof TProps,
+  K extends keyof Theme = keyof Theme
+> {
+  property: P;
+  themeKey?: K;
   variant: boolean;
-  func: RestyleFunction;
+  func: RestyleFunction<TProps, Theme>;
 }
 
-export type RestyleFunction = (
-  props: {[key: string]: any},
-  context: {theme: BaseTheme; dimensions: Dimensions},
-) => {[key: string]: any};
+export type RestyleFunction<
+  TProps = Record<string, any>,
+  Theme extends BaseTheme = BaseTheme
+> = (
+  props: TProps,
+  context: {theme: Theme; dimensions: Dimensions},
+) => Record<string, any>;
 
 export type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;

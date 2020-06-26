@@ -5,11 +5,10 @@ import {
   RestyleFunctionContainer,
 } from './types';
 
-type StyleTransformFunction = (params: {
-  value: any;
-  theme: BaseTheme;
-  themeKey?: string;
-}) => any;
+type StyleTransformFunction<
+  Theme extends BaseTheme,
+  K extends keyof Theme
+> = (params: {value: any; theme: Theme; themeKey?: K}) => any;
 
 const getValueForScreenSize = ({
   responsiveValue,
@@ -41,7 +40,7 @@ const isResponsiveObjectValue = <Theme extends BaseTheme>(
   }, true);
 };
 
-const getValue = <Theme extends BaseTheme>(
+const getValue = <Theme extends BaseTheme, K extends keyof Theme>(
   propValue: ResponsiveValue<string | number, Theme>,
   {
     theme,
@@ -50,9 +49,9 @@ const getValue = <Theme extends BaseTheme>(
     themeKey,
   }: {
     theme: Theme;
-    transform?: StyleTransformFunction;
+    transform?: StyleTransformFunction<Theme, K>;
     dimensions: Dimensions;
-    themeKey?: string;
+    themeKey?: K;
   },
 ) => {
   const val = isResponsiveObjectValue(propValue, theme)
@@ -73,26 +72,28 @@ const getValue = <Theme extends BaseTheme>(
   return val;
 };
 
-const createRestyleFunction = ({
+const createRestyleFunction = <
+  TProps = Record<string, unknown>,
+  Theme extends BaseTheme = BaseTheme,
+  P extends keyof TProps = keyof TProps,
+  K extends keyof Theme = keyof Theme
+>({
   property,
   transform,
-  styleProperty = property,
+  styleProperty = property.toString(),
   themeKey,
 }: {
-  property: string;
-  transform?: StyleTransformFunction;
+  property: P;
+  transform?: StyleTransformFunction<Theme, K>;
   styleProperty?: string;
-  themeKey?: string;
-}): RestyleFunctionContainer => {
+  themeKey?: K;
+}): RestyleFunctionContainer<TProps, Theme, P, K> => {
   return {
     property,
     themeKey,
     variant: false,
-    func: (
-      props: any,
-      {theme, dimensions}: {theme: BaseTheme; dimensions: Dimensions},
-    ): {[key: string]: any} => {
-      const value = getValue(props[property], {
+    func: (props, {theme, dimensions}): Record<string, any> => {
+      const value = getValue<Theme, K>(props[property], {
         theme,
         dimensions,
         themeKey,
