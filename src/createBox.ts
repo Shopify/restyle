@@ -1,7 +1,7 @@
 import {View} from 'react-native';
+
 import createRestyleComponent from './createRestyleComponent';
 import {BaseTheme, Omit} from './types';
-
 import {
   backgroundColor,
   opacity,

@@ -1,5 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
+
 import {RestyleFunctionContainer} from './types';
 import useRestyle from './hooks/useRestyle';
 

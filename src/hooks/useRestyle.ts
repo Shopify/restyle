@@ -1,6 +1,8 @@
 import {useMemo} from 'react';
+
 import {RestyleFunctionContainer} from '../types';
 import composeRestyleFunctions from '../composeRestyleFunctions';
+
 import useDimensions from './useDimensions';
 import useTheme from './useTheme';
 

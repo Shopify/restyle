@@ -1,12 +1,12 @@
 {
   "extends": [
-    "plugin:shopify/typescript",
-    "plugin:shopify/react",
-    "plugin:shopify/jest",
-    "plugin:shopify/prettier"
+    "plugin:@shopify/typescript",
+    "plugin:@shopify/react",
+    "plugin:@shopify/jest",
+    "plugin:@shopify/prettier"
   ],
   "parserOptions": {
-    "project": "tsconfig.json"
+    "project": "tsconfig.eslint.json"
   },
   "rules": {
     "import/extensions": "off",
@@ -20,12 +20,9 @@
     "func-style": "off",
     "react/display-name": "off",
     "id-length": "off",
-    "shopify/restrict-full-import": ["error", "lodash"],
-    "shopify/jest/no-vague-titles": [
+    "@shopify/restrict-full-import": [
       "error",
-      {
-        "allow": ["all"]
-      }
+      "lodash"
     ]
   }
 }

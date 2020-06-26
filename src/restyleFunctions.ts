@@ -1,4 +1,5 @@
 import {TextStyle, FlexStyle, ViewStyle} from 'react-native';
+
 import createRestyleFunction from './createRestyleFunction';
 import {BaseTheme, ResponsiveValue} from './types';
 
@@ -206,19 +207,19 @@ export const all = [
   ...textShadow,
 ];
 
-export type BackgroundColorProps<Theme extends BaseTheme> = {
+export interface BackgroundColorProps<Theme extends BaseTheme> {
   backgroundColor?: ResponsiveValue<keyof Theme['colors'], Theme>;
-};
-export type ColorProps<Theme extends BaseTheme> = {
+}
+export interface ColorProps<Theme extends BaseTheme> {
   color?: ResponsiveValue<keyof Theme['colors'], Theme>;
-};
-export type OpacityProps<Theme extends BaseTheme> = {
+}
+export interface OpacityProps<Theme extends BaseTheme> {
   opacity?: ResponsiveValue<number, Theme>;
-};
+}
 
-export type VisibleProps<Theme extends BaseTheme> = {
+export interface VisibleProps<Theme extends BaseTheme> {
   visible?: ResponsiveValue<boolean, Theme>;
-};
+}
 
 export type SpacingProps<Theme extends BaseTheme> = {
   [Key in keyof typeof spacingProperties]?: ResponsiveValue<
