@@ -10,5 +10,6 @@ export {default as createText} from './createText';
 export {ThemeProvider} from './context';
 export {default as useTheme} from './hooks/useTheme';
 export {default as useRestyle} from './hooks/useRestyle';
+export {default as createTheme} from './createTheme';
 export {default as createRestyleFunction} from './createRestyleFunction';
 export {default as createRestyleComponent} from './createRestyleComponent';
