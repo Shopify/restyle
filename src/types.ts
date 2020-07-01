@@ -29,7 +29,7 @@ export interface Dimensions {
 }
 
 export interface RestyleFunctionContainer<
-  TProps = Record<string, unknown>,
+  TProps extends Record<string, unknown>,
   Theme extends BaseTheme = BaseTheme,
   P extends keyof TProps = keyof TProps,
   K extends keyof Theme = keyof Theme
@@ -41,7 +41,7 @@ export interface RestyleFunctionContainer<
 }
 
 export type RestyleFunction<
-  TProps = Record<string, any>,
+  TProps extends Record<string, unknown> = Record<string, unknown>,
   Theme extends BaseTheme = BaseTheme
 > = (
   props: TProps,

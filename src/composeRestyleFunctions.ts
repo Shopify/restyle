@@ -4,10 +4,11 @@ import {
   Dimensions,
   RNStyle,
 } from './types';
+import {AllProps} from './restyleFunctions';
 
 const composeRestyleFunctions = <
-  TProps extends Record<string, unknown>,
-  Theme extends BaseTheme = BaseTheme
+  Theme extends BaseTheme,
+  TProps extends AllProps<Theme>
 >(
   restyleFunctions: (
     | RestyleFunctionContainer<TProps, Theme>

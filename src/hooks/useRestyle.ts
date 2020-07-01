@@ -30,10 +30,9 @@ const filterRestyleProps = <
 };
 
 const useRestyle = <
+  Theme extends BaseTheme,
   TRestyleProps extends AllProps<Theme>,
-  TProps extends Record<string, unknown> &
-    TRestyleProps & {style?: StyleProp<RNStyle>},
-  Theme extends BaseTheme = BaseTheme
+  TProps extends TRestyleProps & {style?: StyleProp<RNStyle>}
 >(
   restyleFunctions: (
     | RestyleFunctionContainer<TRestyleProps, Theme>
@@ -45,12 +44,12 @@ const useRestyle = <
   const dimensions = useDimensions();
 
   const composedRestyleFunction = useMemo(
-    () => composeRestyleFunctions<TRestyleProps, Theme>(restyleFunctions),
+    () => composeRestyleFunctions(restyleFunctions),
     [restyleFunctions],
   );
 
   const style = composedRestyleFunction.buildStyle(props, {theme, dimensions});
-  const cleanProps = filterRestyleProps<TRestyleProps, TProps>(
+  const cleanProps = filterRestyleProps(
     props,
     composedRestyleFunction.properties,
   );
