@@ -44,6 +44,7 @@ const createText = <
   BaseComponent: React.ComponentType<any> = Text,
 ) => {
   return createRestyleComponent<
+    Theme,
     TextProps<Theme> & Omit<Props, keyof TextProps<Theme>>
   >(textRestyleFunctions, BaseComponent);
 };
