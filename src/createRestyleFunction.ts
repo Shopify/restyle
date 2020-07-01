@@ -40,8 +40,10 @@ const isResponsiveObjectValue = <Theme extends BaseTheme>(
   }, true);
 };
 
+type PropValue = string | number | undefined | null;
+
 const getValue = <Theme extends BaseTheme, K extends keyof Theme>(
-  propValue: ResponsiveValue<string | number, Theme>,
+  propValue: ResponsiveValue<PropValue, Theme>,
   {
     theme,
     transform,
@@ -53,7 +55,7 @@ const getValue = <Theme extends BaseTheme, K extends keyof Theme>(
     dimensions: Dimensions;
     themeKey?: K;
   },
-) => {
+): PropValue => {
   const val = isResponsiveObjectValue(propValue, theme)
     ? getValueForScreenSize({
         responsiveValue: propValue,
@@ -73,8 +75,8 @@ const getValue = <Theme extends BaseTheme, K extends keyof Theme>(
 };
 
 const createRestyleFunction = <
-  TProps = Record<string, unknown>,
   Theme extends BaseTheme = BaseTheme,
+  TProps extends Record<string, unknown> = Record<string, unknown>,
   P extends keyof TProps = keyof TProps,
   K extends keyof Theme = keyof Theme
 >({
@@ -92,8 +94,8 @@ const createRestyleFunction = <
     property,
     themeKey,
     variant: false,
-    func: (props, {theme, dimensions}): Record<string, any> => {
-      const value = getValue<Theme, K>(props[property], {
+    func: (props, {theme, dimensions}) => {
+      const value = getValue(props[property] as PropValue, {
         theme,
         dimensions,
         themeKey,
