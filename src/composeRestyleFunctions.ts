@@ -1,14 +1,24 @@
-import {RestyleFunctionContainer, BaseTheme, Dimensions} from './types';
+import {
+  RestyleFunctionContainer,
+  BaseTheme,
+  Dimensions,
+  RNStyle,
+} from './types';
 
-const composeRestyleFunctions = (
-  restyleFunctions: (RestyleFunctionContainer | RestyleFunctionContainer[])[],
+const composeRestyleFunctions = <
+  TProps extends Record<string, unknown>,
+  Theme extends BaseTheme = BaseTheme
+>(
+  restyleFunctions: (
+    | RestyleFunctionContainer<TProps, Theme>
+    | RestyleFunctionContainer<TProps, Theme>[])[],
 ) => {
   const flattenedRestyleFunctions = restyleFunctions.reduce(
-    (acc: RestyleFunctionContainer[], item) => {
+    (acc: RestyleFunctionContainer<TProps, Theme>[], item) => {
       return acc.concat(item);
     },
     [],
-  ) as RestyleFunctionContainer[];
+  );
 
   const properties = flattenedRestyleFunctions.map(styleFunc => {
     return styleFunc.property;
@@ -22,16 +32,17 @@ const composeRestyleFunctions = (
       return styleFunc.func;
     });
 
-  const buildStyle = (
-    props: {[key: string]: any},
+  // TInputProps is a superset of TProps since TProps are only the Restyle Props
+  const buildStyle = <TInputProps extends TProps>(
+    props: TInputProps,
     {
       theme,
       dimensions,
     }: {
-      theme: BaseTheme;
+      theme: Theme;
       dimensions: Dimensions;
     },
-  ) => {
+  ): RNStyle => {
     return funcs.reduce((acc, func) => {
       return {...acc, ...func(props, {theme, dimensions})};
     }, {});
