@@ -44,12 +44,12 @@ const useRestyle = <
   const dimensions = useDimensions();
 
   const composedRestyleFunction = useMemo(
-    () => composeRestyleFunctions<TRestyleProps, Theme>(restyleFunctions),
+    () => composeRestyleFunctions(restyleFunctions),
     [restyleFunctions],
   );
 
   const style = composedRestyleFunction.buildStyle(props, {theme, dimensions});
-  const cleanProps = filterRestyleProps<TRestyleProps, TProps>(
+  const cleanProps = filterRestyleProps(
     props,
     composedRestyleFunction.properties,
   );
