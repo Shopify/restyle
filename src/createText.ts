@@ -1,7 +1,8 @@
+import React from 'react';
 import {Text} from 'react-native';
 
 import createRestyleComponent from './createRestyleComponent';
-import {BaseTheme, Omit} from './types';
+import {BaseTheme} from './types';
 import {
   color,
   opacity,

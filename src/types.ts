@@ -1,3 +1,5 @@
+import {ImageStyle, TextStyle, ViewStyle} from 'react-native';
+
 export type ResponsiveValue<Value, Theme extends BaseTheme> =
   | Value
   | {[Key in keyof Theme['breakpoints']]?: Value};
@@ -46,4 +48,4 @@ export type RestyleFunction<
   context: {theme: Theme; dimensions: Dimensions},
 ) => Record<string, any>;
 
-export type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
+export type RNStyle = ViewStyle | TextStyle | ImageStyle;
