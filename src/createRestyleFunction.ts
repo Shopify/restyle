@@ -7,7 +7,7 @@ import {
 
 type StyleTransformFunction<
   Theme extends BaseTheme,
-  K extends keyof Theme
+  K extends keyof Theme | undefined
 > = (params: {value: any; theme: Theme; themeKey?: K}) => any;
 
 const getValueForScreenSize = ({
@@ -42,7 +42,14 @@ const isResponsiveObjectValue = <Theme extends BaseTheme>(
 
 type PropValue = string | number | undefined | null;
 
-const getValue = <Theme extends BaseTheme, K extends keyof Theme>(
+function isThemeKey<Theme extends BaseTheme>(
+  theme: Theme,
+  K: keyof Theme | undefined,
+): K is keyof Theme {
+  return theme[K as keyof Theme];
+}
+
+const getValue = <Theme extends BaseTheme, K extends keyof Theme | undefined>(
   propValue: ResponsiveValue<PropValue, Theme>,
   {
     theme,
@@ -64,7 +71,7 @@ const getValue = <Theme extends BaseTheme, K extends keyof Theme>(
       })
     : propValue;
   if (transform) return transform({value: val, theme, themeKey});
-  if (themeKey && theme[themeKey]) {
+  if (isThemeKey(theme, themeKey)) {
     if (val && theme[themeKey][val] === undefined)
       throw new Error(`Value '${val}' does not exist in theme['${themeKey}']`);
 
@@ -78,7 +85,7 @@ const createRestyleFunction = <
   Theme extends BaseTheme = BaseTheme,
   TProps extends Record<string, unknown> = Record<string, unknown>,
   P extends keyof TProps = keyof TProps,
-  K extends keyof Theme = keyof Theme
+  K extends keyof Theme | undefined = undefined
 >({
   property,
   transform,

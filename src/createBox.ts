@@ -49,8 +49,8 @@ const createBox = <
   BaseComponent: React.ComponentType<any> = View,
 ) => {
   return createRestyleComponent<
-    Theme,
-    BoxProps<Theme> & Omit<Props, keyof BoxProps<Theme>>
+    BoxProps<Theme> & Omit<Props, keyof BoxProps<Theme>>,
+    Theme
   >(boxRestyleFunctions, BaseComponent);
 };
 

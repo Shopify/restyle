@@ -32,10 +32,10 @@ export interface RestyleFunctionContainer<
   TProps extends Record<string, unknown>,
   Theme extends BaseTheme = BaseTheme,
   P extends keyof TProps = keyof TProps,
-  K extends keyof Theme = keyof Theme
+  K extends keyof Theme | undefined = keyof Theme | undefined
 > {
   property: P;
-  themeKey?: K;
+  themeKey: K | undefined;
   variant: boolean;
   func: RestyleFunction<TProps, Theme>;
 }

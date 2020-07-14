@@ -42,7 +42,8 @@ const Component = createRestyleComponent<
   BackgroundColorProps<Theme> &
     SpacingProps<Theme> &
     OpacityProps<Theme> &
-    ViewProps
+    ViewProps,
+  Theme
 >([backgroundColor, spacing, opacity]);
 
 describe('createRestyleComponent', () => {
