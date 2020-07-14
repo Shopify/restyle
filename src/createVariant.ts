@@ -8,18 +8,17 @@ const allRestyleFunctions = composeRestyleFunctions(all);
 const createVariant = <
   Theme extends BaseTheme,
   TProps extends VariantProps<Theme, K, P> = VariantProps<Theme, keyof Theme>,
-  P extends keyof TProps = keyof TProps,
+  P extends keyof TProps | 'variant' = 'variant',
   K extends keyof Theme = keyof Theme
 >({
-  property: prop,
+  property = 'variant' as P,
   themeKey,
   defaults = {},
 }: {
   property?: P;
   themeKey: K;
   defaults?: AllProps<Theme>;
-}): RestyleFunctionContainer<TProps, Theme, P, K> => {
-  const property = prop || ('variant' as P);
+}): RestyleFunctionContainer<TProps, Theme> => {
   const styleFunction = createRestyleFunction<Theme, TProps, P, K>({
     property,
     styleProperty: 'expandedProps',
