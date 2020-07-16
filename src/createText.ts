@@ -1,6 +1,8 @@
+import React from 'react';
 import {Text} from 'react-native';
+
 import createRestyleComponent from './createRestyleComponent';
-import {BaseTheme, Omit} from './types';
+import {BaseTheme} from './types';
 import {
   color,
   opacity,
@@ -42,7 +44,8 @@ const createText = <
   BaseComponent: React.ComponentType<any> = Text,
 ) => {
   return createRestyleComponent<
-    TextProps<Theme> & Omit<Props, keyof TextProps<Theme>>
+    TextProps<Theme> & Omit<Props, keyof TextProps<Theme>>,
+    Theme
   >(textRestyleFunctions, BaseComponent);
 };
 

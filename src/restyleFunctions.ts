@@ -1,4 +1,5 @@
 import {TextStyle, FlexStyle, ViewStyle} from 'react-native';
+
 import createRestyleFunction from './createRestyleFunction';
 import {BaseTheme, ResponsiveValue} from './types';
 
@@ -98,6 +99,8 @@ const textShadowProperties = {
   textShadowRadius: true,
 };
 
+const getKeys = <T>(object: T) => Object.keys(object) as (keyof T)[];
+
 export const backgroundColor = createRestyleFunction({
   property: 'backgroundColor',
   themeKey: 'colors',
@@ -118,27 +121,27 @@ export const visible = createRestyleFunction({
   transform: ({value}) => (value === false ? 'none' : 'flex'),
 });
 
-export const spacing = Object.keys(spacingProperties).map(property => {
+export const spacing = getKeys(spacingProperties).map(property => {
   return createRestyleFunction({
     property,
     themeKey: 'spacing',
   });
 });
 
-export const typography = Object.keys(typographyProperties).map(property => {
+export const typography = getKeys(typographyProperties).map(property => {
   return createRestyleFunction({
     property,
   });
 });
 
-export const layout = Object.keys(layoutProperties).map(property => {
+export const layout = getKeys(layoutProperties).map(property => {
   return createRestyleFunction({
     property,
   });
 });
 
 export const position = [
-  ...Object.keys(positionProperties).map(property => {
+  ...getKeys(positionProperties).map(property => {
     return createRestyleFunction({
       property,
     });
@@ -150,18 +153,18 @@ export const position = [
 ];
 
 export const border = [
-  ...Object.keys(borderProperties).map(property => {
+  ...getKeys(borderProperties).map(property => {
     return createRestyleFunction({
       property,
     });
   }),
-  ...Object.keys(borderColorProperties).map(property => {
+  ...getKeys(borderColorProperties).map(property => {
     return createRestyleFunction({
       property,
       themeKey: 'colors',
     });
   }),
-  ...Object.keys(borderRadiusProperties).map(property => {
+  ...getKeys(borderRadiusProperties).map(property => {
     return createRestyleFunction({
       property,
       themeKey: 'borderRadii',
@@ -170,7 +173,7 @@ export const border = [
 ];
 
 export const shadow = [
-  ...Object.keys(shadowProperties).map(property => {
+  ...getKeys(shadowProperties).map(property => {
     return createRestyleFunction({
       property,
     });
@@ -182,7 +185,7 @@ export const shadow = [
 ];
 
 export const textShadow = [
-  ...Object.keys(textShadowProperties).map(property => {
+  ...getKeys(textShadowProperties).map(property => {
     return createRestyleFunction({
       property,
     });
@@ -206,19 +209,19 @@ export const all = [
   ...textShadow,
 ];
 
-export type BackgroundColorProps<Theme extends BaseTheme> = {
+export interface BackgroundColorProps<Theme extends BaseTheme> {
   backgroundColor?: ResponsiveValue<keyof Theme['colors'], Theme>;
-};
-export type ColorProps<Theme extends BaseTheme> = {
+}
+export interface ColorProps<Theme extends BaseTheme> {
   color?: ResponsiveValue<keyof Theme['colors'], Theme>;
-};
-export type OpacityProps<Theme extends BaseTheme> = {
+}
+export interface OpacityProps<Theme extends BaseTheme> {
   opacity?: ResponsiveValue<number, Theme>;
-};
+}
 
-export type VisibleProps<Theme extends BaseTheme> = {
+export interface VisibleProps<Theme extends BaseTheme> {
   visible?: ResponsiveValue<boolean, Theme>;
-};
+}
 
 export type SpacingProps<Theme extends BaseTheme> = {
   [Key in keyof typeof spacingProperties]?: ResponsiveValue<

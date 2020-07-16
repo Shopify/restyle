@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react';
 import {Dimensions} from 'react-native';
+
 import {Dimensions as DimensionsType} from '../types';
 
 const useDimensions = () => {

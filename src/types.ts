@@ -1,3 +1,5 @@
+import {ImageStyle, TextStyle, ViewStyle} from 'react-native';
+
 export type ResponsiveValue<Value, Theme extends BaseTheme> =
   | Value
   | {[Key in keyof Theme['breakpoints']]?: Value};
@@ -26,16 +28,24 @@ export interface Dimensions {
   height: number;
 }
 
-export interface RestyleFunctionContainer {
-  property: string;
-  themeKey?: string;
+export interface RestyleFunctionContainer<
+  TProps extends Record<string, unknown>,
+  Theme extends BaseTheme = BaseTheme,
+  P extends keyof TProps = keyof TProps,
+  K extends keyof Theme | undefined = keyof Theme | undefined
+> {
+  property: P;
+  themeKey: K | undefined;
   variant: boolean;
-  func: RestyleFunction;
+  func: RestyleFunction<TProps, Theme>;
 }
 
-export type RestyleFunction = (
-  props: {[key: string]: any},
-  context: {theme: BaseTheme; dimensions: Dimensions},
-) => {[key: string]: any};
+export type RestyleFunction<
+  TProps extends Record<string, unknown> = Record<string, unknown>,
+  Theme extends BaseTheme = BaseTheme
+> = (
+  props: TProps,
+  context: {theme: Theme; dimensions: Dimensions},
+) => Record<string, any>;
 
-export type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
+export type RNStyle = ViewStyle | TextStyle | ImageStyle;

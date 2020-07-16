@@ -5,11 +5,10 @@ import {
   RestyleFunctionContainer,
 } from './types';
 
-type StyleTransformFunction = (params: {
-  value: any;
-  theme: BaseTheme;
-  themeKey?: string;
-}) => any;
+type StyleTransformFunction<
+  Theme extends BaseTheme,
+  K extends keyof Theme | undefined
+> = (params: {value: any; theme: Theme; themeKey?: K}) => any;
 
 const getValueForScreenSize = ({
   responsiveValue,
@@ -41,8 +40,17 @@ const isResponsiveObjectValue = <Theme extends BaseTheme>(
   }, true);
 };
 
-const getValue = <Theme extends BaseTheme>(
-  propValue: ResponsiveValue<string | number, Theme>,
+type PropValue = string | number | undefined | null;
+
+function isThemeKey<Theme extends BaseTheme>(
+  theme: Theme,
+  K: keyof Theme | undefined,
+): K is keyof Theme {
+  return theme[K as keyof Theme];
+}
+
+const getValue = <Theme extends BaseTheme, K extends keyof Theme | undefined>(
+  propValue: ResponsiveValue<PropValue, Theme>,
   {
     theme,
     transform,
@@ -50,11 +58,11 @@ const getValue = <Theme extends BaseTheme>(
     themeKey,
   }: {
     theme: Theme;
-    transform?: StyleTransformFunction;
+    transform?: StyleTransformFunction<Theme, K>;
     dimensions: Dimensions;
-    themeKey?: string;
+    themeKey?: K;
   },
-) => {
+): PropValue => {
   const val = isResponsiveObjectValue(propValue, theme)
     ? getValueForScreenSize({
         responsiveValue: propValue,
@@ -63,7 +71,7 @@ const getValue = <Theme extends BaseTheme>(
       })
     : propValue;
   if (transform) return transform({value: val, theme, themeKey});
-  if (themeKey && theme[themeKey]) {
+  if (isThemeKey(theme, themeKey)) {
     if (val && theme[themeKey][val] === undefined)
       throw new Error(`Value '${val}' does not exist in theme['${themeKey}']`);
 
@@ -73,26 +81,28 @@ const getValue = <Theme extends BaseTheme>(
   return val;
 };
 
-const createRestyleFunction = ({
+const createRestyleFunction = <
+  Theme extends BaseTheme = BaseTheme,
+  TProps extends Record<string, unknown> = Record<string, unknown>,
+  P extends keyof TProps = keyof TProps,
+  K extends keyof Theme | undefined = undefined
+>({
   property,
   transform,
-  styleProperty = property,
+  styleProperty = property.toString(),
   themeKey,
 }: {
-  property: string;
-  transform?: StyleTransformFunction;
+  property: P;
+  transform?: StyleTransformFunction<Theme, K>;
   styleProperty?: string;
-  themeKey?: string;
-}): RestyleFunctionContainer => {
+  themeKey?: K;
+}): RestyleFunctionContainer<TProps, Theme, P, K> => {
   return {
     property,
     themeKey,
     variant: false,
-    func: (
-      props: any,
-      {theme, dimensions}: {theme: BaseTheme; dimensions: Dimensions},
-    ): {[key: string]: any} => {
-      const value = getValue(props[property], {
+    func: (props, {theme, dimensions}) => {
+      const value = getValue(props[property] as PropValue, {
         theme,
         dimensions,
         themeKey,

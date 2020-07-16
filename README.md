@@ -435,7 +435,7 @@ const variant = createVariant<Theme>({themeKey: 'cardVariants', defaults: {
   margin: {
     phone: 's',
     tablet: 'm',
-  }
+  },
   backgroundColor: 'cardRegularBackground',
 }})
 

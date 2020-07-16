@@ -1,6 +1,7 @@
 import React from 'react';
 import {create as render, act} from 'react-test-renderer';
 import {View, Dimensions, ViewProps} from 'react-native';
+
 import createRestyleComponent from '../createRestyleComponent';
 import {
   backgroundColor,
@@ -41,7 +42,8 @@ const Component = createRestyleComponent<
   BackgroundColorProps<Theme> &
     SpacingProps<Theme> &
     OpacityProps<Theme> &
-    ViewProps
+    ViewProps,
+  Theme
 >([backgroundColor, spacing, opacity]);
 
 describe('createRestyleComponent', () => {

@@ -1,7 +1,8 @@
+import React from 'react';
 import {View} from 'react-native';
-import createRestyleComponent from './createRestyleComponent';
-import {BaseTheme, Omit} from './types';
 
+import createRestyleComponent from './createRestyleComponent';
+import {BaseTheme} from './types';
 import {
   backgroundColor,
   opacity,
@@ -48,7 +49,8 @@ const createBox = <
   BaseComponent: React.ComponentType<any> = View,
 ) => {
   return createRestyleComponent<
-    BoxProps<Theme> & Omit<Props, keyof BoxProps<Theme>>
+    BoxProps<Theme> & Omit<Props, keyof BoxProps<Theme>>,
+    Theme
   >(boxRestyleFunctions, BaseComponent);
 };
 

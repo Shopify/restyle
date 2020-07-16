@@ -1,31 +1,46 @@
 import {useMemo} from 'react';
-import {RestyleFunctionContainer} from '../types';
+import {StyleProp} from 'react-native';
+
+import {BaseTheme, RestyleFunctionContainer, RNStyle} from '../types';
 import composeRestyleFunctions from '../composeRestyleFunctions';
+import {AllProps} from '../restyleFunctions';
+
 import useDimensions from './useDimensions';
 import useTheme from './useTheme';
 
-const filterRestyleProps = (
-  props: {[key: string]: any},
-  omitList: string[],
-) => {
-  const omittedProp = omitList.reduce<{[key: string]: boolean}>(
+const filterRestyleProps = <
+  TRestyleProps,
+  TProps extends Record<string, unknown> & TRestyleProps
+>(
+  props: TProps,
+  omitList: (keyof TRestyleProps)[],
+): Omit<TProps, keyof TRestyleProps> => {
+  const omittedProp = omitList.reduce<Record<keyof TRestyleProps, boolean>>(
     (acc, prop) => ({...acc, [prop]: true}),
-    {},
+    {} as Record<keyof TRestyleProps, boolean>,
   );
+
   return Object.keys(props).reduce(
     (acc, key) => {
-      if (omittedProp[key]) return acc;
+      if (omittedProp[key as keyof TRestyleProps]) return acc;
       return {...acc, [key]: props[key]};
     },
-    {} as {[key: string]: any},
+    {} as Omit<TProps, keyof TRestyleProps>,
   );
 };
 
-const useRestyle = (
-  restyleFunctions: (RestyleFunctionContainer | RestyleFunctionContainer[])[],
-  props: {[key: string]: any},
-): {[key: string]: any} => {
-  const theme = useTheme();
+const useRestyle = <
+  Theme extends BaseTheme,
+  TRestyleProps extends AllProps<Theme>,
+  TProps extends TRestyleProps & {style?: StyleProp<RNStyle>}
+>(
+  restyleFunctions: (
+    | RestyleFunctionContainer<TRestyleProps, Theme>
+    | RestyleFunctionContainer<TRestyleProps, Theme>[])[],
+  props: TProps,
+): Omit<TProps, keyof TRestyleProps> => {
+  const theme = useTheme<Theme>();
+
   const dimensions = useDimensions();
 
   const composedRestyleFunction = useMemo(
@@ -38,9 +53,10 @@ const useRestyle = (
     props,
     composedRestyleFunction.properties,
   );
+
   return {
     ...cleanProps,
-    style: [style, cleanProps.style].filter(Boolean),
+    style: [style, props.style].filter(Boolean),
   };
 };
 
