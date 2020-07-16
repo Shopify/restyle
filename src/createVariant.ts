@@ -1,15 +1,33 @@
-import {BaseTheme, RestyleFunctionContainer, ResponsiveValue} from './types';
+import {BaseTheme, ResponsiveValue, RestyleFunctionContainer} from './types';
 import createRestyleFunction from './createRestyleFunction';
 import {all, AllProps} from './restyleFunctions';
 import composeRestyleFunctions from './composeRestyleFunctions';
 
 const allRestyleFunctions = composeRestyleFunctions(all);
 
-const createVariant = <
+// With Custom Prop Name
+function createVariant<
   Theme extends BaseTheme,
-  TProps extends VariantProps<Theme, K, P> = VariantProps<Theme, keyof Theme>,
-  P extends keyof TProps | 'variant' = 'variant',
+  K extends keyof Theme = keyof Theme,
+  P extends keyof any = keyof any
+>(params: {
+  property: P;
+  themeKey: K;
+  defaults?: AllProps<Theme>;
+}): RestyleFunctionContainer<VariantProps<Theme, K, P>, Theme, P, K>;
+// Without Custom Prop Name
+function createVariant<
+  Theme extends BaseTheme,
   K extends keyof Theme = keyof Theme
+>(params: {
+  themeKey: K;
+  defaults?: AllProps<Theme>;
+}): RestyleFunctionContainer<VariantProps<Theme, K>, Theme, 'variant', K>;
+function createVariant<
+  Theme extends BaseTheme,
+  K extends keyof Theme,
+  P extends keyof any,
+  TProps extends VariantProps<Theme, K, P>
 >({
   property = 'variant' as P,
   themeKey,
@@ -18,7 +36,7 @@ const createVariant = <
   property?: P;
   themeKey: K;
   defaults?: AllProps<Theme>;
-}): RestyleFunctionContainer<TProps, Theme> => {
+}): RestyleFunctionContainer<TProps, Theme, P, K> {
   const styleFunction = createRestyleFunction<Theme, TProps, P, K>({
     property,
     styleProperty: 'expandedProps',
@@ -40,7 +58,7 @@ const createVariant = <
       );
     },
   };
-};
+}
 
 export type VariantProps<
   Theme extends BaseTheme,
