@@ -84,6 +84,8 @@ Any project using this library should have a global theme object. It specifies s
 Below is an example of how a basic theme could look. Make sure to read the sections below for more details on how to set up your different theme values.
 
 ```ts
+import { createTheme } from '@shopify/restyle'
+
 const palette = {
   purpleLight: '#8C6FF7',
   purplePrimary: '#5A31F4',
@@ -97,7 +99,8 @@ const palette = {
   white: '#F0F2F3',
 };
 
-const theme = {
+
+const theme = createTheme({
   colors: {
     mainBackground: palette.white,
     cardPrimaryBackground: palette.purplePrimary,
@@ -112,11 +115,13 @@ const theme = {
     phone: 0,
     tablet: 768,
   },
-};
+});
 
 export type Theme = typeof theme;
 export default theme;
 ```
+
+*Note: `createTheme` doesn't do anything except enforcing the theme to have the same shape as the BaseTheme, but it preserves the types of your user specific values (e.g. what colors the theme has) so you don't lose typesafety as a result of the `{ [key:string]: any }` in BaseTheme*
 
 This theme should be passed to a `ThemeProvider` at the top of your React tree:
 
@@ -149,14 +154,14 @@ const palette = {
   white: '#F0F2F3',
 };
 
-const theme = {
+const theme = createTheme({
   colors: {
     mainBackground: palette.white,
     mainForeground: palette.black,
     cardPrimaryBackground: palette.purplePrimary,
     buttonPrimaryBackground: palette.purplePrimary,
   },
-};
+});
 ```
 
 Taking the time to define these semantic meanings comes with a number of benefits:
@@ -171,14 +176,15 @@ Taking the time to define these semantic meanings comes with a number of benefit
 Spacing tends to follow multiples of a given base spacing number, for example `8`. We prefer using the t-shirt size naming convention, because of the scalability of it (any number of `x`'s can be prepended for smaller and larger sizes):
 
 ```ts
-const theme = {
+
+const theme = createTheme({
   spacing: {
     s: 8,
     m: 16,
     l: 24,
     xl: 40,
   },
-};
+});
 ```
 
 #### Breakpoints
@@ -186,13 +192,13 @@ const theme = {
 Breakpoints are defined as minimum widths (inclusive) for different target screen sizes where we want to apply differing styles. Consider giving your breakpoints names that give a general idea of the type of device the user is using:
 
 ```ts
-const theme = {
+const theme = createTheme({
   breakpoints: {
     phone: 0,
     tablet: 768,
     largeTablet: 1024,
   },
-};
+});
 ```
 
 See the [Responsive Values](#responsive-values) section to see how these can be used.
@@ -245,7 +251,7 @@ The Text component comes with the following [Restyle functions](#predefined-rest
 
 ```tsx
 // In your theme
-const theme = {
+const theme = createTheme({
   ...,
   textVariants: {
     header: {
@@ -269,7 +275,7 @@ const theme = {
       color: 'black',
     },
   },
-}
+});
 
 // In a component
 <Text variant="header">Header</Text>
@@ -394,7 +400,7 @@ A variant is a form of Restyle function that maps a prop into multiple other pro
 
 ```ts
 // In theme
-const theme = {
+const theme = createTheme({
   // ...
   spacing: {
     s: 8,
@@ -428,7 +434,7 @@ const theme = {
       elevation: 5,
     }
   }
-}
+})
 
 import {createVariant, createRestyleComponent, VariantProps} from '@shopify/restyle'
 const variant = createVariant<Theme>({themeKey: 'cardVariants', defaults: {
@@ -456,13 +462,13 @@ Any prop powered by Restyle can optionally accept a value for each screen size, 
 
 ```tsx
 // In your theme
-const theme = {
+const theme = createTheme({
   // ...
   breakpoints: {
     phone: 0,
     tablet: 768,
   }
-}
+})
 
 // Props always accept either plain values
 <Box flexDirection="row" />
@@ -502,7 +508,7 @@ export const palette = {
   lightGray: '#EEE',
 };
 
-const theme = {
+const theme = createTheme({
   spacing: {
     s: 8,
     m: 16,
@@ -534,11 +540,11 @@ const theme = {
       shadowOpacity: 0.1,
     },
   },
-};
+});
 
 type Theme = typeof theme;
 
-const darkTheme = {
+const darkTheme: Theme = {
   ...theme,
   colors: {
     ...theme.colors,
