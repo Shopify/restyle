@@ -42,10 +42,13 @@ export interface RestyleFunctionContainer<
 
 export type RestyleFunction<
   TProps extends Record<string, any> = Record<string, any>,
-  Theme extends BaseTheme = BaseTheme
+  Theme extends BaseTheme = BaseTheme,
+  TVal = any
 > = (
   props: TProps,
   context: {theme: Theme; dimensions: Dimensions},
-) => Record<string, any>;
+) => {
+  [key in string]?: TVal;
+};
 
 export type RNStyle = ViewStyle | TextStyle | ImageStyle;
