@@ -1,4 +1,5 @@
 import createRestyleFunction from '../createRestyleFunction';
+import {RNStyle} from '../types';
 
 const theme = {
   colors: {},
@@ -32,7 +33,7 @@ describe('createRestyleFunction', () => {
     it('allows configuring the style object output key', () => {
       const styleFunc = createRestyleFunction({
         property: 'opacity',
-        styleProperty: 'testOpacity',
+        styleProperty: 'testOpacity' as keyof RNStyle,
       });
       expect(styleFunc.func({opacity: 0.5}, {theme, dimensions})).toStrictEqual(
         {
