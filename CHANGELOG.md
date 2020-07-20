@@ -7,6 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 - Improve type safety and type inference of `createVariant`, `createBox`, `createText`, `useRestyle`, `createRestyleFunction` and `createRestyleComponent`. [#16](https://github.com/Shopify/restyle/pull/16) by [@hammadj](https://github.com/hammadj)
+- Add a `createTheme` helper function to enforce proper shape for user themes. [#18](https://github.com/Shopify/restyle/pull/18/files) by [@hammadj](https://github.com/hammadj)
 
 ## 1.0.4 - 2020-02-26
 
