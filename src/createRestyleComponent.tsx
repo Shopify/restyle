@@ -10,8 +10,7 @@ const createRestyleComponent = <
 >(
   restyleFunctions: (
     | RestyleFunctionContainer<Props, Theme>
-    | RestyleFunctionContainer<Props, Theme>[]
-  )[],
+    | RestyleFunctionContainer<Props, Theme>[])[],
   BaseComponent: React.ComponentType<any> = View,
 ) => {
   const RestyleComponent = (

@@ -20,10 +20,13 @@ const filterRestyleProps = <
     {} as Record<keyof TRestyleProps, boolean>,
   );
 
-  return Object.keys(props).reduce((acc, key) => {
-    if (omittedProp[key as keyof TRestyleProps]) return acc;
-    return {...acc, [key]: props[key]};
-  }, {} as Omit<TProps, keyof TRestyleProps>);
+  return Object.keys(props).reduce(
+    (acc, key) => {
+      if (omittedProp[key as keyof TRestyleProps]) return acc;
+      return {...acc, [key]: props[key]};
+    },
+    {} as Omit<TProps, keyof TRestyleProps>,
+  );
 };
 
 const useRestyle = <
@@ -33,8 +36,7 @@ const useRestyle = <
 >(
   restyleFunctions: (
     | RestyleFunctionContainer<TRestyleProps, Theme>
-    | RestyleFunctionContainer<TRestyleProps, Theme>[]
-  )[],
+    | RestyleFunctionContainer<TRestyleProps, Theme>[])[],
   props: TProps,
 ): Omit<TProps, keyof TRestyleProps> => {
   const theme = useTheme<Theme>();

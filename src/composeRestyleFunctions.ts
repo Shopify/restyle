@@ -12,8 +12,7 @@ const composeRestyleFunctions = <
 >(
   restyleFunctions: (
     | RestyleFunctionContainer<TProps, Theme>
-    | RestyleFunctionContainer<TProps, Theme>[]
-  )[],
+    | RestyleFunctionContainer<TProps, Theme>[])[],
 ) => {
   const flattenedRestyleFunctions = restyleFunctions.reduce(
     (acc: RestyleFunctionContainer<TProps, Theme>[], item) => {
