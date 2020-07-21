@@ -1,12 +1,13 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, TextStyle, ImageStyle, ViewStyle} from 'react-native';
 
 import {BaseTheme, RestyleFunctionContainer} from './types';
 import useRestyle from './hooks/useRestyle';
 
 const createRestyleComponent = <
   Props extends Record<string, unknown>,
-  Theme extends BaseTheme = BaseTheme
+  Theme extends BaseTheme = BaseTheme,
+  TStyle extends ViewStyle | TextStyle | ImageStyle = ViewStyle
 >(
   restyleFunctions: (
     | RestyleFunctionContainer<Props, Theme>
@@ -15,7 +16,7 @@ const createRestyleComponent = <
 ) => {
   const RestyleComponent = (
     props: {
-      style?: any;
+      style?: TStyle;
     } & Props,
   ) => {
     const passedProps = useRestyle(restyleFunctions, props);
