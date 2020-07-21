@@ -375,14 +375,14 @@ The Restyle library comes with a number of predefined Restyle functions for your
 To define your own Restyle function, use the `createRestyleFunction` helper:
 
 ```ts
-import {createRestyleFunction, createRestyleFunction} from '@shopify/restyle'
+import {createRestyleFunction, createRestyleComponent} from '@shopify/restyle'
 const transparency = createRestyleFunction({
   property: 'transparency',
   styleProperty: 'opacity',
   transform: ({value}: {value: number}) => 1 - value,
 });
 
-const TransparentComponent = createRestyleFunction([transparency])
+const TransparentComponent = createRestyleComponent([transparency])
 
 <TransparentComponent transparency={0.5} />
 ```
