@@ -2,6 +2,7 @@ import {TextStyle, FlexStyle, ViewStyle} from 'react-native';
 
 import createRestyleFunction from './createRestyleFunction';
 import {BaseTheme, ResponsiveValue} from './types';
+import {getKeys} from './typeHelpers';
 
 const spacingProperties = {
   margin: true,
@@ -98,8 +99,6 @@ const textShadowProperties = {
   textShadowOffset: true,
   textShadowRadius: true,
 };
-
-const getKeys = <T>(object: T) => Object.keys(object) as (keyof T)[];
 
 export const backgroundColor = createRestyleFunction({
   property: 'backgroundColor',

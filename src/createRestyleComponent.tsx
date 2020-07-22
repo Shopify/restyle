@@ -5,7 +5,7 @@ import {BaseTheme, RestyleFunctionContainer} from './types';
 import useRestyle from './hooks/useRestyle';
 
 const createRestyleComponent = <
-  Props extends Record<string, unknown>,
+  Props extends Record<string, any>,
   Theme extends BaseTheme = BaseTheme
 >(
   restyleFunctions: (
