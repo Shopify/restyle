@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, ViewStyle} from 'react-native';
+import {View} from 'react-native';
 
 import createRestyleComponent from './createRestyleComponent';
 import {BaseTheme} from './types';
@@ -50,8 +50,7 @@ const createBox = <
 ) => {
   return createRestyleComponent<
     BoxProps<Theme> & Omit<Props, keyof BoxProps<Theme>>,
-    Theme,
-    ViewStyle
+    Theme
   >(boxRestyleFunctions, BaseComponent);
 };
 

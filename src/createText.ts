@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, TextStyle} from 'react-native';
+import {Text} from 'react-native';
 
 import createRestyleComponent from './createRestyleComponent';
 import {BaseTheme} from './types';
@@ -45,8 +45,7 @@ const createText = <
 ) => {
   return createRestyleComponent<
     TextProps<Theme> & Omit<Props, keyof TextProps<Theme>>,
-    Theme,
-    TextStyle
+    Theme
   >(textRestyleFunctions, BaseComponent);
 };
 
