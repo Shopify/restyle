@@ -5,6 +5,7 @@ import createRestyleComponent from './createRestyleComponent';
 import {BaseTheme} from './types';
 import {
   backgroundColor,
+  backgroundColorShorthand,
   opacity,
   layout,
   spacing,
@@ -20,23 +21,34 @@ import {
   PositionProps,
   visible,
   VisibleProps,
+  SpacingShorthandProps,
+  BackgroundColorShorthandProps,
+  spacingShorthand,
 } from './restyleFunctions';
 
-export type BoxProps<Theme extends BaseTheme> = BackgroundColorProps<Theme> &
+export type BoxProps<
+  Theme extends BaseTheme,
+  EnableShorthand extends boolean = true
+> = BackgroundColorProps<Theme> &
   OpacityProps<Theme> &
   VisibleProps<Theme> &
   LayoutProps<Theme> &
   SpacingProps<Theme> &
   BorderProps<Theme> &
   ShadowProps<Theme> &
-  PositionProps<Theme>;
+  PositionProps<Theme> &
+  (EnableShorthand extends true
+    ? SpacingShorthandProps<Theme> & BackgroundColorShorthandProps<Theme>
+    : never);
 
 export const boxRestyleFunctions = [
   backgroundColor,
+  backgroundColorShorthand,
   opacity,
   visible,
   layout,
   spacing,
+  spacingShorthand,
   border,
   shadow,
   position,
@@ -44,12 +56,14 @@ export const boxRestyleFunctions = [
 
 const createBox = <
   Theme extends BaseTheme,
-  Props = React.ComponentProps<typeof View> & {children?: React.ReactNode}
+  Props = React.ComponentProps<typeof View> & {children?: React.ReactNode},
+  EnableShorthand extends boolean = true
 >(
   BaseComponent: React.ComponentType<any> = View,
 ) => {
   return createRestyleComponent<
-    BoxProps<Theme> & Omit<Props, keyof BoxProps<Theme>>,
+    BoxProps<Theme, EnableShorthand> &
+      Omit<Props, keyof BoxProps<Theme, EnableShorthand>>,
     Theme
   >(boxRestyleFunctions, BaseComponent);
 };

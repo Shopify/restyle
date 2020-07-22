@@ -19,6 +19,9 @@ const spacingProperties = {
   paddingLeft: true,
   paddingHorizontal: true,
   paddingVertical: true,
+};
+
+const spacingPropertiesShorthand = {
   m: 'margin',
   mt: 'marginTop',
   mr: 'marginRight',
@@ -119,6 +122,12 @@ export const backgroundColor = createRestyleFunction({
   themeKey: 'colors',
 });
 
+export const backgroundColorShorthand = createRestyleFunction({
+  property: 'bg',
+  styleProperty: 'backgroundColor',
+  themeKey: 'colors',
+});
+
 export const color = createRestyleFunction({
   property: 'color',
   themeKey: 'colors',
@@ -135,14 +144,23 @@ export const visible = createRestyleFunction({
 });
 
 export const spacing = getKeys(spacingProperties).map(property => {
-  const alias = spacingProperties[property];
-
   return createRestyleFunction({
     property,
-    styleProperty: typeof alias === 'string' ? alias : undefined,
     themeKey: 'spacing',
   });
 });
+
+export const spacingShorthand = getKeys(spacingPropertiesShorthand).map(
+  property => {
+    const styleProperty = spacingPropertiesShorthand[property];
+
+    return createRestyleFunction({
+      property,
+      styleProperty,
+      themeKey: 'spacing',
+    });
+  },
+);
 
 export const typography = getKeys(typographyProperties).map(property => {
   return createRestyleFunction({
@@ -216,7 +234,9 @@ export const all = [
   color,
   opacity,
   backgroundColor,
+  backgroundColorShorthand,
   ...spacing,
+  ...spacingShorthand,
   ...typography,
   ...layout,
   ...position,
@@ -240,8 +260,19 @@ export interface BackgroundColorProps<Theme extends BaseTheme> {
   backgroundColor?: ResponsiveValue<keyof Theme['colors'], Theme>;
 }
 
+export interface BackgroundColorShorthandProps<Theme extends BaseTheme> {
+  bg?: ResponsiveValue<keyof Theme['colors'], Theme>;
+}
+
 export type SpacingProps<Theme extends BaseTheme> = {
   [Key in keyof typeof spacingProperties]?: ResponsiveValue<
+    keyof Theme['spacing'],
+    Theme
+  >;
+};
+
+export type SpacingShorthandProps<Theme extends BaseTheme> = {
+  [Key in keyof typeof spacingPropertiesShorthand]?: ResponsiveValue<
     keyof Theme['spacing'],
     Theme
   >;
