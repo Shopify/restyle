@@ -6,8 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-- Improve type safety and type inference of `createVariant`, `createBox`, `createText`, `useRestyle`, `createRestyleFunction` and `createRestyleComponent`. [#16](https://github.com/Shopify/restyle/pull/16) and [#21](https://github.com/Shopify/restyle/pull/21) by [@hammadj](https://github.com/hammadj)
+- Improve type safety and type inference of `createVariant`, `createBox`, `createText`, `useRestyle`, `createRestyleFunction` and `createRestyleComponent`. [#16](https://github.com/Shopify/restyle/pull/16) and [#21](https://github.com/Shopify/restyle/pull/21) by [@hammadj](https://github.com/hammadj), [#26](https://github.com/Shopify/restyle/pull/26) by [@Johan-duitot](https://github.com/Johan-dutoit)
 - Add a `createTheme` helper function to enforce proper shape for user themes. [#18](https://github.com/Shopify/restyle/pull/18/files) by [@hammadj](https://github.com/hammadj)
+- Add shorthand names for spacing and backgroundColor props. [#22](https://github.com/Shopify/restyle/pull/22) by [@hammadj](https://github.com/hammadj)
+- Fix a bug in `createVariant` where defaults were only applied when the variant prop was passed in. [#28](https://github.com/Shopify/restyle/pull/28) by [@hammadj](https://github.com/hammadj)
 
 ## 1.0.4 - 2020-02-26
 
