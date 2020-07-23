@@ -344,9 +344,11 @@ export type TextShadowProps<Theme extends BaseTheme> = {
 };
 
 export type AllProps<Theme extends BaseTheme> = BackgroundColorProps<Theme> &
+  BackgroundColorShorthandProps<Theme> &
   ColorProps<Theme> &
   OpacityProps<Theme> &
   SpacingProps<Theme> &
+  SpacingShorthandProps<Theme> &
   TypographyProps<Theme> &
   LayoutProps<Theme> &
   PositionProps<Theme> &
