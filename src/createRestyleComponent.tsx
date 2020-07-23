@@ -13,11 +13,7 @@ const createRestyleComponent = <
     | RestyleFunctionContainer<Props, Theme>[])[],
   BaseComponent: React.ComponentType<any> = View,
 ) => {
-  const RestyleComponent = (
-    props: {
-      style?: any;
-    } & Props,
-  ) => {
+  const RestyleComponent = (props: Props) => {
     const passedProps = useRestyle(restyleFunctions, props);
     return <BaseComponent {...passedProps} />;
   };
