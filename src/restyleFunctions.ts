@@ -1,7 +1,7 @@
 import {TextStyle, FlexStyle, ViewStyle} from 'react-native';
 
 import createRestyleFunction from './createRestyleFunction';
-import {BaseTheme, ResponsiveValue} from './types';
+import {BaseTheme, ResponsiveValue, RNStyleProperty} from './types';
 import {getKeys} from './typeHelpers';
 
 const spacingProperties = {
@@ -152,7 +152,9 @@ export const spacing = getKeys(spacingProperties).map(property => {
 
 export const spacingShorthand = getKeys(spacingPropertiesShorthand).map(
   property => {
-    const styleProperty = spacingPropertiesShorthand[property];
+    const styleProperty = spacingPropertiesShorthand[
+      property
+    ] as RNStyleProperty;
 
     return createRestyleFunction({
       property,

@@ -39,7 +39,7 @@ export type BoxProps<
   PositionProps<Theme> &
   (EnableShorthand extends true
     ? SpacingShorthandProps<Theme> & BackgroundColorShorthandProps<Theme>
-    : never);
+    : Record<string, never>);
 
 export const boxRestyleFunctions = [
   backgroundColor,
