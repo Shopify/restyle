@@ -18,9 +18,9 @@ const createRestyleComponent = <
     return <BaseComponent {...passedProps} />;
   };
   type RestyleComponentType = typeof RestyleComponent;
-  return RestyleComponent as (RestyleComponentType & {
+  return RestyleComponent as RestyleComponentType & {
     defaultProps?: Partial<React.ComponentProps<RestyleComponentType>>;
-  });
+  };
 };
 
 export default createRestyleComponent;
