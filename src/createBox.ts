@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 
 import createRestyleComponent from './createRestyleComponent';
-import {BaseTheme} from './types';
+import {BaseTheme, RestyleFunctionContainer} from './types';
 import {
   backgroundColor,
   backgroundColorShorthand,
@@ -26,20 +26,23 @@ import {
   spacingShorthand,
 } from './restyleFunctions';
 
-export type BoxProps<
-  Theme extends BaseTheme,
-  EnableShorthand extends boolean = true
-> = BackgroundColorProps<Theme> &
+type BaseBoxProps<Theme extends BaseTheme> = BackgroundColorProps<Theme> &
   OpacityProps<Theme> &
   VisibleProps<Theme> &
   LayoutProps<Theme> &
   SpacingProps<Theme> &
   BorderProps<Theme> &
   ShadowProps<Theme> &
-  PositionProps<Theme> &
-  (EnableShorthand extends true
-    ? SpacingShorthandProps<Theme> & BackgroundColorShorthandProps<Theme>
-    : Record<string, never>);
+  PositionProps<Theme>;
+
+export type BoxProps<
+  Theme extends BaseTheme,
+  EnableShorthand extends boolean = true
+> = BaseBoxProps<Theme> & EnableShorthand extends true
+  ? BaseBoxProps<Theme> &
+      SpacingShorthandProps<Theme> &
+      BackgroundColorShorthandProps<Theme>
+  : BaseBoxProps<Theme>;
 
 export const boxRestyleFunctions = [
   backgroundColor,
@@ -65,7 +68,13 @@ const createBox = <
     BoxProps<Theme, EnableShorthand> &
       Omit<Props, keyof BoxProps<Theme, EnableShorthand>>,
     Theme
-  >(boxRestyleFunctions, BaseComponent);
+  >(
+    boxRestyleFunctions as RestyleFunctionContainer<
+      BoxProps<Theme, EnableShorthand>,
+      Theme
+    >[],
+    BaseComponent,
+  );
 };
 
 export default createBox;

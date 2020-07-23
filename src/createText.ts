@@ -2,7 +2,7 @@ import React from 'react';
 import {Text} from 'react-native';
 
 import createRestyleComponent from './createRestyleComponent';
-import {BaseTheme} from './types';
+import {BaseTheme, RestyleFunctionContainer} from './types';
 import {
   color,
   opacity,
@@ -21,17 +21,20 @@ import {
 } from './restyleFunctions';
 import createVariant, {VariantProps} from './createVariant';
 
-export type TextProps<
-  Theme extends BaseTheme,
-  EnableShorthand extends boolean = true
-> = ColorProps<Theme> &
+type BaseTextProps<Theme extends BaseTheme> = ColorProps<Theme> &
   OpacityProps<Theme> &
   VisibleProps<Theme> &
   TypographyProps<Theme> &
   SpacingProps<Theme> &
   TextShadowProps<Theme> &
-  VariantProps<Theme, 'textVariants'> &
-  (EnableShorthand extends true ? SpacingShorthandProps<Theme> : never);
+  VariantProps<Theme, 'textVariants'>;
+
+export type TextProps<
+  Theme extends BaseTheme,
+  EnableShorthand extends boolean = true
+> = EnableShorthand extends true
+  ? BaseTextProps<Theme> & SpacingShorthandProps<Theme>
+  : BaseTextProps<Theme>;
 
 export const textRestyleFunctions = [
   color,
@@ -55,7 +58,13 @@ const createText = <
     TextProps<Theme, EnableShorthand> &
       Omit<Props, keyof TextProps<Theme, EnableShorthand>>,
     Theme
-  >(textRestyleFunctions, BaseComponent);
+  >(
+    textRestyleFunctions as RestyleFunctionContainer<
+      TextProps<Theme, EnableShorthand>,
+      Theme
+    >[],
+    BaseComponent,
+  );
 };
 
 export default createText;
