@@ -38,7 +38,7 @@ const useRestyle = <
     | RestyleFunctionContainer<TRestyleProps, Theme>
     | RestyleFunctionContainer<TRestyleProps, Theme>[])[],
   props: TProps,
-): Omit<TProps, keyof TRestyleProps> => {
+) => {
   const theme = useTheme<Theme>();
 
   const dimensions = useDimensions();

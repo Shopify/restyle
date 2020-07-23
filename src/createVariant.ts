@@ -1,4 +1,9 @@
-import {BaseTheme, ResponsiveValue, RestyleFunctionContainer} from './types';
+import {
+  BaseTheme,
+  ResponsiveValue,
+  RestyleFunctionContainer,
+  RNStyle,
+} from './types';
 import createRestyleFunction from './createRestyleFunction';
 import {all, AllProps} from './restyleFunctions';
 import composeRestyleFunctions from './composeRestyleFunctions';
@@ -31,7 +36,7 @@ function createVariant<
 >({
   property = 'variant' as P,
   themeKey,
-  defaults = {},
+  defaults,
 }: {
   property?: P;
   themeKey: K;
@@ -39,16 +44,17 @@ function createVariant<
 }): RestyleFunctionContainer<TProps, Theme, P, K> {
   const styleFunction = createRestyleFunction<Theme, TProps, P, K>({
     property,
-    styleProperty: 'expandedProps',
+    styleProperty: 'expandedProps' as keyof RNStyle,
     themeKey,
   });
+
   return {
     property,
     themeKey,
     variant: true,
     func: (props, {theme, dimensions}) => {
       const {expandedProps} = styleFunction.func(props, {theme, dimensions});
-      if (!expandedProps) return {};
+      if (!expandedProps && !defaults) return {};
       return allRestyleFunctions.buildStyle(
         {...defaults, ...expandedProps},
         {

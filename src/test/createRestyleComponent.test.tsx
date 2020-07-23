@@ -29,7 +29,7 @@ const theme = {
 };
 type Theme = typeof theme;
 
-jest.mock('Dimensions', () => {
+jest.mock('react-native/Libraries/Utilities/Dimensions', () => {
   return {
     get: () => ({
       width: 375,

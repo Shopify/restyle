@@ -1,7 +1,8 @@
 import {TextStyle, FlexStyle, ViewStyle} from 'react-native';
 
 import createRestyleFunction from './createRestyleFunction';
-import {BaseTheme, ResponsiveValue} from './types';
+import {BaseTheme, ResponsiveValue, RNStyleProperty} from './types';
+import {getKeys} from './typeHelpers';
 
 const spacingProperties = {
   margin: true,
@@ -18,6 +19,23 @@ const spacingProperties = {
   paddingLeft: true,
   paddingHorizontal: true,
   paddingVertical: true,
+};
+
+const spacingPropertiesShorthand = {
+  m: 'margin',
+  mt: 'marginTop',
+  mr: 'marginRight',
+  mb: 'marginBottom',
+  ml: 'marginLeft',
+  mx: 'marginHorizontal',
+  my: 'marginVertical',
+  p: 'padding',
+  pt: 'paddingTop',
+  pr: 'paddingRight',
+  pb: 'paddingBottom',
+  pl: 'paddingLeft',
+  px: 'paddingHorizontal',
+  py: 'paddingVertical',
 };
 
 const typographyProperties = {
@@ -99,10 +117,14 @@ const textShadowProperties = {
   textShadowRadius: true,
 };
 
-const getKeys = <T>(object: T) => Object.keys(object) as (keyof T)[];
-
 export const backgroundColor = createRestyleFunction({
   property: 'backgroundColor',
+  themeKey: 'colors',
+});
+
+export const backgroundColorShorthand = createRestyleFunction({
+  property: 'bg',
+  styleProperty: 'backgroundColor',
   themeKey: 'colors',
 });
 
@@ -127,6 +149,20 @@ export const spacing = getKeys(spacingProperties).map(property => {
     themeKey: 'spacing',
   });
 });
+
+export const spacingShorthand = getKeys(spacingPropertiesShorthand).map(
+  property => {
+    const styleProperty = spacingPropertiesShorthand[
+      property
+    ] as RNStyleProperty;
+
+    return createRestyleFunction({
+      property,
+      styleProperty,
+      themeKey: 'spacing',
+    });
+  },
+);
 
 export const typography = getKeys(typographyProperties).map(property => {
   return createRestyleFunction({
@@ -197,10 +233,12 @@ export const textShadow = [
 ];
 
 export const all = [
-  backgroundColor,
   color,
   opacity,
+  backgroundColor,
+  backgroundColorShorthand,
   ...spacing,
+  ...spacingShorthand,
   ...typography,
   ...layout,
   ...position,
@@ -209,9 +247,6 @@ export const all = [
   ...textShadow,
 ];
 
-export interface BackgroundColorProps<Theme extends BaseTheme> {
-  backgroundColor?: ResponsiveValue<keyof Theme['colors'], Theme>;
-}
 export interface ColorProps<Theme extends BaseTheme> {
   color?: ResponsiveValue<keyof Theme['colors'], Theme>;
 }
@@ -223,8 +258,23 @@ export interface VisibleProps<Theme extends BaseTheme> {
   visible?: ResponsiveValue<boolean, Theme>;
 }
 
+export interface BackgroundColorProps<Theme extends BaseTheme> {
+  backgroundColor?: ResponsiveValue<keyof Theme['colors'], Theme>;
+}
+
+export interface BackgroundColorShorthandProps<Theme extends BaseTheme> {
+  bg?: ResponsiveValue<keyof Theme['colors'], Theme>;
+}
+
 export type SpacingProps<Theme extends BaseTheme> = {
   [Key in keyof typeof spacingProperties]?: ResponsiveValue<
+    keyof Theme['spacing'],
+    Theme
+  >;
+};
+
+export type SpacingShorthandProps<Theme extends BaseTheme> = {
+  [Key in keyof typeof spacingPropertiesShorthand]?: ResponsiveValue<
     keyof Theme['spacing'],
     Theme
   >;
@@ -294,9 +344,11 @@ export type TextShadowProps<Theme extends BaseTheme> = {
 };
 
 export type AllProps<Theme extends BaseTheme> = BackgroundColorProps<Theme> &
+  BackgroundColorShorthandProps<Theme> &
   ColorProps<Theme> &
   OpacityProps<Theme> &
   SpacingProps<Theme> &
+  SpacingShorthandProps<Theme> &
   TypographyProps<Theme> &
   LayoutProps<Theme> &
   PositionProps<Theme> &

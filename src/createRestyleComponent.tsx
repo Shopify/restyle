@@ -5,7 +5,7 @@ import {BaseTheme, RestyleFunctionContainer} from './types';
 import useRestyle from './hooks/useRestyle';
 
 const createRestyleComponent = <
-  Props extends Record<string, unknown>,
+  Props extends Record<string, any>,
   Theme extends BaseTheme = BaseTheme
 >(
   restyleFunctions: (
@@ -18,9 +18,9 @@ const createRestyleComponent = <
     return <BaseComponent {...passedProps} />;
   };
   type RestyleComponentType = typeof RestyleComponent;
-  return RestyleComponent as (RestyleComponentType & {
+  return RestyleComponent as RestyleComponentType & {
     defaultProps?: Partial<React.ComponentProps<RestyleComponentType>>;
-  });
+  };
 };
 
 export default createRestyleComponent;

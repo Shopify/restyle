@@ -39,15 +39,15 @@
     "husky": "^4.2.3",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
-    "react": "^16.9.0",
-    "react-native": "0.60.5",
+    "react": "^16.11.0",
+    "react-native": "0.62.2",
     "react-test-renderer": "^16.9.0",
     "ts-jest": "^24.0.2",
     "typescript": "~3.7.5"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "react-native": "^0.59.0"
+    "react": ">=16.8.0",
+    "react-native": ">=0.59.0"
   },
   "files": [
     "dist/*"
