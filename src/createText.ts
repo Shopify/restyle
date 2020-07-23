@@ -16,16 +16,22 @@ import {
   TextShadowProps,
   TypographyProps,
   VisibleProps,
+  spacingShorthand,
+  SpacingShorthandProps,
 } from './restyleFunctions';
 import createVariant, {VariantProps} from './createVariant';
 
-export type TextProps<Theme extends BaseTheme> = ColorProps<Theme> &
+export type TextProps<
+  Theme extends BaseTheme,
+  EnableShorthand extends boolean = true
+> = ColorProps<Theme> &
   OpacityProps<Theme> &
   VisibleProps<Theme> &
   TypographyProps<Theme> &
   SpacingProps<Theme> &
   TextShadowProps<Theme> &
-  VariantProps<Theme, 'textVariants'>;
+  VariantProps<Theme, 'textVariants'> &
+  (EnableShorthand extends true ? SpacingShorthandProps<Theme> : never);
 
 export const textRestyleFunctions = [
   color,
@@ -33,18 +39,21 @@ export const textRestyleFunctions = [
   visible,
   typography,
   spacing,
+  spacingShorthand,
   textShadow,
   createVariant({themeKey: 'textVariants'}),
 ];
 
 const createText = <
   Theme extends BaseTheme,
-  Props = React.ComponentProps<typeof Text> & {children?: React.ReactNode}
+  Props = React.ComponentProps<typeof Text> & {children?: React.ReactNode},
+  EnableShorthand extends boolean = true
 >(
   BaseComponent: React.ComponentType<any> = Text,
 ) => {
   return createRestyleComponent<
-    TextProps<Theme> & Omit<Props, keyof TextProps<Theme>>,
+    TextProps<Theme, EnableShorthand> &
+      Omit<Props, keyof TextProps<Theme, EnableShorthand>>,
     Theme
   >(textRestyleFunctions, BaseComponent);
 };

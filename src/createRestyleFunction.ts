@@ -2,8 +2,8 @@ import {
   ResponsiveValue,
   BaseTheme,
   Dimensions,
-  RNStyle,
   RestyleFunctionContainer,
+  RNStyleProperty,
 } from './types';
 import {getKeys} from './typeHelpers';
 
@@ -111,7 +111,7 @@ const createRestyleFunction = <
 }: {
   property: P;
   transform?: StyleTransformFunction<Theme, K, TProps[P]>;
-  styleProperty?: keyof RNStyle;
+  styleProperty?: RNStyleProperty;
   themeKey?: K;
 }): RestyleFunctionContainer<TProps, Theme, P, K> => {
   const styleProp = styleProperty || property.toString();
