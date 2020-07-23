@@ -36,7 +36,7 @@ function createVariant<
 >({
   property = 'variant' as P,
   themeKey,
-  defaults = {},
+  defaults,
 }: {
   property?: P;
   themeKey: K;
@@ -54,7 +54,7 @@ function createVariant<
     variant: true,
     func: (props, {theme, dimensions}) => {
       const {expandedProps} = styleFunction.func(props, {theme, dimensions});
-      if (!expandedProps) return {};
+      if (!expandedProps && !defaults) return {};
       return allRestyleFunctions.buildStyle(
         {...defaults, ...expandedProps},
         {
