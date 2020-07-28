@@ -12,6 +12,8 @@ const spacingProperties = {
   marginLeft: true,
   marginHorizontal: true,
   marginVertical: true,
+  marginStart: true,
+  marginEnd: true,
   padding: true,
   paddingTop: true,
   paddingRight: true,
@@ -19,6 +21,8 @@ const spacingProperties = {
   paddingLeft: true,
   paddingHorizontal: true,
   paddingVertical: true,
+  paddingStart: true,
+  paddingEnd: true,
 };
 
 const spacingPropertiesShorthand = {
@@ -29,6 +33,8 @@ const spacingPropertiesShorthand = {
   ml: 'marginLeft',
   mx: 'marginHorizontal',
   my: 'marginVertical',
+  ms: 'marginStart',
+  me: 'marginEnd',
   p: 'padding',
   pt: 'paddingTop',
   pr: 'paddingRight',
@@ -36,6 +42,8 @@ const spacingPropertiesShorthand = {
   pl: 'paddingLeft',
   px: 'paddingHorizontal',
   py: 'paddingVertical',
+  ps: 'paddingStart',
+  pe: 'paddingEnd',
 };
 
 const typographyProperties = {
@@ -78,6 +86,8 @@ const positionProperties = {
   right: true,
   bottom: true,
   left: true,
+  start: true,
+  end: true,
 };
 
 const borderProperties = {
@@ -86,6 +96,8 @@ const borderProperties = {
   borderRightWidth: true,
   borderStyle: true,
   borderTopWidth: true,
+  borderStartWidth: true,
+  borderEndWidth: true,
   borderWidth: true,
 };
 
@@ -95,6 +107,10 @@ const borderRadiusProperties = {
   borderBottomRightRadius: true,
   borderTopLeftRadius: true,
   borderTopRightRadius: true,
+  borderBottomStartRadius: true,
+  borderBottomEndRadius: true,
+  borderTopStartRadius: true,
+  borderTopEndRadius: true,
 };
 
 const borderColorProperties = {
@@ -103,6 +119,8 @@ const borderColorProperties = {
   borderRightColor: true,
   borderLeftColor: true,
   borderBottomColor: true,
+  borderStartColor: true,
+  borderEndColor: true,
 };
 
 const shadowProperties = {
