@@ -349,15 +349,15 @@ Restyle functions are the bread and butter of Restyle. They specify how props sh
 
 #### Predefined Restyle Functions
 
-The Restyle library comes with a number of predefined Restyle functions for your convenience.
+The Restyle library comes with a number of predefined Restyle functions for your convenience. Properties within brackets are aliases / shorthands for the preceding prop name.
 
 | Restyle Function | Props                                                                                                                                                                                               | Theme Key   |
 | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| backgroundColor  | backgroundColor                                                                                                                                                                                     | colors      |
+| backgroundColor  | backgroundColor [bg]                                                                                                                                                                                 | colors      |
 | color            | color                                                                                                                                                                                               | colors      |
 | opacity          | opacity                                                                                                                                                                                             | _none_      |
 | visible          | display (maps `true` / `false` to `flex` / `none`)                                                                                                                                                  | _none_      |
-| spacing          | margin, marginTop, marginRight, marginBottom, marginLeft, marginHorizontal, marginVertical, padding, paddingTop, paddingRight, paddingBottom, paddingLeft, paddingHorizontal, paddingVertical       | spacing     |
+| spacing          | margin [m], marginTop [mt], marginRight [mr], marginBottom [mb], marginLeft [ml], marginHorizontal [mx], marginVertical [my], padding [p], paddingTop [pt], paddingRight [pr], paddingBottom [pb], paddingLeft [pl], paddingHorizontal [px], paddingVertical [py]       | spacing     |
 | layout           | width, height, minWidth, maxWidth, minHeight, maxHeight, overflow, aspectRatio, alignContent, alignItems, alignSelf, justifyContent, flex, flexBasis, flexDirection, flexGrow, flexShrink, flexWrap | _none_      |
 | position         | position, top, right, bottom, left                                                                                                                                                                  | _none_      |
 | position         | zIndex                                                                                                                                                                                              | zIndices    |
