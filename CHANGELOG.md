@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+* Improve typesafety of createRestyleFunction for correct property values. [#36](https://github.com/Shopify/restyle/pull/36) by [@hammadj](https://github.com/hammadj)
+* Add `start` and `end` (e.g. `paddingStart`) properties where applicable to better support RTL layouts. [#38](https://github.com/Shopify/restyle/pull/38) by [@salzhrani](https://github.com/salzhrani)
 
 ## 1.1.0 - 2020-07-25
 - Improve type safety and type inference of `createVariant`, `createBox`, `createText`, `useRestyle`, `createRestyleFunction` and `createRestyleComponent`. [#16](https://github.com/Shopify/restyle/pull/16) and [#21](https://github.com/Shopify/restyle/pull/21) by [@hammadj](https://github.com/hammadj), [#26](https://github.com/Shopify/restyle/pull/26) by [@Johan-duitot](https://github.com/Johan-dutoit)
