@@ -51,6 +51,7 @@ describe('createRestyleComponent', () => {
     beforeEach(() => {
       (Dimensions.addEventListener as jest.Mock).mockClear();
     });
+
     it('passes styles based on the given props', () => {
       const {root} = render(<Component opacity={0.5} />);
       expect(root.findByType(View).props.style).toStrictEqual([{opacity: 0.5}]);
@@ -102,6 +103,17 @@ describe('createRestyleComponent', () => {
       expect(root.findByType(View).props).toStrictEqual({
         style: [{opacity: 0.8}],
       });
+    });
+
+    it('forwards refs', () => {
+      const spy = jest.fn();
+      render(<Component ref={spy} testID="RENDERED_COMPONENT" />);
+
+      expect(spy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          props: expect.objectContaining({testID: 'RENDERED_COMPONENT'}),
+        }),
+      );
     });
   });
 });
