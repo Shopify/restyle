@@ -672,6 +672,7 @@ Using  [yarn](https://yarnpkg.com/en/):
 ```tsx
 // In theme
 import tokens from '@shopify/polaris-tokens';
+import { createTheme } from '@shopify/restyle'
 
 const pxToNumber = (px: string) => {
   return parseInt(px.replace('px', ''), 10);
@@ -711,7 +712,7 @@ export const Palette = {
   },
 };
 
-const theme = {
+const theme = createTheme({
   colors: {
   body: Palette.Black.L1,
   backgroundRegular: Palette.White.Primary,
@@ -741,12 +742,12 @@ const theme = {
   xl: pxToNumber(tokens.spacingExtraLoose),
   xxl: 2 * pxToNumber(tokens.spacingExtraLoose),
   },
-};
+});
 
 export type Theme = typeof theme;
 export default theme;
 ```
-Now you can easily style your components with 
+Now you can easily style your components with [Shopify Polaris](https://polaris.shopify.com/).
 
 ### Inspiration
 
