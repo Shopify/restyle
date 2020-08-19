@@ -13,10 +13,10 @@ const createRestyleComponent = <
     | RestyleFunctionContainer<Props, Theme>[])[],
   BaseComponent: React.ComponentType<any> = View,
 ) => {
-  const RestyleComponent = (props: Props) => {
+  const RestyleComponent = React.forwardRef((props: Props, ref) => {
     const passedProps = useRestyle(restyleFunctions, props);
-    return <BaseComponent {...passedProps} />;
-  };
+    return <BaseComponent ref={ref} {...passedProps} />;
+  });
   type RestyleComponentType = typeof RestyleComponent;
   return RestyleComponent as RestyleComponentType & {
     defaultProps?: Partial<React.ComponentProps<RestyleComponentType>>;
