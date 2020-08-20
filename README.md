@@ -656,7 +656,7 @@ export default App;
 
 ### Getting Setup With the Shopify Design System
 
-To start using Shopify style assets we can leverage [Polaris tokens]([https://github.com/Shopify/polaris-tokens](https://github.com/Shopify/polaris-tokens)). You can see all of the tokens [here]([https://polaris-tokens.herokuapp.com/](https://polaris-tokens.herokuapp.com/)).
+To start using Shopify style assets we can leverage [Polaris tokens](https://github.com/Shopify/polaris-tokens). You can see all of the tokens [here]([https://polaris-tokens.herokuapp.com/).
 
 #### Installation
 Using  [npm](https://www.npmjs.com/):
@@ -678,69 +678,35 @@ const pxToNumber = (px: string) => {
   return parseInt(px.replace('px', ''), 10);
 };
 
-export const Palette = {
-  Indigo: {
-	Lighter: tokens.colorIndigoLighter,
-	Light: tokens.colorIndigoLight,
-	Primary: tokens.colorIndigo,
-	Dark: tokens.colorIndigoDark,
-	Darker: tokens.colorIndigoDarker,
-  },
-  Green: {
-	Lighter: tokens.colorGreenLighter,
-	Light: tokens.colorGreenLight,
-	Primary: tokens.colorGreen,
-	Dark: tokens.colorGreenDark,
-	Darker: tokens.colorGreenDarker,
-  },
-  Black: {
-	Primary: tokens.colorBlack,
-	L1: tokens.colorInk,
-	L2: tokens.colorInkLight,
-	L3: tokens.colorInkLightest,
-	L4: tokens.colorSky,
-  },
-  White: {
-	Primary: tokens.colorWhite,
-	L3: tokens.colorSkyLighter,
-  },
-  Alert: {
-    Primary: tokens.colorRed,
-  },
-  Blue: {
-    Darker: tokens.colorBlueDarker,
-  },
-};
-
 const theme = createTheme({
   colors: {
-  body: Palette.Black.L1,
-  backgroundRegular: Palette.White.Primary,
-  backgroundSubdued: Palette.White.L3,
-
-  foregroundRegular: Palette.Black.Primary,
-  foregroundOff: Palette.Black.L2,
-  foregroundSubdued: Palette.Black.L3,
-  foregroundContrasting: Palette.White.Primary,
-  foregroundSuccess: Palette.Green.Dark,
-
-  highlightPrimary: Palette.Indigo.Primary,
-  highlightPrimaryDisabled: Palette.Indigo.Light,
-
-  buttonBackgroundPlain: Palette.Black.L4,
-  errorPrimary: Palette.Alert.Primary,
-
-  iconBackgroundDark: Palette.Blue.Darker,
+      body: tokens.colorBlack,
+      backgroundRegular: tokens.colorWhite,
+      backgroundSubdued: tokens.colorSkyLighter,
+    
+      foregroundRegular: tokens.colorBlack,
+      foregroundOff: tokens.colorInkLight,
+      foregroundSubdued: tokens.colorInkLightest,
+      foregroundContrasting: tokens.colorWhite,
+      foregroundSuccess: tokens.colorGreenDark,
+    
+      highlightPrimary: tokens.colorIndigo,
+      highlightPrimaryDisabled: tokens.colorIndigoLight,
+    
+      buttonBackgroundPlain: tokens.colorSky,
+      errorPrimary: tokens.colorRed,
+    
+      iconBackgroundDark: tokens.colorBlueDarker,
   },
   spacing: {
-  none: tokens.spacingNone,
-  xxs: pxToNumber(tokens.spacingExtraTight),
-  xs: pxToNumber(tokens.spacingTight),
-  s: pxToNumber(tokens.spacingBaseTight),
-  m: pxToNumber(tokens.spacingBase),
-  l: pxToNumber(tokens.spacingLoose),
-  xl: pxToNumber(tokens.spacingExtraLoose),
-  xxl: 2 * pxToNumber(tokens.spacingExtraLoose),
+      none: tokens.spacingNone,
+      xxs: pxToNumber(tokens.spacingExtraTight),
+      xs: pxToNumber(tokens.spacingTight),
+      s: pxToNumber(tokens.spacingBaseTight),
+      m: pxToNumber(tokens.spacingBase),
+      l: pxToNumber(tokens.spacingLoose),
+      xl: pxToNumber(tokens.spacingExtraLoose),
+      xxl: 2 * pxToNumber(tokens.spacingExtraLoose),
   },
 });
 
