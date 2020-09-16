@@ -72,8 +72,8 @@ export const getResponsiveValue = <
     themeKey?: K;
   },
 ):
-  | TVal
   | (K extends keyof Theme ? ValueOf<Theme[K]> : never)
+  | TVal
   | null
   | undefined => {
   const val = isResponsiveObjectValue(propValue, theme)

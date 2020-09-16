@@ -349,21 +349,21 @@ Restyle functions are the bread and butter of Restyle. They specify how props sh
 
 #### Predefined Restyle Functions
 
-The Restyle library comes with a number of predefined Restyle functions for your convenience.
+The Restyle library comes with a number of predefined Restyle functions for your convenience. Properties within brackets are aliases / shorthands for the preceding prop name.
 
 | Restyle Function | Props                                                                                                                                                                                               | Theme Key   |
 | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| backgroundColor  | backgroundColor                                                                                                                                                                                     | colors      |
+| backgroundColor  | backgroundColor [bg]                                                                                                                                                                                 | colors      |
 | color            | color                                                                                                                                                                                               | colors      |
 | opacity          | opacity                                                                                                                                                                                             | _none_      |
 | visible          | display (maps `true` / `false` to `flex` / `none`)                                                                                                                                                  | _none_      |
-| spacing          | margin, marginTop, marginRight, marginBottom, marginLeft, marginHorizontal, marginVertical, padding, paddingTop, paddingRight, paddingBottom, paddingLeft, paddingHorizontal, paddingVertical       | spacing     |
+| spacing          | margin [m], marginTop [mt], marginRight [mr], marginBottom [mb], marginLeft [ml], marginStart [ms], marginEnd[me], marginHorizontal [mx], marginVertical [my], padding [p], paddingTop [pt], paddingRight [pr], paddingBottom [pb], paddingLeft [pl], paddingStart [ps], paddingEnd [pe], paddingHorizontal [px], paddingVertical [py]       | spacing     |
 | layout           | width, height, minWidth, maxWidth, minHeight, maxHeight, overflow, aspectRatio, alignContent, alignItems, alignSelf, justifyContent, flex, flexBasis, flexDirection, flexGrow, flexShrink, flexWrap | _none_      |
-| position         | position, top, right, bottom, left                                                                                                                                                                  | _none_      |
+| position         | position, top, right, bottom, left, start, end                                                                                                                                                                 | _none_      |
 | position         | zIndex                                                                                                                                                                                              | zIndices    |
-| border           | borderBottomWidth, borderLeftWidth, borderRightWidth, borderStyle, borderTopWidth, borderWidth                                                                                                      | _none_      |
-| border           | borderColor, borderTopColor, borderRightColor, borderLeftColor, borderBottomColor                                                                                                                   | colors      |
-| border           | borderRadius, borderBottomLeftRadius, borderBottomRightRadius, borderTopLeftRadius, borderTopRightRadius                                                                                            | borderRadii |
+| border           | borderBottomWidth, borderLeftWidth, borderRightWidth, borderStartWidth, borderEndWidth, borderStyle, borderTopWidth, borderWidth                                                                                                      | _none_      |
+| border           | borderColor, borderTopColor, borderRightColor, borderLeftColor, borderStartColor, borderEndColor, borderBottomColor                                                                                                                   | colors      |
+| border           | borderRadius, borderBottomLeftRadius, borderBottomRightRadius, borderBottomStartRadius, borderBottomEndRadius, borderTopLeftRadius, borderTopRightRadius, borderTopStartRadius, borderTopEndRadius                                                                                           | borderRadii |
 | shadow           | shadowOpacity, shadowOffset, shadowRadius, elevation                                                                                                                                                | _none_      |
 | shadow           | shadowColor                                                                                                                                                                                         | colors      |
 | textShadow       | textShadowOffset, textShadowRadius                                                                                                                                                                  | _none_      |
@@ -653,6 +653,67 @@ const App = () => {
 
 export default App;
 ```
+
+### Getting Setup With the Shopify Design System
+
+To start using Shopify style assets we can leverage [Polaris tokens](https://github.com/Shopify/polaris-tokens). You can see all of the tokens [here](https://polaris-tokens.herokuapp.com/).
+
+#### Installation
+Using  [npm](https://www.npmjs.com/):
+
+`npm install @shopify/polaris-tokens --save`
+
+Using  [yarn](https://yarnpkg.com/en/):
+
+`yarn add @shopify/polaris-tokens`
+
+#### Define Your Theme
+
+```tsx
+// In theme
+import tokens from '@shopify/polaris-tokens';
+import { createTheme } from '@shopify/restyle'
+
+const pxToNumber = (px: string) => {
+  return parseInt(px.replace('px', ''), 10);
+};
+
+const theme = createTheme({
+  colors: {
+      body: tokens.colorBlack,
+      backgroundRegular: tokens.colorWhite,
+      backgroundSubdued: tokens.colorSkyLighter,
+    
+      foregroundRegular: tokens.colorBlack,
+      foregroundOff: tokens.colorInkLight,
+      foregroundSubdued: tokens.colorInkLightest,
+      foregroundContrasting: tokens.colorWhite,
+      foregroundSuccess: tokens.colorGreenDark,
+    
+      highlightPrimary: tokens.colorIndigo,
+      highlightPrimaryDisabled: tokens.colorIndigoLight,
+    
+      buttonBackgroundPlain: tokens.colorSky,
+      errorPrimary: tokens.colorRed,
+    
+      iconBackgroundDark: tokens.colorBlueDarker,
+  },
+  spacing: {
+      none: tokens.spacingNone,
+      xxs: pxToNumber(tokens.spacingExtraTight),
+      xs: pxToNumber(tokens.spacingTight),
+      s: pxToNumber(tokens.spacingBaseTight),
+      m: pxToNumber(tokens.spacingBase),
+      l: pxToNumber(tokens.spacingLoose),
+      xl: pxToNumber(tokens.spacingExtraLoose),
+      xxl: 2 * pxToNumber(tokens.spacingExtraLoose),
+  },
+});
+
+export type Theme = typeof theme;
+export default theme;
+```
+Now you can easily style your components with [Shopify Polaris](https://polaris.shopify.com/).
 
 ### Inspiration
 

@@ -3,7 +3,7 @@ import {StyleProp} from 'react-native';
 
 import {BaseTheme, RestyleFunctionContainer, RNStyle} from '../types';
 import composeRestyleFunctions from '../composeRestyleFunctions';
-import {AllProps} from '../restyleFunctions';
+import {getKeys} from '../typeHelpers';
 
 import useDimensions from './useDimensions';
 import useTheme from './useTheme';
@@ -20,7 +20,7 @@ const filterRestyleProps = <
     {} as Record<keyof TRestyleProps, boolean>,
   );
 
-  return Object.keys(props).reduce(
+  return getKeys(props).reduce(
     (acc, key) => {
       if (omittedProp[key as keyof TRestyleProps]) return acc;
       return {...acc, [key]: props[key]};
@@ -31,7 +31,7 @@ const filterRestyleProps = <
 
 const useRestyle = <
   Theme extends BaseTheme,
-  TRestyleProps extends AllProps<Theme>,
+  TRestyleProps extends Record<string, any>,
   TProps extends TRestyleProps & {style?: StyleProp<RNStyle>}
 >(
   restyleFunctions: (
