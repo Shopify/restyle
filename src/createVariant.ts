@@ -50,9 +50,14 @@ function createVariant<
     const expandedProps = styleFunction.func(props, {theme, dimensions})[
       property
     ];
-    if (!expandedProps && !defaults) return {};
+
+    const variantDefaults = theme[themeKey].defaults as Partial<
+      AllProps<Theme>
+    >;
+
+    if (!expandedProps && !defaults && !variantDefaults) return {};
     return allRestyleFunctions.buildStyle(
-      {...defaults, ...expandedProps},
+      {...defaults, ...variantDefaults, ...expandedProps},
       {
         theme,
         dimensions,
