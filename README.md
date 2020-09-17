@@ -418,7 +418,6 @@ const theme = createTheme({
     defaults: { 
       // We can define defaults for the variant here.
       // This will be applied after the defaults passed to createVariant and before the variant defined below.
-      // Note: defaults do *not* support responsive props
     },
     regular: {
       // We can refer to other values in the theme here, and use responsive props

@@ -35,8 +35,14 @@ const theme = {
   },
   boxVariants: {
     defaults: {
-      fontSize: 12,
-      backgroundColor: 'black',
+      fontSize: {
+        phone: 12,
+        tablet: 24,
+      },
+      backgroundColor: {
+        phone: 'black',
+        tablet: 'white',
+      },
     },
     primary: {
       width: 50,
@@ -94,6 +100,39 @@ describe('createVariant', () => {
     expect(variant.func({}, {theme, dimensions})).toStrictEqual({
       backgroundColor: '#111111',
       fontSize: 12,
+      opacity: 0.5,
+    });
+  });
+
+  it('corerctly uses the breakpoints for defaults within the theme', () => {
+    const variant = createVariant({
+      themeKey: 'boxVariants',
+      defaults: {
+        fontSize: 10,
+        opacity: 0.5,
+      },
+    });
+
+    expect(variant.func({}, {theme, dimensions})).toStrictEqual({
+      backgroundColor: '#111111',
+      fontSize: 12,
+      opacity: 0.5,
+    });
+
+    expect(
+      variant.func(
+        {},
+        {
+          theme,
+          dimensions: {
+            width: 376,
+            height: 667,
+          },
+        },
+      ),
+    ).toStrictEqual({
+      backgroundColor: '#EEEEEE',
+      fontSize: 24,
       opacity: 0.5,
     });
   });
