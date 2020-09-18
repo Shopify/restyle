@@ -104,7 +104,7 @@ describe('createVariant', () => {
     });
   });
 
-  it('corerctly uses the breakpoints for defaults within the theme', () => {
+  it('correctly uses the breakpoints for defaults within the theme', () => {
     const variant = createVariant({
       themeKey: 'boxVariants',
       defaults: {
