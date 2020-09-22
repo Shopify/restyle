@@ -415,6 +415,10 @@ const theme = createTheme({
     tablet: 768,
   },
   cardVariants: {
+    defaults: { 
+      // We can define defaults for the variant here.
+      // This will be applied after the defaults passed to createVariant and before the variant defined below.
+    },
     regular: {
       // We can refer to other values in the theme here, and use responsive props
       padding: {

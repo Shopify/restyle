@@ -50,9 +50,14 @@ function createVariant<
     const expandedProps = styleFunction.func(props, {theme, dimensions})[
       property
     ];
-    if (!expandedProps && !defaults) return {};
+
+    const variantDefaults = theme[themeKey].defaults as Partial<
+      AllProps<Theme>
+    >;
+
+    if (!expandedProps && !defaults && !variantDefaults) return {};
     return allRestyleFunctions.buildStyle(
-      {...defaults, ...expandedProps},
+      {...defaults, ...variantDefaults, ...expandedProps},
       {
         theme,
         dimensions,
@@ -71,6 +76,8 @@ export type VariantProps<
   Theme extends BaseTheme,
   K extends keyof Theme,
   Property extends keyof any = 'variant'
-> = {[key in Property]?: ResponsiveValue<keyof Theme[K], Theme>};
+> = {
+  [key in Property]?: ResponsiveValue<keyof Omit<Theme[K], 'defaults'>, Theme>;
+};
 
 export default createVariant;

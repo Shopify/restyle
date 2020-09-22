@@ -33,6 +33,22 @@ const theme = {
       color: 'white',
     },
   },
+  boxVariants: {
+    defaults: {
+      fontSize: {
+        phone: 12,
+        tablet: 24,
+      },
+      backgroundColor: {
+        phone: 'black',
+        tablet: 'white',
+      },
+    },
+    primary: {
+      width: 50,
+      height: 50,
+    },
+  },
 };
 const dimensions = {
   width: 375,
@@ -58,6 +74,65 @@ describe('createVariant', () => {
     });
     expect(variant.func({}, {theme, dimensions})).toStrictEqual({
       fontSize: 10,
+      opacity: 0.5,
+    });
+  });
+
+  it('accepts defaults from the theme', () => {
+    const variant = createVariant({
+      themeKey: 'boxVariants',
+    });
+    expect(variant.func({}, {theme, dimensions})).toStrictEqual({
+      fontSize: 12,
+      backgroundColor: '#111111',
+    });
+  });
+
+  it('accepts defaults from the theme and correctly overrides variant defaults', () => {
+    const variant = createVariant({
+      themeKey: 'boxVariants',
+      defaults: {
+        fontSize: 10,
+        opacity: 0.5,
+      },
+    });
+
+    expect(variant.func({}, {theme, dimensions})).toStrictEqual({
+      backgroundColor: '#111111',
+      fontSize: 12,
+      opacity: 0.5,
+    });
+  });
+
+  it('correctly uses the breakpoints for defaults within the theme', () => {
+    const variant = createVariant({
+      themeKey: 'boxVariants',
+      defaults: {
+        fontSize: 10,
+        opacity: 0.5,
+      },
+    });
+
+    expect(variant.func({}, {theme, dimensions})).toStrictEqual({
+      backgroundColor: '#111111',
+      fontSize: 12,
+      opacity: 0.5,
+    });
+
+    expect(
+      variant.func(
+        {},
+        {
+          theme,
+          dimensions: {
+            width: 376,
+            height: 667,
+          },
+        },
+      ),
+    ).toStrictEqual({
+      backgroundColor: '#EEEEEE',
+      fontSize: 24,
       opacity: 0.5,
     });
   });
