@@ -51,6 +51,12 @@ function createVariant<
       property
     ];
 
+    if (theme[themeKey] === undefined) {
+      throw new Error(
+        `Variant ${themeKey} does not exist in the current theme`,
+      );
+    }
+
     const variantDefaults = theme[themeKey].defaults as Partial<
       AllProps<Theme>
     >;
