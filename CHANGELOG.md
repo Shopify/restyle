@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+* Add a more descriptive error when theme is missing a key for a used variant. [#59](https://github.com/Shopify/restyle/pull/59) by [@Charly6596](https://github.com/Charly6596)
+
 ## 1.3.0 - 2020-09-22
 * Add support for defining default values for variants in the theme. [#51](https://github.com/Shopify/restyle/pull/51) by [@Johan-duitot](https://github.com/Johan-dutoit)
 
