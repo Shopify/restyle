@@ -25,7 +25,8 @@ const Box = createBox<Theme>();
 const Text = createText<Theme>();
 
 const Card = createRestyleComponent<
-  VariantProps<Theme, 'cardVariants'> & React.ComponentProps<typeof Box>
+  VariantProps<Theme, 'cardVariants'> & React.ComponentProps<typeof Box>,
+  Theme
 >([createVariant({themeKey: 'cardVariants'})], Box);
 
 const Welcome = () => {
