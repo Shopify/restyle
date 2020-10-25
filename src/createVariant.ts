@@ -52,15 +52,9 @@ function createVariant<
       property
     ];
 
-    if (theme[themeKey] === undefined) {
-      throw new Error(
-        `Variant ${themeKey} does not exist in the current theme`,
-      );
-    }
-
-    const variantDefaults = theme[themeKey].defaults as Partial<
-      AllProps<Theme>
-    >;
+    const variantDefaults = theme[themeKey]
+      ? (theme[themeKey].defaults as Partial<AllProps<Theme>>)
+      : {};
 
     if (!expandedProps && !defaults && !variantDefaults) return {};
     return allRestyleFunctions.buildStyle(
