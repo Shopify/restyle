@@ -45,7 +45,7 @@ const composeRestyleFunctions = <
     },
   ): RNStyle => {
     return funcs.reduce((acc, func) => {
-      return {...acc, ...func(props, {theme, dimensions})};
+      return Object.assign(acc, func(props, {theme, dimensions}));
     }, {});
   };
   return {
