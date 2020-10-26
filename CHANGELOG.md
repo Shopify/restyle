@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+
+## 1.3.1 - 2020-10-26
 * Silently ignore any errors caused by missing a variant definition in the theme (e.g. textVariants), to preserve backwards compatibility. [#64](https://github.com/Shopify/restyle/pull/64) by [@jonogreenz](https://github.com/jonogreenz)
 * Disallow creating a variant with the existing base theme keys of `colors, spacing, breakpoints, zIndices, borderRadii`. [#64](https://github.com/Shopify/restyle/pull/64) by [@jonogreenz](https://github.com/jonogreenz)
 * Improve rendering performance by removing unnecessary uses of the spread operator. [#63](https://github.com/Shopify/restyle/pull/63) by [@JoelBesada](https://github.com/JoelBesada)
