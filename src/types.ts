@@ -4,7 +4,9 @@ export type ResponsiveValue<Value, Theme extends BaseTheme> =
   | Value
   | {[Key in keyof Theme['breakpoints']]?: Value};
 
-export interface BaseTheme {
+export type SafeVariants<T> = Omit<T, keyof KnownBaseTheme>;
+
+export interface KnownBaseTheme {
   colors: {
     [key: string]: string;
   };
@@ -20,6 +22,9 @@ export interface BaseTheme {
   borderRadii?: {
     [key: string]: number;
   };
+}
+
+export interface BaseTheme extends KnownBaseTheme {
   [key: string]: any;
 }
 

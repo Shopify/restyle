@@ -3,6 +3,7 @@ import {
   ResponsiveValue,
   RestyleFunctionContainer,
   RestyleFunction,
+  SafeVariants,
 } from './types';
 import createRestyleFunction from './createRestyleFunction';
 import {all, AllProps} from './restyleFunctions';
@@ -13,7 +14,7 @@ const allRestyleFunctions = composeRestyleFunctions(all);
 // With Custom Prop Name
 function createVariant<
   Theme extends BaseTheme,
-  K extends keyof Theme = keyof Theme,
+  K extends keyof SafeVariants<Theme> = keyof SafeVariants<Theme>,
   P extends keyof any = keyof any
 >(params: {
   property: P;
@@ -23,14 +24,14 @@ function createVariant<
 // Without Custom Prop Name
 function createVariant<
   Theme extends BaseTheme,
-  K extends keyof Theme = keyof Theme
+  K extends keyof SafeVariants<Theme> = keyof SafeVariants<Theme>
 >(params: {
   themeKey: K;
   defaults?: AllProps<Theme>;
 }): RestyleFunctionContainer<VariantProps<Theme, K>, Theme, 'variant', K>;
 function createVariant<
   Theme extends BaseTheme,
-  K extends keyof Theme,
+  K extends keyof SafeVariants<Theme>,
   P extends keyof any,
   TProps extends VariantProps<Theme, K, P>
 >({
@@ -51,15 +52,9 @@ function createVariant<
       property
     ];
 
-    if (theme[themeKey] === undefined) {
-      throw new Error(
-        `Variant ${themeKey} does not exist in the current theme`,
-      );
-    }
-
-    const variantDefaults = theme[themeKey].defaults as Partial<
-      AllProps<Theme>
-    >;
+    const variantDefaults = theme[themeKey]
+      ? (theme[themeKey].defaults as Partial<AllProps<Theme>>)
+      : {};
 
     if (!expandedProps && !defaults && !variantDefaults) return {};
     return allRestyleFunctions.buildStyle(
