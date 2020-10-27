@@ -369,6 +369,7 @@ The Restyle library comes with a number of predefined Restyle functions for your
 | shadow           | shadowColor                                                                                                                                                                                         | colors      |
 | textShadow       | textShadowOffset, textShadowRadius                                                                                                                                                                  | _none_      |
 | textShadow       | textShadowColor                                                                                                                                                                                     | colors      |
+| textDecorationColor       | textDecorationColor                                                                                                                                                                                     | colors      |
 | typography       | fontFamily, fontSize, fontStyle, fontWeight, letterSpacing, lineHeight, textAlign, textDecorationLine, textDecorationStyle, textTransform                                                           | _none_      |
 
 #### Custom Restyle Functions
