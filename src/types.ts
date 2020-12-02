@@ -12,7 +12,7 @@ export interface BaseTheme {
     [key: string]: number;
   };
   breakpoints: {
-    [key: string]: number;
+    [key: string]: Breakpoint;
   };
   zIndices?: {
     [key: string]: number;
@@ -22,6 +22,8 @@ export interface BaseTheme {
   };
   [key: string]: any;
 }
+
+export type Breakpoint = number | Dimensions;
 
 export interface Dimensions {
   width: number;

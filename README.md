@@ -464,12 +464,18 @@ Arguments:
 
 Any prop powered by Restyle can optionally accept a value for each screen size, as defined by the `breakpoints` object in the theme:
 
+> Breakpoints can be defined by either a single value (width) or an object containing both width & height.
+
 ```tsx
 // In your theme
 const theme = createTheme({
   // ...
   breakpoints: {
-    phone: 0,
+    phone: 0, 
+    phoneLong: {
+      width: 376,
+      height: 812
+    }
     tablet: 768,
   }
 })
