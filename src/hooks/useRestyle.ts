@@ -16,16 +16,21 @@ const filterRestyleProps = <
   omitList: (keyof TRestyleProps)[],
 ): Omit<TProps, keyof TRestyleProps> => {
   const omittedProp = omitList.reduce<Record<keyof TRestyleProps, boolean>>(
-    (acc, prop) => ({...acc, [prop]: true}),
+    (acc, prop) => {
+      acc[prop] = true;
+      return acc;
+    },
     {} as Record<keyof TRestyleProps, boolean>,
   );
 
   return getKeys(props).reduce(
     (acc, key) => {
-      if (omittedProp[key as keyof TRestyleProps]) return acc;
-      return {...acc, [key]: props[key]};
+      if (!omittedProp[key as keyof TRestyleProps]) {
+        acc[key] = props[key];
+      }
+      return acc;
     },
-    {} as Omit<TProps, keyof TRestyleProps>,
+    {} as TProps,
   );
 };
 
@@ -54,10 +59,8 @@ const useRestyle = <
     composedRestyleFunction.properties,
   );
 
-  return {
-    ...cleanProps,
-    style: [style, props.style].filter(Boolean),
-  };
+  (cleanProps as TProps).style = [style, props.style].filter(Boolean);
+  return cleanProps;
 };
 
 export default useRestyle;

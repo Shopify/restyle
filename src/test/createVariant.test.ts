@@ -152,6 +152,20 @@ describe('createVariant', () => {
     });
   });
 
+  it('correctly creates textVariants without key in theme', () => {
+    const themeSubset = {...theme};
+    delete themeSubset.textVariants;
+    const variant = createVariant({themeKey: 'textVariants'});
+    expect(variant.func({}, {theme: themeSubset, dimensions})).toStrictEqual(
+      {},
+    );
+  });
+
+  it('correctly creates an unknown variant without key in theme', () => {
+    const variant = createVariant({themeKey: '__variant__'});
+    expect(variant.func({}, {theme, dimensions})).toStrictEqual({});
+  });
+
   it('supports referencing other theme values in the variant', () => {
     const variant = createVariant({themeKey: 'textVariants'});
     expect(
