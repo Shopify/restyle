@@ -559,7 +559,7 @@ Of course, no app is complete without a dark mode. Here a simple example of how 
 ```tsx
 import React, {useState} from 'react';
 import {Switch} from 'react-native';
-import {ThemeProvider, createBox, createText} from '@shopify/restyle';
+import {ThemeProvider, createBox, createText, createTheme} from '@shopify/restyle';
 
 export const palette = {
   purple: '#5A31F4',
