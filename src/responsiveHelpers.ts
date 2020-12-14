@@ -1,4 +1,10 @@
-import {BaseTheme, Dimensions, PropValue, ResponsiveValue} from './types';
+import {
+  BaseTheme,
+  Breakpoint,
+  Dimensions,
+  PropValue,
+  ResponsiveValue,
+} from './types';
 import {getKeys} from './typeHelpers';
 
 export type StyleTransformFunction<
@@ -30,17 +36,28 @@ export const getValueForScreenSize = <Theme extends BaseTheme, TVal>({
   dimensions: Dimensions;
 }): TVal | undefined => {
   const sortedBreakpoints = Object.entries(breakpoints).sort((valA, valB) => {
-    return valA[1] - valB[1];
+    const valAWidth = getWidth(valA[1]);
+    const valBWidth = getWidth(valB[1]);
+
+    return valAWidth - valBWidth;
   });
-  const {width} = dimensions;
-  return sortedBreakpoints.reduce<TVal | undefined>(
-    (acc, [breakpoint, minWidth]) => {
-      if (width >= minWidth && responsiveValue[breakpoint] !== undefined)
-        return responsiveValue[breakpoint] as TVal;
-      return acc;
-    },
-    undefined,
-  );
+
+  const {width, height} = dimensions;
+  return sortedBreakpoints.reduce<TVal | undefined>((acc, [key, value]) => {
+    if (typeof value === 'object') {
+      if (
+        width >= value.width &&
+        height >= value.height &&
+        responsiveValue[key] !== undefined
+      ) {
+        return responsiveValue[key] as TVal;
+      }
+    } else if (width >= value && responsiveValue[key] !== undefined) {
+      return responsiveValue[key] as TVal;
+    }
+
+    return acc;
+  }, undefined);
 };
 
 export const isResponsiveObjectValue = <Theme extends BaseTheme, TVal>(
@@ -93,3 +110,11 @@ export const getResponsiveValue = <
 
   return val;
 };
+
+function getWidth(value: Breakpoint) {
+  if (typeof value === 'object') {
+    return value.width;
+  }
+
+  return value;
+}

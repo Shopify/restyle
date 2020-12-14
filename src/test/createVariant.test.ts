@@ -13,6 +13,10 @@ const theme = {
   breakpoints: {
     phone: 0,
     tablet: 376,
+    specific: {
+      width: 376,
+      height: 400,
+    },
   },
   textVariants: {
     body: {
@@ -28,9 +32,13 @@ const theme = {
       fontSize: {
         phone: 22,
         tablet: 28,
+        specific: 34,
       },
       fontWeight: 'bold',
-      color: 'white',
+      color: {
+        phone: 'black',
+        tablet: 'white',
+      },
     },
   },
   boxVariants: {
@@ -181,13 +189,43 @@ describe('createVariant', () => {
     expect(
       variant.func(
         {variant: 'header'},
-        {theme, dimensions: {width: 768, height: 1024}},
+        {theme, dimensions: {width: 768, height: 300}},
       ),
     ).toStrictEqual({
       fontSize: 28,
       margin: 8,
       fontWeight: 'bold',
       color: '#EEEEEE',
+    });
+  });
+
+  it('supports more complex responsive values', () => {
+    const variant = createVariant({themeKey: 'textVariants'});
+    expect(
+      variant.func(
+        {variant: 'header'},
+        {theme, dimensions: {width: 768, height: 1024}},
+      ),
+    ).toStrictEqual({
+      fontSize: 34,
+      margin: 8,
+      fontWeight: 'bold',
+      color: '#EEEEEE',
+    });
+  });
+
+  it('falls back to the closest width', () => {
+    const variant = createVariant({themeKey: 'textVariants'});
+    expect(
+      variant.func(
+        {variant: 'header'},
+        {theme, dimensions: {width: 375, height: 1024}},
+      ),
+    ).toStrictEqual({
+      fontSize: 22,
+      margin: 8,
+      fontWeight: 'bold',
+      color: '#111111',
     });
   });
 });
