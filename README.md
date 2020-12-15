@@ -190,12 +190,16 @@ const theme = createTheme({
 
 #### Breakpoints
 
-Breakpoints are defined as minimum widths (inclusive) for different target screen sizes where we want to apply differing styles. Consider giving your breakpoints names that give a general idea of the type of device the user is using:
+Breakpoints are defined as minimum widths (inclusive) for different target screen sizes where we want to apply differing styles. Consider giving your breakpoints names that give a general idea of the type of device the user is using. Breakpoints can be defined by either a single value (width) or an object containing both width and height:
 
 ```ts
 const theme = createTheme({
   breakpoints: {
     phone: 0,
+    longPhone: {
+      width: 0,
+      height: 812
+    },
     tablet: 768,
     largeTablet: 1024,
   },
@@ -465,18 +469,12 @@ Arguments:
 
 Any prop powered by Restyle can optionally accept a value for each screen size, as defined by the `breakpoints` object in the theme:
 
-> Breakpoints can be defined by either a single value (width) or an object containing both width & height.
-
 ```tsx
 // In your theme
 const theme = createTheme({
   // ...
   breakpoints: {
     phone: 0, 
-    phoneLong: {
-      width: 376,
-      height: 812
-    }
     tablet: 768,
   }
 })
