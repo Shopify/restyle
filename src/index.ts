@@ -3,6 +3,7 @@ export * from './types';
 export * from './createVariant';
 export * from './createBox';
 export * from './createText';
+export * from './context';
 
 export {default as createVariant} from './createVariant';
 export {default as createBox} from './createBox';
