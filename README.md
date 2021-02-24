@@ -303,7 +303,7 @@ import {
 import {Theme} from './theme'
 
 type Props = SpacingProps<Theme> & VariantProps<Theme, 'cardVariants'>
-const Card = createRestyleComponent<Props>([
+const Card = createRestyleComponent<Props, Theme>([
   spacing,
   createVariant({themeKey: 'cardVariants'})
 ])
@@ -420,7 +420,7 @@ const theme = createTheme({
     tablet: 768,
   },
   cardVariants: {
-    defaults: { 
+    defaults: {
       // We can define defaults for the variant here.
       // This will be applied after the defaults passed to createVariant and before the variant defined below.
     },
@@ -446,6 +446,7 @@ const theme = createTheme({
 })
 
 import {createVariant, createRestyleComponent, VariantProps} from '@shopify/restyle'
+import {Theme} from './theme';
 const variant = createVariant<Theme>({themeKey: 'cardVariants', defaults: {
   margin: {
     phone: 's',
@@ -454,7 +455,7 @@ const variant = createVariant<Theme>({themeKey: 'cardVariants', defaults: {
   backgroundColor: 'cardRegularBackground',
 }})
 
-const Card = createRestyleComponent<VariantProps<Theme, 'cardVariants'>>([variant])
+const Card = createRestyleComponent<VariantProps<Theme, 'cardVariants'>, Theme>([variant])
 
 <Card variant="elevated" />
 ```
@@ -474,7 +475,7 @@ Any prop powered by Restyle can optionally accept a value for each screen size, 
 const theme = createTheme({
   // ...
   breakpoints: {
-    phone: 0, 
+    phone: 0,
     tablet: 768,
   }
 })
@@ -692,19 +693,19 @@ const theme = createTheme({
       body: tokens.colorBlack,
       backgroundRegular: tokens.colorWhite,
       backgroundSubdued: tokens.colorSkyLighter,
-    
+
       foregroundRegular: tokens.colorBlack,
       foregroundOff: tokens.colorInkLight,
       foregroundSubdued: tokens.colorInkLightest,
       foregroundContrasting: tokens.colorWhite,
       foregroundSuccess: tokens.colorGreenDark,
-    
+
       highlightPrimary: tokens.colorIndigo,
       highlightPrimaryDisabled: tokens.colorIndigoLight,
-    
+
       buttonBackgroundPlain: tokens.colorSky,
       errorPrimary: tokens.colorRed,
-    
+
       iconBackgroundDark: tokens.colorBlueDarker,
   },
   spacing: {
