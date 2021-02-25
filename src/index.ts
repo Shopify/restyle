@@ -3,12 +3,11 @@ export * from './types';
 export * from './createVariant';
 export * from './createBox';
 export * from './createText';
-export * from './context';
 
 export {default as createVariant} from './createVariant';
 export {default as createBox} from './createBox';
 export {default as createText} from './createText';
-export {ThemeProvider} from './context';
+export {ThemeProvider, ThemeContext} from './context';
 export {default as useTheme} from './hooks/useTheme';
 export {default as useRestyle} from './hooks/useRestyle';
 export {default as useResponsiveProp} from './hooks/useResponsiveProp';
