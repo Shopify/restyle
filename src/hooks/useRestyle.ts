@@ -40,8 +40,8 @@ const useRestyle = <
   TProps extends TRestyleProps & {style?: StyleProp<RNStyle>}
 >(
   restyleFunctions: (
-    | RestyleFunctionContainer<TRestyleProps, Theme>
-    | RestyleFunctionContainer<TRestyleProps, Theme>[])[],
+    | RestyleFunctionContainer<TProps, Theme>
+    | RestyleFunctionContainer<TProps, Theme>[])[],
   props: TProps,
 ) => {
   const theme = useTheme<Theme>();
