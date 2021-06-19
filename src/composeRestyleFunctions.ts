@@ -1,3 +1,5 @@
+import {StyleSheet} from 'react-native';
+
 import {
   RestyleFunctionContainer,
   BaseTheme,
@@ -44,9 +46,12 @@ const composeRestyleFunctions = <
       dimensions: Dimensions;
     },
   ): RNStyle => {
-    return funcs.reduce((acc, func) => {
+    const style = funcs.reduce((acc, func) => {
       return Object.assign(acc, func(props, {theme, dimensions}));
     }, {});
+    const {styleSheet} = StyleSheet.create({styleSheet: style});
+
+    return styleSheet;
   };
   return {
     buildStyle,
