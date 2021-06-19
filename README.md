@@ -394,7 +394,7 @@ const TransparentComponent = createRestyleComponent([transparency])
 
 Arguments:
 
-- `property`: The name of the component prop that the function will receive tha value of.
+- `property`: The name of the component prop that the function will receive the value of.
 - `styleProperty`: The name of the property in the style object to map to. Defaults to the value of `property`.
 - `transform({value, theme, themeKey})`: An optional function that transforms the value of the prop to the value that will be inserted into the style object.
 - `themeKey`: An optional key in the theme to map values from, e.g. `colors`.
