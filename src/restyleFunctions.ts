@@ -56,6 +56,7 @@ const typographyProperties = {
   textAlign: true,
   textDecorationLine: true,
   textDecorationStyle: true,
+  textDecorationColor: true,
   textTransform: true,
 };
 
