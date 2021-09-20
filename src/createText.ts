@@ -27,7 +27,7 @@ type BaseTextProps<Theme extends BaseTheme> = ColorProps<Theme> &
   TypographyProps<Theme> &
   SpacingProps<Theme> &
   TextShadowProps<Theme> &
-  VariantProps<Theme, 'textVariants'>;
+  VariantProps<Theme, 'typography'>;
 
 export type TextProps<
   Theme extends BaseTheme,
@@ -44,7 +44,7 @@ export const textRestyleFunctions = [
   spacing,
   spacingShorthand,
   textShadow,
-  createVariant({themeKey: 'textVariants'}),
+  createVariant({themeKey: 'typography'}),
 ];
 
 const createText = <

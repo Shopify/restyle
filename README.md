@@ -252,13 +252,13 @@ const Text = createText<Theme>();
 export default Text;
 ```
 
-The Text component comes with the following [Restyle functions](#predefined-restyle-functions): `color`, `opacity`, `visible`, `typography`, `textShadow`, `spacing`. It also includes a [variant](#Variants) that picks up styles under the `textVariants` key in your theme:
+The Text component comes with the following [Restyle functions](#predefined-restyle-functions): `color`, `opacity`, `visible`, `typography`, `textShadow`, `spacing`. It also includes a [variant](#Variants) that picks up styles under the `typography` key in your theme:
 
 ```tsx
 // In your theme
 const theme = createTheme({
   ...,
-  textVariants: {
+  typography: {
     header: {
       fontFamily: 'ShopifySans-Bold',
       fontWeight: 'bold',
@@ -589,7 +589,7 @@ const theme = createTheme({
     secondaryCardText: palette.black,
   },
   breakpoints: {},
-  textVariants: {
+  typography: {
     body: {
       fontSize: 16,
       lineHeight: 24,
