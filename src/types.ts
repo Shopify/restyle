@@ -1,4 +1,4 @@
-import {ImageStyle, TextStyle, ViewStyle} from 'react-native';
+import {ImageStyle, StyleSheet, TextStyle, ViewStyle} from 'react-native';
 
 export type ResponsiveValue<Value, Theme extends BaseTheme> =
   | Value
@@ -66,3 +66,9 @@ export type RNStyleProperty =
   | keyof ImageStyle;
 
 export type PropValue = string | number | undefined | null;
+
+export type RNStyleSheetType<T> = StyleSheet.NamedStyles<T>;
+
+export type CreateStyleFn<T extends RNStyleSheetType<T>, U extends BaseTheme> =
+  | ((theme: U) => T)
+  | T;
