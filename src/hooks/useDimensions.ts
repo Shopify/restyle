@@ -13,9 +13,13 @@ const useDimensions = () => {
   };
 
   useEffect(() => {
-    Dimensions.addEventListener('change', onChange);
+    const subscription = Dimensions.addEventListener('change', onChange) as any;
 
-    return () => Dimensions.removeEventListener('change', onChange);
+    return () =>
+      // Using removeEventListener is deprecated in react-native > 0.65 and will throw warning. Use .remove() if available.
+      subscription && subscription.remove
+        ? subscription.remove()
+        : Dimensions.removeEventListener('change', onChange);
   }, []);
 
   return dimensions;
