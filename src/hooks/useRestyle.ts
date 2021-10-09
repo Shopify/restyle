@@ -48,19 +48,21 @@ const useRestyle = <
 
   const dimensions = useDimensions();
 
-  const composedRestyleFunction = useMemo(
-    () => composeRestyleFunctions(restyleFunctions),
-    [restyleFunctions],
-  );
+  const restyled = useMemo(() => {
+    const composedRestyleFunction = composeRestyleFunctions(restyleFunctions);
+    const style = composedRestyleFunction.buildStyle(props, {
+      theme,
+      dimensions,
+    });
+    const cleanProps = filterRestyleProps(
+      props,
+      composedRestyleFunction.properties,
+    );
+    (cleanProps as TProps).style = [style, props.style].filter(Boolean);
+    return cleanProps;
+  }, [restyleFunctions, props, dimensions]);
 
-  const style = composedRestyleFunction.buildStyle(props, {theme, dimensions});
-  const cleanProps = filterRestyleProps(
-    props,
-    composedRestyleFunction.properties,
-  );
-
-  (cleanProps as TProps).style = [style, props.style].filter(Boolean);
-  return cleanProps;
+  return restyled;
 };
 
 export default useRestyle;
