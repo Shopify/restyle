@@ -666,7 +666,7 @@ export default App;
 
 ### Getting Setup With the Shopify Design System
 
-To start using Shopify style assets we can leverage [Polaris tokens](https://github.com/Shopify/polaris-tokens). You can see all of the tokens [here](https://polaris-tokens.herokuapp.com/).
+To start using Shopify style assets we can leverage [Polaris tokens](https://github.com/Shopify/polaris-tokens). You can see all of the tokens [here](https://github.com/Shopify/polaris-react/blob/main/documentation/Color%20system.md).
 
 #### Installation
 Using  [npm](https://www.npmjs.com/):
