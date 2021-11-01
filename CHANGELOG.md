@@ -9,6 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 * Export ThemeContext for outside use. [#80](https://github.com/Shopify/restyle/pull/80) by [@mohsinulhaq](https://github.com/mohsinulhaq)
 * Fixing the example usages of createRestyleComponent in the README. [#82] (https://github.com/Shopify/restyle/pull/82) by [@lucasstorti](https://github.com/lucasstorti)
 * Fix ts error for useRestyle hook. [#87](https://github.com/Shopify/restyle/pull/87) by [@andre-krueger](https://github.com/andre-krueger)
+* Improve web support with StyleSheet when creating styles. [#94] (https://github.com/Shopify/restyle/pull/94) by [@yuriazevedo11](https://github.com/yuriazevedo11)
 * Fix removeEventListener warning in rn0.65. [#112](https://github.com/Shopify/restyle/pull/112) by [@alexanderstrom](https://github.com/alexanderstrom)
 * Update outdated Polaris tokens link in README.md. [#114](https://github.com/Shopify/restyle/pull/114) by [@nelyousfi](https://github.com/nelyousfi)
 
