@@ -1,9 +1,18 @@
-import {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {Dimensions} from 'react-native';
 
 import {Dimensions as DimensionsType} from '../types';
 
-const useDimensions = () => {
+const DimensionsContext = React.createContext<DimensionsType>({
+  width: 0,
+  height: 0,
+})
+
+export const DimensionsProvider = ({
+  children,
+}: {
+  children: React.ReactNode
+}) => {
   const [dimensions, setDimensions] = useState<DimensionsType>(
     Dimensions.get('window'),
   );
@@ -22,7 +31,13 @@ const useDimensions = () => {
         : Dimensions.removeEventListener('change', onChange);
   }, []);
 
-  return dimensions;
+  return (
+    <DimensionsContext.Provider value={dimensions}>
+      { children }
+    </DimensionsContext.Provider>
+  )
 };
+
+const useDimensions = () => useContext(DimensionsContext)
 
 export default useDimensions;
