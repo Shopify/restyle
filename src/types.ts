@@ -1,8 +1,20 @@
 import {ImageStyle, TextStyle, ViewStyle} from 'react-native';
 
+export type AtLeastOneResponsiveValue<
+  Value,
+  Theme extends BaseTheme,
+  B = Theme['breakpoints'],
+  R = {[Key in keyof B]: Record<Key, Value>}
+> = Partial<
+  {
+    [K in keyof B]: Value;
+  }
+> &
+  R[keyof R];
+
 export type ResponsiveValue<Value, Theme extends BaseTheme> =
   | Value
-  | {[Key in keyof Theme['breakpoints']]?: Value};
+  | AtLeastOneResponsiveValue<Value, Theme>;
 
 export type SafeVariants<T> = Omit<T, keyof KnownBaseTheme>;
 
