@@ -40,3 +40,10 @@ function Button({title, ...rest}: Props) {
 function Screen() {
   return <Button title="test" position="absolute" />;
 }
+
+describe('Use restyle', () => {
+  it('creates a button', () => {
+    const button = Screen();
+    expect(button.props.title).toStrictEqual('test');
+  });
+});

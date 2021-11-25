@@ -60,7 +60,7 @@ const useRestyle = <
     );
     (cleanProps as TProps).style = [style, props.style].filter(Boolean);
     return cleanProps;
-  }, [restyleFunctions, props, dimensions]);
+  }, [restyleFunctions, props, dimensions, theme]);
 
   return restyled;
 };

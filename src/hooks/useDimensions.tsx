@@ -6,13 +6,9 @@ import {Dimensions as DimensionsType} from '../types';
 const DimensionsContext = React.createContext<DimensionsType>({
   width: 0,
   height: 0,
-})
+});
 
-export const DimensionsProvider = ({
-  children,
-}: {
-  children: React.ReactNode
-}) => {
+export const DimensionsProvider = ({children}: {children: React.ReactNode}) => {
   const [dimensions, setDimensions] = useState<DimensionsType>(
     Dimensions.get('window'),
   );
@@ -33,11 +29,11 @@ export const DimensionsProvider = ({
 
   return (
     <DimensionsContext.Provider value={dimensions}>
-      { children }
+      {children}
     </DimensionsContext.Provider>
-  )
+  );
 };
 
-const useDimensions = () => useContext(DimensionsContext)
+const useDimensions = () => useContext(DimensionsContext);
 
 export default useDimensions;
