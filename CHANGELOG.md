@@ -8,6 +8,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ## Unreleased
 * Fix incorrect props when empty breakpoints. [#115](https://github.com/Shopify/restyle/pull/115) by [@nelyousfi](https://github.com/nelyousfi)
 * Improve rendering performance on breakpoint changes and re-renders. [#113](https://github.com/Shopify/restyle/pull/113) by [@omulet](https://github.com/omulet)
+* Updated React Native to 0.66 and fixed eslint issues.  [#117](https://github.com/Shopify/restyle/pull/117) by [@davebcn87](https://github.com/davebcn87)
 
 ## 1.5.0 - 2020-11-01
 * Export ThemeContext for outside use. [#80](https://github.com/Shopify/restyle/pull/80) by [@mohsinulhaq](https://github.com/mohsinulhaq)
