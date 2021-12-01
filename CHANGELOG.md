@@ -7,6 +7,9 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+## 1.6.1 - 2020-12-01
+* Allow using 'auto' as value of spacing props. [#118](https://github.com/Shopify/restyle/pull/118) by [sbalay](https://github.com/sbalay)
+
 ## 1.6.0 - 2020-11-25
 * Fix incorrect props when empty breakpoints. [#115](https://github.com/Shopify/restyle/pull/115) by [@nelyousfi](https://github.com/nelyousfi)
 * Improve rendering performance on breakpoint changes and re-renders. [#113](https://github.com/Shopify/restyle/pull/113) by [@omulet](https://github.com/omulet)
