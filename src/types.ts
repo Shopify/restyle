@@ -23,7 +23,7 @@ export interface KnownBaseTheme {
     [key: string]: string;
   };
   spacing: {
-    [key: string]: number | 'auto';
+    [key: string]: number | string;
   };
   breakpoints: {
     [key: string]: Breakpoint;
