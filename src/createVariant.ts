@@ -1,3 +1,5 @@
+import {StyleSheet} from 'react-native';
+
 import {
   BaseTheme,
   ResponsiveValue,
@@ -57,12 +59,14 @@ function createVariant<
       : {};
 
     if (!expandedProps && !defaults && !variantDefaults) return {};
-    return allRestyleFunctions.buildStyle(
-      {...defaults, ...variantDefaults, ...expandedProps},
-      {
-        theme,
-        dimensions,
-      },
+    return StyleSheet.flatten(
+      allRestyleFunctions.buildStyle(
+        {...defaults, ...variantDefaults, ...expandedProps},
+        {
+          theme,
+          dimensions,
+        },
+      ),
     );
   };
   return {
