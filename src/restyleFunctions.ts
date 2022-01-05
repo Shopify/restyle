@@ -50,6 +50,7 @@ const typographyProperties = {
   fontFamily: true,
   fontSize: true,
   fontStyle: true,
+  fontVariant: true,
   fontWeight: true,
   letterSpacing: true,
   lineHeight: true,
