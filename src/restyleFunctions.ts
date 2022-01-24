@@ -55,6 +55,7 @@ const typographyProperties = {
   letterSpacing: true,
   lineHeight: true,
   textAlign: true,
+  textAlignVertical: true,
   textDecorationLine: true,
   textDecorationStyle: true,
   textTransform: true,
