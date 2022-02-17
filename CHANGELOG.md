@@ -5,17 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased
-
-## 1.6.1 - 2020-12-01
+## 1.6.1 - 2021-12-01
 * Allow using 'auto' as value of spacing props. [#118](https://github.com/Shopify/restyle/pull/118) by [sbalay](https://github.com/sbalay)
 
-## 1.6.0 - 2020-11-25
+## 1.6.0 - 2021-11-25
 * Fix incorrect props when empty breakpoints. [#115](https://github.com/Shopify/restyle/pull/115) by [@nelyousfi](https://github.com/nelyousfi)
 * Improve rendering performance on breakpoint changes and re-renders. [#113](https://github.com/Shopify/restyle/pull/113) by [@omulet](https://github.com/omulet)
 * Updated React Native to 0.66 and fixed eslint issues.  [#117](https://github.com/Shopify/restyle/pull/117) by [@davebcn87](https://github.com/davebcn87)
 
-## 1.5.0 - 2020-11-01
+## 1.5.0 - 2021-11-01
 * Export ThemeContext for outside use. [#80](https://github.com/Shopify/restyle/pull/80) by [@mohsinulhaq](https://github.com/mohsinulhaq)
 * Fixing the example usages of createRestyleComponent in the README. [#82](https://github.com/Shopify/restyle/pull/82) by [@lucasstorti](https://github.com/lucasstorti)
 * Fix ts error for useRestyle hook. [#87](https://github.com/Shopify/restyle/pull/87) by [@andre-krueger](https://github.com/andre-krueger)
