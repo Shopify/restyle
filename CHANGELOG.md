@@ -5,8 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 1.7.0 - 2022-02-24
+* Performance improvements [#131](https://github.com/Shopify/restyle/pull/131) by [sbalay](https://github.com/sbalay)
+
 ## 1.6.2 - 2022-02-21
-* Fix web support for variants [#121](https://github.com/Shopify/restyle/pull/) by [dobrea-v](https://github.com/dobrea-v)
+* Fix web support for variants [#121](https://github.com/Shopify/restyle/pull/121) by [dobrea-v](https://github.com/dobrea-v)
 
 ## 1.6.1 - 2021-12-01
 * Allow using 'auto' as value of spacing props. [#118](https://github.com/Shopify/restyle/pull/118) by [sbalay](https://github.com/sbalay)
