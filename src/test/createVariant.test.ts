@@ -18,7 +18,7 @@ const theme = {
       height: 400,
     },
   },
-  textVariants: {
+  typography: {
     body: {
       fontSize: 14,
       lineHeight: 18,
@@ -65,7 +65,7 @@ const dimensions = {
 
 describe('createVariant', () => {
   it('expands a variant to the given values in the theme', () => {
-    const variant = createVariant({themeKey: 'textVariants'});
+    const variant = createVariant({themeKey: 'typography'});
     expect(variant.func({variant: 'body'}, {theme, dimensions})).toStrictEqual({
       fontSize: 14,
       lineHeight: 18,
@@ -74,7 +74,7 @@ describe('createVariant', () => {
 
   it('accepts defaults', () => {
     const variant = createVariant({
-      themeKey: 'textVariants',
+      themeKey: 'typography',
       defaults: {
         fontSize: 10,
         opacity: 0.5,
@@ -147,7 +147,7 @@ describe('createVariant', () => {
 
   it('correctly overrides default values', () => {
     const variant = createVariant({
-      themeKey: 'textVariants',
+      themeKey: 'typography',
       defaults: {
         fontSize: 10,
         opacity: 0.5,
@@ -160,10 +160,10 @@ describe('createVariant', () => {
     });
   });
 
-  it('correctly creates textVariants without key in theme', () => {
+  it('correctly creates typography without key in theme', () => {
     const themeSubset = {...theme};
-    delete themeSubset.textVariants;
-    const variant = createVariant({themeKey: 'textVariants'});
+    delete themeSubset.typography;
+    const variant = createVariant({themeKey: 'typography'});
     expect(variant.func({}, {theme: themeSubset, dimensions})).toStrictEqual(
       {},
     );
@@ -175,7 +175,7 @@ describe('createVariant', () => {
   });
 
   it('supports referencing other theme values in the variant', () => {
-    const variant = createVariant({themeKey: 'textVariants'});
+    const variant = createVariant({themeKey: 'typography'});
     expect(
       variant.func({variant: 'subheader'}, {theme, dimensions}),
     ).toStrictEqual({
@@ -185,7 +185,7 @@ describe('createVariant', () => {
   });
 
   it('supports responsive values', () => {
-    const variant = createVariant({themeKey: 'textVariants'});
+    const variant = createVariant({themeKey: 'typography'});
     expect(
       variant.func(
         {variant: 'header'},
@@ -200,7 +200,7 @@ describe('createVariant', () => {
   });
 
   it('supports more complex responsive values', () => {
-    const variant = createVariant({themeKey: 'textVariants'});
+    const variant = createVariant({themeKey: 'typography'});
     expect(
       variant.func(
         {variant: 'header'},
@@ -215,7 +215,7 @@ describe('createVariant', () => {
   });
 
   it('falls back to the closest width', () => {
-    const variant = createVariant({themeKey: 'textVariants'});
+    const variant = createVariant({themeKey: 'typography'});
     expect(
       variant.func(
         {variant: 'header'},
