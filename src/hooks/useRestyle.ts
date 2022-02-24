@@ -1,4 +1,4 @@
-import {useMemo} from 'react';
+import {useMemo, useRef} from 'react';
 import {StyleProp, ViewStyle, TextStyle, ImageStyle} from 'react-native';
 
 import {BaseTheme, RNStyle, Dimensions} from '../types';
@@ -15,14 +15,23 @@ const filterRestyleProps = <
   omitPropertiesMap: Record<keyof TProps, boolean>,
 ) => {
   return getKeys(props).reduce(
-    ({cleanProps, restyleProps}, key) => {
+    ({cleanProps, restyleProps, serialized}, key) => {
       if (omitPropertiesMap[key as keyof TProps]) {
-        return {cleanProps, restyleProps: {...restyleProps, [key]: props[key]}};
+        return {
+          serialized: `${serialized}${key}:${props[key]};`,
+          cleanProps,
+          restyleProps: {...restyleProps, [key]: props[key]},
+        };
       } else {
-        return {cleanProps: {...cleanProps, [key]: props[key]}, restyleProps};
+        return {
+          serialized,
+          cleanProps: {...cleanProps, [key]: props[key]},
+          restyleProps,
+        };
       }
     },
-    {cleanProps: {}, restyleProps: {}} as {
+    {cleanProps: {}, restyleProps: {}, serialized: ''} as {
+      serialized: string;
       cleanProps: TProps;
       restyleProps: TRestyleProps;
     },
@@ -51,24 +60,30 @@ const useRestyle = <
   props: TProps,
 ) => {
   const theme = useTheme<Theme>();
-
   const dimensions = useDimensions();
+  const restylePropsRef = useRef<TProps>();
 
-  const restyled = useMemo(() => {
-    const {cleanProps, restyleProps} = filterRestyleProps(
-      props,
-      composedRestyleFunction.propertiesMap,
-    );
-    const style = composedRestyleFunction.buildStyle(restyleProps, {
+  const {restyleProps, cleanProps, serialized} = filterRestyleProps(
+    props,
+    composedRestyleFunction.propertiesMap,
+  );
+
+  restylePropsRef.current = restyleProps as TProps;
+
+  const calculatedStyle = useMemo(() => {
+    const style = composedRestyleFunction.buildStyle(restylePropsRef.current!, {
       theme,
       dimensions,
     });
 
-    cleanProps.style = [style, props.style].filter(Boolean);
-    return cleanProps;
-  }, [composedRestyleFunction, props, dimensions, theme]);
+    return [style, props.style].filter(Boolean);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [composedRestyleFunction, theme, dimensions, props.style, serialized]);
 
-  return restyled;
+  return {
+    ...cleanProps,
+    style: calculatedStyle,
+  };
 };
 
 export default useRestyle;
