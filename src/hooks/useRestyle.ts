@@ -1,8 +1,7 @@
 import {useMemo} from 'react';
-import {StyleProp} from 'react-native';
+import {StyleProp, ViewStyle, TextStyle, ImageStyle} from 'react-native';
 
-import {BaseTheme, RestyleFunctionContainer, RNStyle} from '../types';
-import composeRestyleFunctions from '../composeRestyleFunctions';
+import {BaseTheme, RNStyle, Dimensions} from '../types';
 import {getKeys} from '../typeHelpers';
 
 import useDimensions from './useDimensions';
@@ -13,24 +12,20 @@ const filterRestyleProps = <
   TProps extends Record<string, unknown> & TRestyleProps
 >(
   props: TProps,
-  omitList: (keyof TRestyleProps)[],
-): Omit<TProps, keyof TRestyleProps> => {
-  const omittedProp = omitList.reduce<Record<keyof TRestyleProps, boolean>>(
-    (acc, prop) => {
-      acc[prop] = true;
-      return acc;
-    },
-    {} as Record<keyof TRestyleProps, boolean>,
-  );
-
+  omitPropertiesMap: Record<keyof TProps, boolean>,
+) => {
   return getKeys(props).reduce(
-    (acc, key) => {
-      if (!omittedProp[key as keyof TRestyleProps]) {
-        acc[key] = props[key];
+    ({cleanProps, restyleProps}, key) => {
+      if (omitPropertiesMap[key as keyof TProps]) {
+        return {cleanProps, restyleProps: {...restyleProps, [key]: props[key]}};
+      } else {
+        return {cleanProps: {...cleanProps, [key]: props[key]}, restyleProps};
       }
-      return acc;
     },
-    {} as TProps,
+    {cleanProps: {}, restyleProps: {}} as {
+      cleanProps: TProps;
+      restyleProps: TRestyleProps;
+    },
   );
 };
 
@@ -39,9 +34,20 @@ const useRestyle = <
   TRestyleProps extends Record<string, any>,
   TProps extends TRestyleProps & {style?: StyleProp<RNStyle>}
 >(
-  restyleFunctions: (
-    | RestyleFunctionContainer<TProps, Theme>
-    | RestyleFunctionContainer<TProps, Theme>[])[],
+  composedRestyleFunction: {
+    buildStyle: <TInputProps extends TProps>(
+      props: TInputProps,
+      {
+        theme,
+        dimensions,
+      }: {
+        theme: Theme;
+        dimensions: Dimensions;
+      },
+    ) => ViewStyle | TextStyle | ImageStyle;
+    properties: (keyof TProps)[];
+    propertiesMap: Record<keyof TProps, boolean>;
+  },
   props: TProps,
 ) => {
   const theme = useTheme<Theme>();
@@ -49,18 +55,18 @@ const useRestyle = <
   const dimensions = useDimensions();
 
   const restyled = useMemo(() => {
-    const composedRestyleFunction = composeRestyleFunctions(restyleFunctions);
-    const style = composedRestyleFunction.buildStyle(props, {
+    const {cleanProps, restyleProps} = filterRestyleProps(
+      props,
+      composedRestyleFunction.propertiesMap,
+    );
+    const style = composedRestyleFunction.buildStyle(restyleProps, {
       theme,
       dimensions,
     });
-    const cleanProps = filterRestyleProps(
-      props,
-      composedRestyleFunction.properties,
-    );
-    (cleanProps as TProps).style = [style, props.style].filter(Boolean);
+
+    cleanProps.style = [style, props.style].filter(Boolean);
     return cleanProps;
-  }, [restyleFunctions, props, dimensions, theme]);
+  }, [composedRestyleFunction, props, dimensions, theme]);
 
   return restyled;
 };

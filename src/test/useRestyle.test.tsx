@@ -4,6 +4,7 @@ import {Text, TouchableOpacity} from 'react-native';
 import useRestyle from '../hooks/useRestyle';
 import {position, PositionProps} from '../restyleFunctions';
 import createVariant, {VariantProps} from '../createVariant';
+import composeRestyleFunctions from '../composeRestyleFunctions';
 
 const theme = {
   colors: {},
@@ -15,21 +16,27 @@ const theme = {
     phone: 0,
     tablet: 376,
   },
+  zIndices: {
+    phone: 5,
+  },
 };
 type Theme = typeof theme;
 
 type Props = VariantProps<Theme, 'buttonVariants'> &
-  PositionProps<Theme> & {
-    title: string;
-  } & ComponentPropsWithoutRef<typeof TouchableOpacity>;
+  PositionProps<Theme> &
+  ComponentPropsWithoutRef<typeof TouchableOpacity>;
 
 const restyleFunctions = [
   position,
-  createVariant({themeKey: 'buttonVariants'}),
+  createVariant<Theme>({themeKey: 'buttonVariants'}),
 ];
 
-function Button({title, ...rest}: Props) {
-  const props = useRestyle(restyleFunctions, rest);
+const composedRestyleFunction = composeRestyleFunctions<Theme, Props>(
+  restyleFunctions,
+);
+
+function Button({title, ...rest}: Props & {title: string}) {
+  const props = useRestyle(composedRestyleFunction, rest);
   return (
     <TouchableOpacity {...props}>
       <Text>{title}</Text>
