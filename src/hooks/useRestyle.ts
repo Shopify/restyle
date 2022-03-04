@@ -15,16 +15,25 @@ const filterRestyleProps = <
   omitPropertiesMap: Record<keyof TProps, boolean>,
 ) => {
   return getKeys(props).reduce(
-    ({cleanProps, restyleProps}, key) => {
+    ({cleanProps, restyleProps, serializedRestyleProps}, key) => {
       if (omitPropertiesMap[key as keyof TProps]) {
-        return {cleanProps, restyleProps: {...restyleProps, [key]: props[key]}};
+        return {
+          cleanProps,
+          restyleProps: {...restyleProps, [key]: props[key]},
+          serializedRestyleProps: `${serializedRestyleProps}${key}:${props[key]};`,
+        };
       } else {
-        return {cleanProps: {...cleanProps, [key]: props[key]}, restyleProps};
+        return {
+          cleanProps: {...cleanProps, [key]: props[key]},
+          restyleProps,
+          serializedRestyleProps,
+        };
       }
     },
-    {cleanProps: {}, restyleProps: {}} as {
+    {cleanProps: {}, restyleProps: {}, serializedRestyleProps: ''} as {
       cleanProps: TProps;
       restyleProps: TRestyleProps;
+      serializedRestyleProps: string;
     },
   );
 };
@@ -51,24 +60,36 @@ const useRestyle = <
   props: TProps,
 ) => {
   const theme = useTheme<Theme>();
-
   const dimensions = useDimensions();
 
-  const restyled = useMemo(() => {
-    const {cleanProps, restyleProps} = filterRestyleProps(
-      props,
-      composedRestyleFunction.propertiesMap,
-    );
-    const style = composedRestyleFunction.buildStyle(restyleProps, {
+  const {cleanProps, restyleProps, serializedRestyleProps} = filterRestyleProps(
+    props,
+    composedRestyleFunction.propertiesMap,
+  );
+
+  const calculatedStyle = useMemo(() => {
+    const style = composedRestyleFunction.buildStyle(restyleProps as TProps, {
       theme,
       dimensions,
     });
 
-    cleanProps.style = [style, props.style].filter(Boolean);
-    return cleanProps;
-  }, [composedRestyleFunction, props, dimensions, theme]);
+    return [style, props.style].filter(Boolean);
+    // We disable the exhaustive deps rule here in order to trigger the useMemo
+    // when the serialized string of restyleProps changes instead of the object
+    // reference which will change on every render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    theme,
+    dimensions,
+    props.style,
+    serializedRestyleProps,
+    composedRestyleFunction,
+  ]);
 
-  return restyled;
+  return {
+    ...cleanProps,
+    style: calculatedStyle,
+  };
 };
 
 export default useRestyle;
