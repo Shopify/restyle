@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+## 1.8.0 - 2022-03-04
+* Send a stable reference for style object [#133](https://github.com/Shopify/restyle/pull/133) by [jamesism](https://github.com/jamesism)
 
 ## 1.7.0 - 2022-02-24
 * Performance improvements [#131](https://github.com/Shopify/restyle/pull/131) by [sbalay](https://github.com/sbalay)
