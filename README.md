@@ -726,6 +726,10 @@ export default theme;
 ```
 Now you can easily style your components with [Shopify Polaris](https://polaris.shopify.com/).
 
+### Migrating to restyle v2
+
+Read more about migration to v2 [here](./docs/MIGRATING_TO_V2.md)
+
 ### Inspiration
 
 Restyle is heavily inspired by [https://styled-system.com](https://styled-system.com/).
