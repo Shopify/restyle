@@ -14,3 +14,4 @@ export {default as useResponsiveProp} from './hooks/useResponsiveProp';
 export {default as createTheme} from './createTheme';
 export {default as createRestyleFunction} from './createRestyleFunction';
 export {default as createRestyleComponent} from './createRestyleComponent';
+export {default as composeRestyleFunctions} from './composeRestyleFunctions';
