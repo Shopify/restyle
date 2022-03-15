@@ -74,9 +74,7 @@ const useRestyle = <
     });
 
     if (typeof props.style === "function") {
-      return (...args) => {
-        return {...style, ...props.style(...args)};
-      }
+      return (...args) => ({...style, ...props.style(...args)});
     }
 
     return [style, props.style].filter(Boolean);
