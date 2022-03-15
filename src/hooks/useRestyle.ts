@@ -73,6 +73,12 @@ const useRestyle = <
       dimensions,
     });
 
+    if (typeof props.style === "function") {
+      return (...args) => {
+        return {...style, ...props.style(...args)};
+      }
+    }
+
     return [style, props.style].filter(Boolean);
     // We disable the exhaustive deps rule here in order to trigger the useMemo
     // when the serialized string of restyleProps changes instead of the object
