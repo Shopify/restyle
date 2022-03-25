@@ -335,9 +335,9 @@ type RestyleProps = SpacingProps<Theme> &
 
 const restyleFunctions = composeRestyleFunctions<Theme, RestyleProps>([spacing, border, backgroundColor]);
 
-type Props = RestyleProps &  & {
+type Props = RestyleProps & {
   onPress: () => void;
-}
+};
 
 const Button = ({onPress, label, ...rest}: Props) => {
   const props = useRestyle(restyleFunctions, rest);
