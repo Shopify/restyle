@@ -329,12 +329,15 @@ import {
 import Text from './Text';
 import {Theme} from './theme';
 
-const restyleFunctions = composeRestyleFunctions([spacing, border, backgroundColor]);
-type Props = SpacingProps<Theme> &
+type RestyleProps = SpacingProps<Theme> &
   BorderProps<Theme> &
-  BackgroundColorProps<Theme> & {
-    onPress: () => void;
-  };
+  BackgroundColorProps<Theme>;
+
+const restyleFunctions = composeRestyleFunctions<Theme, RestyleProps>([spacing, border, backgroundColor]);
+
+type Props = RestyleProps &  & {
+  onPress: () => void;
+}
 
 const Button = ({onPress, label, ...rest}: Props) => {
   const props = useRestyle(restyleFunctions, rest);
