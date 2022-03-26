@@ -75,7 +75,7 @@ const useRestyle = <
 
     const styleProp = props.style;
     if (typeof styleProp === 'function') {
-      return (...args: any[]) => [style, styleProp(args)];
+      return (...args: any[]) => [style, styleProp(...args)];
     }
 
     return [style, styleProp].filter(Boolean);
