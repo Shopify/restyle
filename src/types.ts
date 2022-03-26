@@ -1,4 +1,4 @@
-import {ImageStyle, TextStyle, ViewStyle} from 'react-native';
+import {ImageStyle, TextStyle, ViewStyle, StyleProp} from 'react-native';
 
 export type AtLeastOneResponsiveValue<
   Value,
@@ -70,7 +70,11 @@ export type RestyleFunction<
   [key in S]?: any;
 };
 
-export type RNStyle = ViewStyle | TextStyle | ImageStyle;
+export type RNStyle =
+  | ViewStyle
+  | TextStyle
+  | ImageStyle
+  | ((...args: any[]) => StyleProp<ViewStyle>);
 
 export type RNStyleProperty =
   | keyof ViewStyle

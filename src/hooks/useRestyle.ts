@@ -1,5 +1,5 @@
 import {useMemo} from 'react';
-import {StyleProp, ViewStyle, TextStyle, ImageStyle} from 'react-native';
+import {StyleProp} from 'react-native';
 
 import {BaseTheme, RNStyle, Dimensions} from '../types';
 import {getKeys} from '../typeHelpers';
@@ -53,7 +53,7 @@ const useRestyle = <
         theme: Theme;
         dimensions: Dimensions;
       },
-    ) => ViewStyle | TextStyle | ImageStyle;
+    ) => RNStyle;
     properties: (keyof TProps)[];
     propertiesMap: Record<keyof TProps, boolean>;
   },
@@ -73,11 +73,12 @@ const useRestyle = <
       dimensions,
     });
 
-    if (typeof props.style === "function") {
-      return (...args) => ({...style, ...props.style(...args)});
+    const styleProp = props.style;
+    if (typeof styleProp === 'function') {
+      return (...args: any[]) => [style, styleProp(args)];
     }
 
-    return [style, props.style].filter(Boolean);
+    return [style, styleProp].filter(Boolean);
     // We disable the exhaustive deps rule here in order to trigger the useMemo
     // when the serialized string of restyleProps changes instead of the object
     // reference which will change on every render.
