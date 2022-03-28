@@ -434,7 +434,7 @@ const theme = createTheme({
         phone: 's',
         tablet: 'm',
       },
-    }
+    },
     elevated: {
       padding: {
         phone: 's',
