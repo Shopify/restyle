@@ -63,7 +63,7 @@ const useRestyle = <
   const dimensions = useDimensions();
 
   const {cleanProps, restyleProps, serializedRestyleProps} = filterRestyleProps(
-    props,
+    {variant: 'defaults', ...props},
     composedRestyleFunction.propertiesMap,
   );
 
