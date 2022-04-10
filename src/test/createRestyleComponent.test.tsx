@@ -20,7 +20,9 @@ const theme = {
     lightcyan: '#E0FFFF',
     lightpink: '#FFB6C1',
   },
-  spacing: {},
+  spacing: {
+    s: 8,
+  },
   breakpoints: {
     phone: 0,
     tablet: 376,
@@ -29,6 +31,9 @@ const theme = {
     barelyVisible: 0.1,
     almostOpaque: 0.9,
   },
+};
+const themeWithVariant = {
+  ...theme,
   cardVariants: {
     defaults: {
       alignItems: 'flex-start',
@@ -41,6 +46,7 @@ const theme = {
   },
 };
 type Theme = typeof theme;
+type ThemeWithVariant = typeof themeWithVariant;
 
 jest.mock('react-native/Libraries/Utilities/Dimensions', () => {
   return {
@@ -52,16 +58,23 @@ jest.mock('react-native/Libraries/Utilities/Dimensions', () => {
   };
 });
 
-const cardVariant = createVariant<Theme, 'cardVariants'>({
-  themeKey: 'cardVariants',
-});
 const Component = createRestyleComponent<
   BackgroundColorProps<Theme> &
     SpacingProps<Theme> &
     OpacityProps<Theme> &
-    VariantProps<Theme, 'cardVariants'> &
     ViewProps,
   Theme
+>([backgroundColor, spacing, opacity]);
+const cardVariant = createVariant<ThemeWithVariant, 'cardVariants'>({
+  themeKey: 'cardVariants',
+});
+const ComponentWithVariant = createRestyleComponent<
+  BackgroundColorProps<ThemeWithVariant> &
+    SpacingProps<ThemeWithVariant> &
+    OpacityProps<ThemeWithVariant> &
+    VariantProps<ThemeWithVariant, 'cardVariants'> &
+    ViewProps,
+  ThemeWithVariant
 >([backgroundColor, spacing, opacity, cardVariant]);
 
 describe('createRestyleComponent', () => {
@@ -76,9 +89,7 @@ describe('createRestyleComponent', () => {
           <Component opacity={0.5} />
         </ThemeProvider>,
       );
-      expect(root.findByType(View).props.style).toStrictEqual([
-        expect.objectContaining({opacity: 0.5}),
-      ]);
+      expect(root.findByType(View).props.style).toStrictEqual([{opacity: 0.5}]);
     });
 
     it('appends style prop to the end', () => {
@@ -88,7 +99,7 @@ describe('createRestyleComponent', () => {
         </ThemeProvider>,
       );
       expect(root.findByType(View).props.style).toStrictEqual([
-        expect.objectContaining({opacity: 0.5}),
+        {opacity: 0.5},
         {width: 100},
       ]);
     });
@@ -100,7 +111,7 @@ describe('createRestyleComponent', () => {
         </ThemeProvider>,
       );
       expect(root.findByType(View).props).toStrictEqual({
-        style: [expect.objectContaining({opacity: 0.5})],
+        style: [{opacity: 0.5}],
         pointerEvents: 'auto',
       });
     });
@@ -112,7 +123,7 @@ describe('createRestyleComponent', () => {
         </ThemeProvider>,
       );
       expect(root.findByType(View).props).toStrictEqual({
-        style: [expect.objectContaining({backgroundColor: '#FFE6E4'})],
+        style: [{backgroundColor: '#FFE6E4'}],
       });
     });
 
@@ -124,7 +135,7 @@ describe('createRestyleComponent', () => {
         </ThemeProvider>,
       );
       expect(root.findByType(View).props).toStrictEqual({
-        style: [expect.objectContaining({opacity: 0.5})],
+        style: [{opacity: 0.5}],
       });
       await new Promise(resolve => setTimeout(resolve, 0));
       const {calls} = (Dimensions.addEventListener as jest.Mock).mock;
@@ -133,7 +144,7 @@ describe('createRestyleComponent', () => {
         onChange({window: {width: 768, height: 1024}});
       });
       expect(root.findByType(View).props).toStrictEqual({
-        style: [expect.objectContaining({opacity: 0.8})],
+        style: [{opacity: 0.8}],
       });
     });
 
@@ -154,29 +165,31 @@ describe('createRestyleComponent', () => {
 
     it('passes styles form default variant when no variant prop is defined', () => {
       const {root} = render(
-        <ThemeProvider theme={theme}>
-          <Component />
+        <ThemeProvider theme={themeWithVariant}>
+          <ComponentWithVariant margin="s" />
         </ThemeProvider>,
       );
       expect(root.findByType(View).props.style).toStrictEqual([
-        expect.objectContaining({
+        {
           alignItems: 'flex-start',
           backgroundColor: '#FFB6C1',
-        }),
+          margin: 8,
+        },
       ]);
     });
 
     it('passes styles form the defined variant', () => {
       const {root} = render(
-        <ThemeProvider theme={theme}>
-          <Component variant="regular" />
+        <ThemeProvider theme={themeWithVariant}>
+          <ComponentWithVariant variant="regular" margin="s" />
         </ThemeProvider>,
       );
       expect(root.findByType(View).props.style).toStrictEqual([
-        expect.objectContaining({
+        {
           alignItems: 'center',
           backgroundColor: '#E0FFFF',
-        }),
+          margin: 8,
+        },
       ]);
     });
   });
