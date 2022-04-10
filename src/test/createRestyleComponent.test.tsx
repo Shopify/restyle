@@ -73,7 +73,7 @@ describe('createRestyleComponent', () => {
     it('passes styles based on the given props', () => {
       const {root} = render(
         <ThemeProvider theme={theme}>
-          <Component opacity={0.5} />{' '}
+          <Component opacity={0.5} />
         </ThemeProvider>,
       );
       expect(root.findByType(View).props.style).toStrictEqual([
@@ -150,6 +150,34 @@ describe('createRestyleComponent', () => {
           props: expect.objectContaining({testID: 'RENDERED_COMPONENT'}),
         }),
       );
+    });
+
+    it('passes styles form default variant when no variant prop is defined', () => {
+      const {root} = render(
+        <ThemeProvider theme={theme}>
+          <Component />
+        </ThemeProvider>,
+      );
+      expect(root.findByType(View).props.style).toStrictEqual([
+        expect.objectContaining({
+          alignItems: 'flex-start',
+          backgroundColor: '#FFB6C1',
+        }),
+      ]);
+    });
+
+    it('passes styles form the defined variant', () => {
+      const {root} = render(
+        <ThemeProvider theme={theme}>
+          <Component variant="regular" />
+        </ThemeProvider>,
+      );
+      expect(root.findByType(View).props.style).toStrictEqual([
+        expect.objectContaining({
+          alignItems: 'center',
+          backgroundColor: '#E0FFFF',
+        }),
+      ]);
     });
   });
 });
