@@ -11,9 +11,12 @@ const filterRestyleProps = <
   TRestyleProps,
   TProps extends Record<string, unknown> & TRestyleProps
 >(
-  props: TProps,
+  componentProps: TProps,
   omitPropertiesMap: Record<keyof TProps, boolean>,
 ) => {
+  const props = omitPropertiesMap.variant
+    ? {variant: 'defaults', ...componentProps}
+    : componentProps;
   return getKeys(props).reduce(
     ({cleanProps, restyleProps, serializedRestyleProps}, key) => {
       if (omitPropertiesMap[key as keyof TProps]) {

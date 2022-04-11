@@ -12,12 +12,17 @@ import {
   opacity,
 } from '../restyleFunctions';
 import {ThemeProvider} from '../context';
+import createVariant, {VariantProps} from '../createVariant';
 
 const theme = {
   colors: {
     coral: '#FFE6E4',
+    lightcyan: '#E0FFFF',
+    lightpink: '#FFB6C1',
   },
-  spacing: {},
+  spacing: {
+    s: 8,
+  },
   breakpoints: {
     phone: 0,
     tablet: 376,
@@ -27,17 +32,38 @@ const theme = {
     almostOpaque: 0.9,
   },
 };
+const themeWithVariant = {
+  ...theme,
+  cardVariants: {
+    defaults: {
+      alignItems: 'flex-start',
+      backgroundColor: 'lightpink',
+    },
+    regular: {
+      alignItems: 'center',
+      backgroundColor: 'lightcyan',
+    },
+  },
+};
 type Theme = typeof theme;
+type ThemeWithVariant = typeof themeWithVariant;
 
-jest.mock('react-native/Libraries/Utilities/Dimensions', () => {
-  return {
-    get: () => ({
-      width: 375,
-      height: 667,
-    }),
-    addEventListener: jest.fn(),
-  };
+jest.mock('react-native', () => {
+  return Object.setPrototypeOf(
+    {
+      Dimensions: {
+        get: () => ({
+          width: 375,
+          height: 667,
+        }),
+        addEventListener: jest.fn(() => ({remove: () => {}})),
+        removeEventListener: jest.fn(),
+      },
+    },
+    jest.requireActual('react-native'),
+  );
 });
+
 const Component = createRestyleComponent<
   BackgroundColorProps<Theme> &
     SpacingProps<Theme> &
@@ -45,6 +71,17 @@ const Component = createRestyleComponent<
     ViewProps,
   Theme
 >([backgroundColor, spacing, opacity]);
+const cardVariant = createVariant<ThemeWithVariant, 'cardVariants'>({
+  themeKey: 'cardVariants',
+});
+const ComponentWithVariant = createRestyleComponent<
+  BackgroundColorProps<ThemeWithVariant> &
+    SpacingProps<ThemeWithVariant> &
+    OpacityProps<ThemeWithVariant> &
+    VariantProps<ThemeWithVariant, 'cardVariants'> &
+    ViewProps,
+  ThemeWithVariant
+>([backgroundColor, spacing, opacity, cardVariant]);
 
 describe('createRestyleComponent', () => {
   describe('creates a component that', () => {
@@ -53,12 +90,20 @@ describe('createRestyleComponent', () => {
     });
 
     it('passes styles based on the given props', () => {
-      const {root} = render(<Component opacity={0.5} />);
+      const {root} = render(
+        <ThemeProvider theme={theme}>
+          <Component opacity={0.5} />
+        </ThemeProvider>,
+      );
       expect(root.findByType(View).props.style).toStrictEqual([{opacity: 0.5}]);
     });
 
     it('appends style prop to the end', () => {
-      const {root} = render(<Component opacity={0.5} style={{width: 100}} />);
+      const {root} = render(
+        <ThemeProvider theme={theme}>
+          <Component opacity={0.5} style={{width: 100}} />
+        </ThemeProvider>,
+      );
       expect(root.findByType(View).props.style).toStrictEqual([
         {opacity: 0.5},
         {width: 100},
@@ -66,7 +111,11 @@ describe('createRestyleComponent', () => {
     });
 
     it('does not pass styling properties to the child', () => {
-      const {root} = render(<Component opacity={0.5} pointerEvents="auto" />);
+      const {root} = render(
+        <ThemeProvider theme={theme}>
+          <Component opacity={0.5} pointerEvents="auto" />
+        </ThemeProvider>,
+      );
       expect(root.findByType(View).props).toStrictEqual({
         style: [{opacity: 0.5}],
         pointerEvents: 'auto',
@@ -107,13 +156,47 @@ describe('createRestyleComponent', () => {
 
     it('forwards refs', () => {
       const spy = jest.fn();
-      render(<Component ref={spy} testID="RENDERED_COMPONENT" />);
+      render(
+        <ThemeProvider theme={theme}>
+          <Component ref={spy} testID="RENDERED_COMPONENT" />
+        </ThemeProvider>,
+      );
 
       expect(spy).toHaveBeenCalledWith(
         expect.objectContaining({
           props: expect.objectContaining({testID: 'RENDERED_COMPONENT'}),
         }),
       );
+    });
+
+    it('passes styles from default variant when no variant prop is defined', () => {
+      const {root} = render(
+        <ThemeProvider theme={themeWithVariant}>
+          <ComponentWithVariant margin="s" />
+        </ThemeProvider>,
+      );
+      expect(root.findByType(View).props.style).toStrictEqual([
+        {
+          alignItems: 'flex-start',
+          backgroundColor: '#FFB6C1',
+          margin: 8,
+        },
+      ]);
+    });
+
+    it('passes styles from the defined variant', () => {
+      const {root} = render(
+        <ThemeProvider theme={themeWithVariant}>
+          <ComponentWithVariant variant="regular" margin="s" />
+        </ThemeProvider>,
+      );
+      expect(root.findByType(View).props.style).toStrictEqual([
+        {
+          alignItems: 'center',
+          backgroundColor: '#E0FFFF',
+          margin: 8,
+        },
+      ]);
     });
   });
 });
