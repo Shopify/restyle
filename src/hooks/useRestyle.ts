@@ -75,10 +75,10 @@ const useRestyle = <
 
     const styleProp = props.style;
     if (typeof styleProp === 'function') {
-      return (...args: any[]) => [style, styleProp(...args)];
+      return (...args: any[]) => [style, styleProp(...args)].filter(Boolean);
     }
-
     return [style, styleProp].filter(Boolean);
+
     // We disable the exhaustive deps rule here in order to trigger the useMemo
     // when the serialized string of restyleProps changes instead of the object
     // reference which will change on every render.
