@@ -35,7 +35,8 @@ const Welcome = () => {
       flex={1}
       backgroundColor="mainBackground"
       paddingVertical="xl"
-      paddingHorizontal="m">
+      paddingHorizontal="m"
+    >
       <Text variant="header">Welcome</Text>
       <Box
         flexDirection={{
@@ -65,13 +66,16 @@ const App = () => {
 
 ![Restyle Component Workflow](https://user-images.githubusercontent.com/688415/75268259-95346900-57f7-11ea-8f1f-22aec4bb4f39.gif)
 
-
 ## Installation
+
 ### Yarn
+
 ```bash
 $ yarn add @shopify/restyle
 ```
+
 ### NPM
+
 ```bash
 $ npm install @shopify/restyle
 ```
@@ -85,7 +89,7 @@ Any project using this library should have a global theme object. It specifies s
 Below is an example of how a basic theme could look. Make sure to read the sections below for more details on how to set up your different theme values.
 
 ```ts
-import { createTheme } from '@shopify/restyle'
+import {createTheme} from '@shopify/restyle';
 
 const palette = {
   purpleLight: '#8C6FF7',
@@ -99,7 +103,6 @@ const palette = {
   black: '#0B0B0B',
   white: '#F0F2F3',
 };
-
 
 const theme = createTheme({
   colors: {
@@ -122,7 +125,7 @@ export type Theme = typeof theme;
 export default theme;
 ```
 
-*Note: `createTheme` doesn't do anything except enforcing the theme to have the same shape as the BaseTheme, but it preserves the types of your user specific values (e.g. what colors the theme has) so you don't lose typesafety as a result of the `{ [key:string]: any }` in BaseTheme*
+_Note: `createTheme` doesn't do anything except enforcing the theme to have the same shape as the BaseTheme, but it preserves the types of your user specific values (e.g. what colors the theme has) so you don't lose typesafety as a result of the `{ [key:string]: any }` in BaseTheme_
 
 This theme should be passed to a `ThemeProvider` at the top of your React tree:
 
@@ -177,7 +180,6 @@ Taking the time to define these semantic meanings comes with a number of benefit
 Spacing tends to follow multiples of a given base spacing number, for example `8`. We prefer using the t-shirt size naming convention, because of the scalability of it (any number of `x`'s can be prepended for smaller and larger sizes):
 
 ```ts
-
 const theme = createTheme({
   spacing: {
     s: 8,
@@ -198,7 +200,7 @@ const theme = createTheme({
     phone: 0,
     longPhone: {
       width: 0,
-      height: 812
+      height: 812,
     },
     tablet: 768,
     largeTablet: 1024,
@@ -298,17 +300,17 @@ import {
   createVariant,
   spacing,
   SpacingProps,
-  VariantProps
+  VariantProps,
 } from '@shopify/restyle';
-import {Theme} from './theme'
+import {Theme} from './theme';
 
-type Props = SpacingProps<Theme> & VariantProps<Theme, 'cardVariants'>
+type Props = SpacingProps<Theme> & VariantProps<Theme, 'cardVariants'>;
 const Card = createRestyleComponent<Props, Theme>([
   spacing,
-  createVariant({themeKey: 'cardVariants'})
-])
+  createVariant({themeKey: 'cardVariants'}),
+]);
 
-export default Card
+export default Card;
 ```
 
 For more advanced components, you may want to instead use the `useRestyle` hook:
@@ -333,7 +335,11 @@ type RestyleProps = SpacingProps<Theme> &
   BorderProps<Theme> &
   BackgroundColorProps<Theme>;
 
-const restyleFunctions = composeRestyleFunctions<Theme, RestyleProps>([spacing, border, backgroundColor]);
+const restyleFunctions = composeRestyleFunctions<Theme, RestyleProps>([
+  spacing,
+  border,
+  backgroundColor,
+]);
 
 type Props = RestyleProps & {
   onPress: () => void;
@@ -360,24 +366,24 @@ Restyle functions are the bread and butter of Restyle. They specify how props sh
 
 The Restyle library comes with a number of predefined Restyle functions for your convenience. Properties within brackets are aliases / shorthands for the preceding prop name.
 
-| Restyle Function | Props                                                                                                                                                                                               | Theme Key   |
-| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| backgroundColor  | backgroundColor [bg]                                                                                                                                                                                 | colors      |
-| color            | color                                                                                                                                                                                               | colors      |
-| opacity          | opacity                                                                                                                                                                                             | _none_      |
-| visible          | display (maps `true` / `false` to `flex` / `none`)                                                                                                                                                  | _none_      |
-| spacing          | margin [m], marginTop [mt], marginRight [mr], marginBottom [mb], marginLeft [ml], marginStart [ms], marginEnd[me], marginHorizontal [mx], marginVertical [my], padding [p], paddingTop [pt], paddingRight [pr], paddingBottom [pb], paddingLeft [pl], paddingStart [ps], paddingEnd [pe], paddingHorizontal [px], paddingVertical [py]       | spacing     |
-| layout           | width, height, minWidth, maxWidth, minHeight, maxHeight, overflow, aspectRatio, alignContent, alignItems, alignSelf, justifyContent, flex, flexBasis, flexDirection, flexGrow, flexShrink, flexWrap | _none_      |
-| position         | position, top, right, bottom, left, start, end                                                                                                                                                                 | _none_      |
-| position         | zIndex                                                                                                                                                                                              | zIndices    |
-| border           | borderBottomWidth, borderLeftWidth, borderRightWidth, borderStartWidth, borderEndWidth, borderStyle, borderTopWidth, borderWidth                                                                                                      | _none_      |
-| border           | borderColor, borderTopColor, borderRightColor, borderLeftColor, borderStartColor, borderEndColor, borderBottomColor                                                                                                                   | colors      |
-| border           | borderRadius, borderBottomLeftRadius, borderBottomRightRadius, borderBottomStartRadius, borderBottomEndRadius, borderTopLeftRadius, borderTopRightRadius, borderTopStartRadius, borderTopEndRadius                                                                                           | borderRadii |
-| shadow           | shadowOpacity, shadowOffset, shadowRadius, elevation                                                                                                                                                | _none_      |
-| shadow           | shadowColor                                                                                                                                                                                         | colors      |
-| textShadow       | textShadowOffset, textShadowRadius                                                                                                                                                                  | _none_      |
-| textShadow       | textShadowColor                                                                                                                                                                                     | colors      |
-| typography       | fontFamily, fontSize, fontStyle, fontWeight, letterSpacing, lineHeight, textAlign, textDecorationLine, textDecorationStyle, textTransform                                                           | _none_      |
+| Restyle Function | Props                                                                                                                                                                                                                                                                                                                                  | Theme Key   |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| backgroundColor  | backgroundColor [bg]                                                                                                                                                                                                                                                                                                                   | colors      |
+| color            | color                                                                                                                                                                                                                                                                                                                                  | colors      |
+| opacity          | opacity                                                                                                                                                                                                                                                                                                                                | _none_      |
+| visible          | display (maps `true` / `false` to `flex` / `none`)                                                                                                                                                                                                                                                                                     | _none_      |
+| spacing          | margin [m], marginTop [mt], marginRight [mr], marginBottom [mb], marginLeft [ml], marginStart [ms], marginEnd[me], marginHorizontal [mx], marginVertical [my], padding [p], paddingTop [pt], paddingRight [pr], paddingBottom [pb], paddingLeft [pl], paddingStart [ps], paddingEnd [pe], paddingHorizontal [px], paddingVertical [py] | spacing     |
+| layout           | width, height, minWidth, maxWidth, minHeight, maxHeight, overflow, aspectRatio, alignContent, alignItems, alignSelf, justifyContent, flex, flexBasis, flexDirection, flexGrow, flexShrink, flexWrap                                                                                                                                    | _none_      |
+| position         | position, top, right, bottom, left, start, end                                                                                                                                                                                                                                                                                         | _none_      |
+| position         | zIndex                                                                                                                                                                                                                                                                                                                                 | zIndices    |
+| border           | borderBottomWidth, borderLeftWidth, borderRightWidth, borderStartWidth, borderEndWidth, borderStyle, borderTopWidth, borderWidth                                                                                                                                                                                                       | _none_      |
+| border           | borderColor, borderTopColor, borderRightColor, borderLeftColor, borderStartColor, borderEndColor, borderBottomColor                                                                                                                                                                                                                    | colors      |
+| border           | borderRadius, borderBottomLeftRadius, borderBottomRightRadius, borderBottomStartRadius, borderBottomEndRadius, borderTopLeftRadius, borderTopRightRadius, borderTopStartRadius, borderTopEndRadius                                                                                                                                     | borderRadii |
+| shadow           | shadowOpacity, shadowOffset, shadowRadius, elevation                                                                                                                                                                                                                                                                                   | _none_      |
+| shadow           | shadowColor                                                                                                                                                                                                                                                                                                                            | colors      |
+| textShadow       | textShadowOffset, textShadowRadius                                                                                                                                                                                                                                                                                                     | _none_      |
+| textShadow       | textShadowColor                                                                                                                                                                                                                                                                                                                        | colors      |
+| typography       | fontFamily, fontSize, fontStyle, fontWeight, letterSpacing, lineHeight, textAlign, textDecorationLine, textDecorationStyle, textTransform                                                                                                                                                                                              | _none_      |
 
 #### Custom Restyle Functions
 
@@ -398,7 +404,7 @@ const TransparentComponent = createRestyleComponent([transparency])
 
 Arguments:
 
-- `property`: The name of the component prop that the function will receive tha value of.
+- `property`: The name of the component prop that the function will receive the value of.
 - `styleProperty`: The name of the property in the style object to map to. Defaults to the value of `property`.
 - `transform({value, theme, themeKey})`: An optional function that transforms the value of the prop to the value that will be inserted into the style object.
 - `themeKey`: An optional key in the theme to map values from, e.g. `colors`.
@@ -491,7 +497,6 @@ const theme = createTheme({
 <Box flexDirection={{phone: 'column', tablet: 'row'}} />
 ```
 
-
 If you need to extract the value of a responsive prop in a custom component (e.g. to use it outside of component styles), you can use the `useResponsiveProp` hook:
 
 ```tsx
@@ -502,10 +507,14 @@ import {
   useTheme,
 } from '@shopify/restyle';
 import React from 'react';
-import { ActivityIndicator, TouchableOpacity, TouchableOpacityProps } from 'react-native';
+import {
+  ActivityIndicator,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from 'react-native';
 
 import Text from './Text';
-import { Theme } from './theme';
+import {Theme} from './theme';
 
 const BaseButton = createBox<Theme, TouchableOpacityProps>(TouchableOpacity);
 
@@ -518,7 +527,7 @@ type Props = React.ComponentProps<typeof BaseButton> &
 const Button = ({
   label,
   isLoading,
-  color = { phone: 'purple', tablet: 'blue' },
+  color = {phone: 'purple', tablet: 'blue'},
   ...props
 }: Props) => {
   const theme = useTheme<Theme>();
@@ -544,7 +553,6 @@ const Button = ({
     </BaseButton>
   );
 };
-
 ```
 
 ### Overriding Styles
@@ -568,7 +576,12 @@ Of course, no app is complete without a dark mode. Here a simple example of how 
 ```tsx
 import React, {useState} from 'react';
 import {Switch} from 'react-native';
-import {ThemeProvider, createBox, createText, createTheme} from '@shopify/restyle';
+import {
+  ThemeProvider,
+  createBox,
+  createText,
+  createTheme,
+} from '@shopify/restyle';
 
 export const palette = {
   purple: '#5A31F4',
@@ -673,11 +686,12 @@ export default App;
 To start using Shopify style assets we can leverage [Polaris tokens](https://github.com/Shopify/polaris-tokens). You can see all of the tokens [here](https://github.com/Shopify/polaris-react/blob/main/documentation/Color%20system.md).
 
 #### Installation
-Using  [npm](https://www.npmjs.com/):
+
+Using [npm](https://www.npmjs.com/):
 
 `npm install @shopify/polaris-tokens --save`
 
-Using  [yarn](https://yarnpkg.com/en/):
+Using [yarn](https://yarnpkg.com/en/):
 
 `yarn add @shopify/polaris-tokens`
 
@@ -686,7 +700,7 @@ Using  [yarn](https://yarnpkg.com/en/):
 ```tsx
 // In theme
 import tokens from '@shopify/polaris-tokens';
-import { createTheme } from '@shopify/restyle'
+import {createTheme} from '@shopify/restyle';
 
 const pxToNumber = (px: string) => {
   return parseInt(px.replace('px', ''), 10);
@@ -694,39 +708,40 @@ const pxToNumber = (px: string) => {
 
 const theme = createTheme({
   colors: {
-      body: tokens.colorBlack,
-      backgroundRegular: tokens.colorWhite,
-      backgroundSubdued: tokens.colorSkyLighter,
+    body: tokens.colorBlack,
+    backgroundRegular: tokens.colorWhite,
+    backgroundSubdued: tokens.colorSkyLighter,
 
-      foregroundRegular: tokens.colorBlack,
-      foregroundOff: tokens.colorInkLight,
-      foregroundSubdued: tokens.colorInkLightest,
-      foregroundContrasting: tokens.colorWhite,
-      foregroundSuccess: tokens.colorGreenDark,
+    foregroundRegular: tokens.colorBlack,
+    foregroundOff: tokens.colorInkLight,
+    foregroundSubdued: tokens.colorInkLightest,
+    foregroundContrasting: tokens.colorWhite,
+    foregroundSuccess: tokens.colorGreenDark,
 
-      highlightPrimary: tokens.colorIndigo,
-      highlightPrimaryDisabled: tokens.colorIndigoLight,
+    highlightPrimary: tokens.colorIndigo,
+    highlightPrimaryDisabled: tokens.colorIndigoLight,
 
-      buttonBackgroundPlain: tokens.colorSky,
-      errorPrimary: tokens.colorRed,
+    buttonBackgroundPlain: tokens.colorSky,
+    errorPrimary: tokens.colorRed,
 
-      iconBackgroundDark: tokens.colorBlueDarker,
+    iconBackgroundDark: tokens.colorBlueDarker,
   },
   spacing: {
-      none: tokens.spacingNone,
-      xxs: pxToNumber(tokens.spacingExtraTight),
-      xs: pxToNumber(tokens.spacingTight),
-      s: pxToNumber(tokens.spacingBaseTight),
-      m: pxToNumber(tokens.spacingBase),
-      l: pxToNumber(tokens.spacingLoose),
-      xl: pxToNumber(tokens.spacingExtraLoose),
-      xxl: 2 * pxToNumber(tokens.spacingExtraLoose),
+    none: tokens.spacingNone,
+    xxs: pxToNumber(tokens.spacingExtraTight),
+    xs: pxToNumber(tokens.spacingTight),
+    s: pxToNumber(tokens.spacingBaseTight),
+    m: pxToNumber(tokens.spacingBase),
+    l: pxToNumber(tokens.spacingLoose),
+    xl: pxToNumber(tokens.spacingExtraLoose),
+    xxl: 2 * pxToNumber(tokens.spacingExtraLoose),
   },
 });
 
 export type Theme = typeof theme;
 export default theme;
 ```
+
 Now you can easily style your components with [Shopify Polaris](https://polaris.shopify.com/).
 
 ### Migrating to restyle v2
