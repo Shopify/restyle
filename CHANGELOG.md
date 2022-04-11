@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+
+## 2.1.0 - 2022-04-11
+* Handle Pressable function style prop by [CodyBrouwers](https://github.com/CodyBrouwers) in https://github.com/Shopify/restyle/pull/138
+* Fix default variant not being applied by [nelyousfi](https://github.com/nelyousfi) in https://github.com/Shopify/restyle/pull/148
+
 ## 2.0.0 - 2022-03-07
 * Export composeRestyleFunctions and update `useRestyle` docs [211b29d5](https://github.com/Shopify/restyle/commit/211b29d549787fb3b38df652d2effe9660fcd374) by [sbalay](https://github.com/sbalay)
 
