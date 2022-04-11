@@ -2,7 +2,6 @@ const {defaults: tsjPreset} = require('ts-jest/presets');
 
 module.exports = {
   ...tsjPreset,
-  testEnvironment: 'jsdom',
   preset: 'react-native',
   transform: {
     ...tsjPreset.transform,

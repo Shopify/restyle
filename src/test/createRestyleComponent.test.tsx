@@ -48,14 +48,20 @@ const themeWithVariant = {
 type Theme = typeof theme;
 type ThemeWithVariant = typeof themeWithVariant;
 
-jest.mock('react-native/Libraries/Utilities/Dimensions', () => {
-  return {
-    get: () => ({
-      width: 375,
-      height: 667,
-    }),
-    addEventListener: jest.fn(),
-  };
+jest.mock('react-native', () => {
+  return Object.setPrototypeOf(
+    {
+      Dimensions: {
+        get: () => ({
+          width: 375,
+          height: 667,
+        }),
+        addEventListener: jest.fn(() => ({remove: () => {}})),
+        removeEventListener: jest.fn(),
+      },
+    },
+    jest.requireActual('react-native'),
+  );
 });
 
 const Component = createRestyleComponent<
@@ -163,7 +169,7 @@ describe('createRestyleComponent', () => {
       );
     });
 
-    it('passes styles form default variant when no variant prop is defined', () => {
+    it('passes styles from default variant when no variant prop is defined', () => {
       const {root} = render(
         <ThemeProvider theme={themeWithVariant}>
           <ComponentWithVariant margin="s" />
@@ -178,7 +184,7 @@ describe('createRestyleComponent', () => {
       ]);
     });
 
-    it('passes styles form the defined variant', () => {
+    it('passes styles from the defined variant', () => {
       const {root} = render(
         <ThemeProvider theme={themeWithVariant}>
           <ComponentWithVariant variant="regular" margin="s" />
