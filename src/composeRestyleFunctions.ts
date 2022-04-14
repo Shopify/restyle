@@ -23,7 +23,10 @@ const composeRestyleFunctions = <
     },
     [],
   );
-
+  // @ts-expect-error
+  const variantProp = flattenedRestyleFunctions.find(
+    item => item.variant === true,
+  );
   const properties = flattenedRestyleFunctions.map(styleFunc => {
     return styleFunc.property;
   });
