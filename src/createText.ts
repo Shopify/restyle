@@ -1,4 +1,4 @@
-import React, {ComponentType} from 'react';
+import {ComponentType, ForwardRefExoticComponent} from 'react';
 import {StyleProp, Text, TextProps as RNTextProps} from 'react-native';
 
 import createRestyleComponent from './createRestyleComponent';
@@ -54,7 +54,7 @@ function createText<
   OptionalStyleProp extends boolean = true
 >(
   BaseComponent: ComponentType<Props>,
-): React.ForwardRefExoticComponent<
+): ForwardRefExoticComponent<
   Optional<Props, 'style', OptionalStyleProp> &
     TextProps<Theme, EnableShorthand>
 >;
@@ -63,7 +63,7 @@ function createText<
   Theme extends BaseTheme,
   Props extends RNTextProps = RNTextProps,
   EnableShorthand extends boolean = true
->(): React.ForwardRefExoticComponent<Props & TextProps<Theme, EnableShorthand>>;
+>(): ForwardRefExoticComponent<Props & TextProps<Theme, EnableShorthand>>;
 
 function createText<
   Theme extends BaseTheme,
