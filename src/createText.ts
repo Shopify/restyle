@@ -1,8 +1,8 @@
-import React from 'react';
-import {Text} from 'react-native';
+import React, {ComponentType} from 'react';
+import {StyleProp, Text, TextProps as RNTextProps} from 'react-native';
 
 import createRestyleComponent from './createRestyleComponent';
-import {BaseTheme, RestyleFunctionContainer} from './types';
+import {BaseTheme, Optional, RestyleFunctionContainer} from './types';
 import {
   color,
   opacity,
@@ -47,13 +47,30 @@ export const textRestyleFunctions = [
   createVariant({themeKey: 'textVariants'}),
 ];
 
-const createText = <
+function createText<
   Theme extends BaseTheme,
-  Props = React.ComponentProps<typeof Text> & {children?: React.ReactNode},
-  EnableShorthand extends boolean = true
+  Props extends Record<string, any> & {style: StyleProp<RNTextProps>},
+  EnableShorthand extends boolean = true,
+  OptionalStyleProp extends boolean = true
 >(
-  BaseComponent: React.ComponentType<any> = Text,
-) => {
+  BaseComponent: ComponentType<Props>,
+): React.ForwardRefExoticComponent<
+  Optional<Props, 'style', OptionalStyleProp> &
+    TextProps<Theme, EnableShorthand>
+>;
+
+function createText<
+  Theme extends BaseTheme,
+  Props extends RNTextProps = RNTextProps,
+  EnableShorthand extends boolean = true
+>(): React.ForwardRefExoticComponent<Props & TextProps<Theme, EnableShorthand>>;
+
+function createText<
+  Theme extends BaseTheme,
+  Props extends Record<string, any>,
+  EnableShorthand extends boolean = true
+>(...args: [] | [ComponentType<Props>]) {
+  const BaseComponent = args[0] || Text;
   return createRestyleComponent<
     TextProps<Theme, EnableShorthand> &
       Omit<Props, keyof TextProps<Theme, EnableShorthand>>,
@@ -65,6 +82,6 @@ const createText = <
     >[],
     BaseComponent,
   );
-};
+}
 
 export default createText;

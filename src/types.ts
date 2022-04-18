@@ -82,3 +82,9 @@ export type RNStyleProperty =
   | keyof ImageStyle;
 
 export type PropValue = string | number | undefined | null;
+
+export type Optional<
+  T,
+  K extends keyof T,
+  C extends boolean = true
+> = C extends true ? Pick<Partial<T>, K> & Omit<T, K> : T;
