@@ -23,13 +23,12 @@ const composeRestyleFunctions = <
     },
     [],
   );
-  // @ts-expect-error
   const variantProp = flattenedRestyleFunctions.find(
     item => item.variant === true,
   );
-  const properties = flattenedRestyleFunctions.map(styleFunc => {
-    return styleFunc.property;
-  });
+  const properties = flattenedRestyleFunctions.map(
+    styleFunc => styleFunc.property,
+  );
   const propertiesMap = properties.reduce(
     (acc, prop) => ({...acc, [prop]: true}),
     {} as Record<keyof TProps, true>,
@@ -65,6 +64,7 @@ const composeRestyleFunctions = <
     buildStyle,
     properties,
     propertiesMap,
+    variantProp: variantProp ? variantProp.property : 'variant',
   };
 };
 

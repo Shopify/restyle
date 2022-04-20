@@ -13,10 +13,12 @@ const filterRestyleProps = <
 >(
   componentProps: TProps,
   omitPropertiesMap: Record<keyof TProps, boolean>,
+  variant: string,
 ) => {
-  const props = omitPropertiesMap.variant
-    ? {variant: 'defaults', ...componentProps}
+  const props = omitPropertiesMap[variant]
+    ? {[variant]: 'defaults', ...componentProps}
     : componentProps;
+
   return getKeys(props).reduce(
     ({cleanProps, restyleProps, serializedRestyleProps}, key) => {
       if (omitPropertiesMap[key as keyof TProps]) {
@@ -59,6 +61,7 @@ const useRestyle = <
     ) => RNStyle;
     properties: (keyof TProps)[];
     propertiesMap: Record<keyof TProps, boolean>;
+    variantProp: string;
   },
   props: TProps,
 ) => {
@@ -68,6 +71,7 @@ const useRestyle = <
   const {cleanProps, restyleProps, serializedRestyleProps} = filterRestyleProps(
     props,
     composedRestyleFunction.propertiesMap,
+    composedRestyleFunction.variantProp,
   );
 
   const calculatedStyle = useMemo(() => {
