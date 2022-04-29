@@ -1,7 +1,12 @@
 import {useMemo} from 'react';
 import {StyleProp} from 'react-native';
 
-import {BaseTheme, RNStyle, Dimensions} from '../types';
+import {
+  BaseTheme,
+  RNStyle,
+  Dimensions,
+  RestyleFunctionContainer,
+} from '../types';
 import {getKeys} from '../typeHelpers';
 
 import useDimensions from './useDimensions';
@@ -9,11 +14,12 @@ import useTheme from './useTheme';
 
 const filterRestyleProps = <
   TRestyleProps,
-  TProps extends Record<string, unknown> & TRestyleProps
+  TProps extends Record<string, unknown> & TRestyleProps,
+  Theme extends BaseTheme
 >(
   componentProps: TProps,
   omitPropertiesMap: Record<keyof TProps, boolean>,
-  variant: string,
+  variant: RestyleFunctionContainer<TProps, Theme>['property'],
 ) => {
   const props = omitPropertiesMap[variant]
     ? {[variant]: 'defaults', ...componentProps}
@@ -61,7 +67,7 @@ const useRestyle = <
     ) => RNStyle;
     properties: (keyof TProps)[];
     propertiesMap: Record<keyof TProps, boolean>;
-    variantProp: string;
+    variantProp: RestyleFunctionContainer<TProps, Theme>['property'];
   },
   props: TProps,
 ) => {

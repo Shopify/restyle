@@ -17,7 +17,6 @@ const createRestyleComponent = <
   const composedRestyleFunction = composeRestyleFunctions(restyleFunctions);
 
   const RestyleComponent = React.forwardRef((props: Props, ref) => {
-    // @ts-expect-error
     const passedProps = useRestyle(composedRestyleFunction, props);
     return <BaseComponent ref={ref} {...passedProps} />;
   });
