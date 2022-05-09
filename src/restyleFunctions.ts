@@ -57,6 +57,7 @@ const typographyProperties = {
   textDecorationLine: true,
   textDecorationStyle: true,
   textTransform: true,
+  includeFontPadding: true,
 };
 
 const layoutProperties = {
