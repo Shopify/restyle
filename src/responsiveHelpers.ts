@@ -32,7 +32,7 @@ export const getValueForScreenSize = <Theme extends BaseTheme, TVal>({
   breakpoints,
   dimensions,
 }: {
-  responsiveValue: AtLeastOneResponsiveValue<TVal, Theme>;
+  responsiveValue: AtLeastOneResponsiveValue<TVal, Theme['breakpoints']>;
   breakpoints: Theme['breakpoints'];
   dimensions: Dimensions;
 }): TVal | undefined => {
@@ -62,9 +62,9 @@ export const getValueForScreenSize = <Theme extends BaseTheme, TVal>({
 };
 
 export const isResponsiveObjectValue = <Theme extends BaseTheme, TVal>(
-  val: ResponsiveValue<TVal, Theme>,
+  val: ResponsiveValue<TVal, Theme['breakpoints']>,
   theme: Theme,
-): val is AtLeastOneResponsiveValue<TVal, Theme> => {
+): val is AtLeastOneResponsiveValue<TVal, Theme['breakpoints']> => {
   if (!val) return false;
   if (typeof val !== 'object') return false;
   return getKeys(val).reduce((acc: boolean, key) => {
@@ -77,7 +77,7 @@ export const getResponsiveValue = <
   Theme extends BaseTheme,
   K extends keyof Theme | undefined,
 >(
-  propValue: ResponsiveValue<TVal, Theme>,
+  propValue: ResponsiveValue<TVal, Theme['breakpoints']>,
   {
     theme,
     transform,

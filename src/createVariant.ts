@@ -82,7 +82,10 @@ export type VariantProps<
   K extends keyof Theme,
   Property extends keyof any = 'variant',
 > = {
-  [key in Property]?: ResponsiveValue<keyof Omit<Theme[K], 'defaults'>, Theme>;
+  [key in Property]?: ResponsiveValue<
+    keyof Omit<Theme[K], 'defaults'>,
+    Theme['breakpoints']
+  >;
 };
 
 export default createVariant;

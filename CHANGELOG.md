@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Next
 
+- Better TypeScript type support [#216](https://github.com/Shopify/restyle/pull/216) by [FranzMoreno](https://github.com/FranzMoreno) & [fortmarek](https://github.com/fortmarek)
+
 ## 2.2.0 - 2023-01-24
 
 - Upgrade React Native to 0.71 in [#207](https://github.com/Shopify/restyle/pull/207) by [mattfrances](https://github.com/mattfrances)
