@@ -8,7 +8,7 @@ import useDimensions from './useDimensions';
 import useTheme from './useTheme';
 
 const useResponsiveProp = <Theme extends BaseTheme, TVal extends PropValue>(
-  propValue: ResponsiveValue<TVal, Theme>,
+  propValue: ResponsiveValue<TVal, Theme['breakpoints']>,
 ) => {
   const theme = useTheme<Theme>();
   const dimensions = useDimensions();
