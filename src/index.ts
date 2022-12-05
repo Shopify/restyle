@@ -10,6 +10,7 @@ export {default as createText} from './createText';
 export {ThemeProvider, ThemeContext} from './context';
 export {default as useTheme} from './hooks/useTheme';
 export {default as useRestyle} from './hooks/useRestyle';
+export {default as useDimensions} from './hooks/useDimensions';
 export {default as useResponsiveProp} from './hooks/useResponsiveProp';
 export {default as createTheme} from './createTheme';
 export {default as createRestyleFunction} from './createRestyleFunction';
