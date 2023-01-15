@@ -8,6 +8,8 @@ import {
   BackgroundColorProps,
   SpacingProps,
   spacing,
+  SpacingShorthandProps,
+  spacingShorthand,
   OpacityProps,
   opacity,
 } from '../restyleFunctions';
@@ -57,21 +59,23 @@ jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
 const Component = createRestyleComponent<
   BackgroundColorProps<Theme> &
     SpacingProps<Theme> &
+    SpacingShorthandProps<Theme> &
     OpacityProps<Theme> &
     ViewProps,
   Theme
->([backgroundColor, spacing, opacity]);
+>([backgroundColor, spacing, spacingShorthand, opacity]);
 const cardVariant = createVariant<ThemeWithVariant, 'cardVariants'>({
   themeKey: 'cardVariants',
 });
 const ComponentWithVariant = createRestyleComponent<
   BackgroundColorProps<ThemeWithVariant> &
     SpacingProps<ThemeWithVariant> &
+    SpacingShorthandProps<Theme> &
     OpacityProps<ThemeWithVariant> &
     VariantProps<ThemeWithVariant, 'cardVariants'> &
     ViewProps,
   ThemeWithVariant
->([backgroundColor, spacing, opacity, cardVariant]);
+>([backgroundColor, spacing, spacingShorthand, opacity, cardVariant]);
 
 describe('createRestyleComponent', () => {
   describe('creates a component that', () => {
@@ -191,6 +195,28 @@ describe('createRestyleComponent', () => {
           margin: 8,
         },
       ]);
+    });
+
+    it('uses gap values from the theme', () => {
+      const {root} = render(
+        <ThemeProvider theme={theme}>
+          <Component gap="s" columnGap="s" rowGap="s" />
+        </ThemeProvider>,
+      );
+      expect(root.findByType(View).props).toStrictEqual({
+        style: [{gap: 8, columnGap: 8, rowGap: 8}],
+      });
+    });
+
+    it('passes gap shorthands as gap values', () => {
+      const {root} = render(
+        <ThemeProvider theme={theme}>
+          <Component g="s" cG="s" rG="s" />
+        </ThemeProvider>,
+      );
+      expect(root.findByType(View).props).toStrictEqual({
+        style: [{gap: 8, columnGap: 8, rowGap: 8}],
+      });
     });
   });
 });

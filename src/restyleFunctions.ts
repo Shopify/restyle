@@ -23,6 +23,9 @@ const spacingProperties = {
   paddingVertical: true,
   paddingStart: true,
   paddingEnd: true,
+  columnGap: true,
+  rowGap: true,
+  gap: true,
 };
 
 const spacingPropertiesShorthand = {
@@ -44,6 +47,9 @@ const spacingPropertiesShorthand = {
   py: 'paddingVertical',
   ps: 'paddingStart',
   pe: 'paddingEnd',
+  g: 'gap',
+  rG: 'rowGap',
+  cG: 'columnGap',
 };
 
 const typographyProperties = {

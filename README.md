@@ -372,7 +372,7 @@ The Restyle library comes with a number of predefined Restyle functions for your
 | color            | color                                                                                                                                                                                                                                                                                                                                  | colors      |
 | opacity          | opacity                                                                                                                                                                                                                                                                                                                                | _none_      |
 | visible          | display (maps `true` / `false` to `flex` / `none`)                                                                                                                                                                                                                                                                                     | _none_      |
-| spacing          | margin [m], marginTop [mt], marginRight [mr], marginBottom [mb], marginLeft [ml], marginStart [ms], marginEnd[me], marginHorizontal [mx], marginVertical [my], padding [p], paddingTop [pt], paddingRight [pr], paddingBottom [pb], paddingLeft [pl], paddingStart [ps], paddingEnd [pe], paddingHorizontal [px], paddingVertical [py] | spacing     |
+| spacing          | margin [m], marginTop [mt], marginRight [mr], marginBottom [mb], marginLeft [ml], marginStart [ms], marginEnd[me], marginHorizontal [mx], marginVertical [my], padding [p], paddingTop [pt], paddingRight [pr], paddingBottom [pb], paddingLeft [pl], paddingStart [ps], paddingEnd [pe], paddingHorizontal [px], paddingVertical [py], gap [g], rowGap [rG], columnGap [cG] | spacing     |
 | layout           | width, height, minWidth, maxWidth, minHeight, maxHeight, overflow, aspectRatio, alignContent, alignItems, alignSelf, justifyContent, flex, flexBasis, flexDirection, flexGrow, flexShrink, flexWrap                                                                                                                                    | _none_      |
 | position         | position, top, right, bottom, left, start, end                                                                                                                                                                                                                                                                                         | _none_      |
 | position         | zIndex                                                                                                                                                                                                                                                                                                                                 | zIndices    |
@@ -539,11 +539,10 @@ const Button = ({
   const bgColor = textColorProp === 'purple' ? 'lightPurple' : 'lightBlue';
 
   return (
-    <BaseButton flexDirection="row" backgroundColor={bgColor} {...props}>
+    <BaseButton flexDirection="row" columnGap="s" backgroundColor={bgColor} {...props}>
       <Text
         variant="buttonLabel"
         color={color}
-        marginRight={isLoading ? 's' : undefined}
       >
         {label}
       </Text>
