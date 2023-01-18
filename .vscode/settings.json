@@ -21,6 +21,9 @@
     "build": true,
     "**/*.js": true
   },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
   "editor.formatOnSave": true,
   "eslint.validate": ["typescript", "typescriptreact"],
   "javascript.implicitProjectConfig.experimentalDecorators": true

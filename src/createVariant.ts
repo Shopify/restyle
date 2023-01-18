@@ -17,7 +17,7 @@ const allRestyleFunctions = composeRestyleFunctions(all);
 function createVariant<
   Theme extends BaseTheme,
   K extends keyof SafeVariants<Theme> = keyof SafeVariants<Theme>,
-  P extends keyof any = keyof any
+  P extends keyof any = keyof any,
 >(params: {
   property: P;
   themeKey: K;
@@ -26,7 +26,7 @@ function createVariant<
 // Without Custom Prop Name
 function createVariant<
   Theme extends BaseTheme,
-  K extends keyof SafeVariants<Theme> = keyof SafeVariants<Theme>
+  K extends keyof SafeVariants<Theme> = keyof SafeVariants<Theme>,
 >(params: {
   themeKey: K;
   defaults?: AllProps<Theme>;
@@ -35,7 +35,7 @@ function createVariant<
   Theme extends BaseTheme,
   K extends keyof SafeVariants<Theme>,
   P extends keyof any,
-  TProps extends VariantProps<Theme, K, P>
+  TProps extends VariantProps<Theme, K, P>,
 >({
   property = 'variant' as P,
   themeKey,
@@ -80,7 +80,7 @@ function createVariant<
 export type VariantProps<
   Theme extends BaseTheme,
   K extends keyof Theme,
-  Property extends keyof any = 'variant'
+  Property extends keyof any = 'variant',
 > = {
   [key in Property]?: ResponsiveValue<keyof Omit<Theme[K], 'defaults'>, Theme>;
 };

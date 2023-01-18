@@ -3,10 +3,10 @@ import {getResponsiveValue, StyleTransformFunction} from './responsiveHelpers';
 
 const createRestyleFunction = <
   Theme extends BaseTheme = BaseTheme,
-  TProps extends Record<string, any> = Record<string, any>,
+  TProps extends {[key: string]: any} = {[key: string]: any},
   P extends keyof TProps = keyof TProps,
   K extends keyof Theme | undefined = undefined,
-  S extends RNStyleProperty = RNStyleProperty
+  S extends RNStyleProperty = RNStyleProperty,
 >({
   property,
   transform,

@@ -22,7 +22,9 @@ const filterRestyleProps = <
         return {
           cleanProps,
           restyleProps: {...restyleProps, [key]: props[key]},
-          serializedRestyleProps: `${serializedRestyleProps}${key}:${props[key]};`,
+          serializedRestyleProps: `${serializedRestyleProps}${String(key)}:${
+            props[key]
+          };`,
         };
       } else {
         return {
