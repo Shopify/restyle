@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation
+    url: https://github.com/Shopify/restyle
+    about: Read the official documentation.
+  - name: Discussions
+    url: https://github.com/Shopify/restyle/discussions
+    about: Discuss questions, ideas etc. and share resources related to the library.
+  - name: Shopify React Native Open Source Discord
+    url: https://discord.gg/k2gzABTfav
+    about: Chat with other community members in the restyle channel on Shopify React Native Open Source Discord.
