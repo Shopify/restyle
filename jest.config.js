@@ -1,12 +1,12 @@
-const {defaults: tsjPreset} = require('ts-jest/presets');
+// const {defaults: tsjPreset} = require('ts-jest/presets');
 
 module.exports = {
-  ...tsjPreset,
+  // ...tsjPreset,
   preset: 'react-native',
-  transform: {
-    ...tsjPreset.transform,
-    '\\.js$': '<rootDir>/node_modules/react-native/jest/preprocessor.js',
-  },
+  // transform: {
+  //   ...tsjPreset.transform,
+  //   // '\\.js$': '<rootDir>/node_modules/react-native/jest/preprocessor.js',
+  // },
   globals: {
     'ts-jest': {
       babelConfig: true,
