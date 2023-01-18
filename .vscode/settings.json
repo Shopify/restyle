@@ -3,7 +3,6 @@
   "css.validate": false,
   "scss.validate": false,
   "typescript.tsdk": "./node_modules/typescript/lib",
-  "flow.enabled": false,
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
@@ -25,6 +24,5 @@
     "source.fixAll.eslint": true
   },
   "editor.formatOnSave": true,
-  "eslint.validate": ["typescript", "typescriptreact"],
-  "javascript.implicitProjectConfig.experimentalDecorators": true
+  "eslint.validate": ["typescript", "typescriptreact"]
 }

@@ -8,10 +8,10 @@ import useTheme from './useTheme';
 
 const filterRestyleProps = <
   TRestyleProps,
-  TProps extends Record<string, unknown> & TRestyleProps
+  TProps extends {[key: string]: unknown} & TRestyleProps,
 >(
   componentProps: TProps,
-  omitPropertiesMap: Record<keyof TProps, boolean>,
+  omitPropertiesMap: {[key in keyof TProps]: boolean},
 ) => {
   const props = omitPropertiesMap.variant
     ? {variant: 'defaults', ...componentProps}
@@ -44,8 +44,8 @@ const filterRestyleProps = <
 
 const useRestyle = <
   Theme extends BaseTheme,
-  TRestyleProps extends Record<string, any>,
-  TProps extends TRestyleProps & {style?: StyleProp<RNStyle>}
+  TRestyleProps extends {[key: string]: any},
+  TProps extends TRestyleProps & {style?: StyleProp<RNStyle>},
 >(
   composedRestyleFunction: {
     buildStyle: <TInputProps extends TProps>(
@@ -59,7 +59,7 @@ const useRestyle = <
       },
     ) => RNStyle;
     properties: (keyof TProps)[];
-    propertiesMap: Record<keyof TProps, boolean>;
+    propertiesMap: {[key in keyof TProps]: boolean};
   },
   props: TProps,
 ) => {

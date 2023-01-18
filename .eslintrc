@@ -23,6 +23,14 @@
     "@shopify/restrict-full-import": [
       "error",
       "lodash"
+    ],
+    "@typescript-eslint/naming-convention": [
+      "off",
+      {
+        "selector": "typeParameter",
+        "format": ["PascalCase"],
+        "prefix": ["T"]
+      }
     ]
   }
 }
