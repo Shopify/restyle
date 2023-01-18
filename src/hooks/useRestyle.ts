@@ -1,10 +1,9 @@
 import {useMemo} from 'react';
-import {StyleProp} from 'react-native';
+import {StyleProp, useWindowDimensions} from 'react-native';
 
 import {BaseTheme, RNStyle, Dimensions} from '../types';
 import {getKeys} from '../typeHelpers';
 
-import useDimensions from './useDimensions';
 import useTheme from './useTheme';
 
 const filterRestyleProps = <
@@ -63,7 +62,7 @@ const useRestyle = <
   props: TProps,
 ) => {
   const theme = useTheme<Theme>();
-  const dimensions = useDimensions();
+  const dimensions = useWindowDimensions();
 
   const {cleanProps, restyleProps, serializedRestyleProps} = filterRestyleProps(
     props,

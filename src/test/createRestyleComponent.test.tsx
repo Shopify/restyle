@@ -1,6 +1,6 @@
 import React from 'react';
-import {create as render, act} from 'react-test-renderer';
-import {View, Dimensions, ViewProps} from 'react-native';
+import {create as render} from 'react-test-renderer';
+import {View, ViewProps} from 'react-native';
 
 import createRestyleComponent from '../createRestyleComponent';
 import {
@@ -48,21 +48,11 @@ const themeWithVariant = {
 type Theme = typeof theme;
 type ThemeWithVariant = typeof themeWithVariant;
 
-jest.mock('react-native', () => {
-  return Object.setPrototypeOf(
-    {
-      Dimensions: {
-        get: () => ({
-          width: 375,
-          height: 667,
-        }),
-        addEventListener: jest.fn(() => ({remove: () => {}})),
-        removeEventListener: jest.fn(),
-      },
-    },
-    jest.requireActual('react-native'),
-  );
-});
+const mockUseWindowDimensions = jest.fn();
+
+jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
+  default: mockUseWindowDimensions,
+}));
 
 const Component = createRestyleComponent<
   BackgroundColorProps<Theme> &
@@ -86,7 +76,7 @@ const ComponentWithVariant = createRestyleComponent<
 describe('createRestyleComponent', () => {
   describe('creates a component that', () => {
     beforeEach(() => {
-      (Dimensions.addEventListener as jest.Mock).mockClear();
+      mockUseWindowDimensions.mockReturnValue({width: 375, height: 667});
     });
 
     it('passes styles based on the given props', () => {
@@ -133,8 +123,7 @@ describe('createRestyleComponent', () => {
       });
     });
 
-    it('re-renders with styles specific to the screen size when dimensions change', async () => {
-      (Dimensions.addEventListener as jest.Mock).mockClear();
+    it('renders with phone-specific style', async () => {
       const {root} = render(
         <ThemeProvider theme={theme}>
           <Component opacity={{phone: 0.5, tablet: 0.8}} />
@@ -144,14 +133,19 @@ describe('createRestyleComponent', () => {
         style: [{opacity: 0.5}],
       });
       await new Promise(resolve => setTimeout(resolve, 0));
-      const {calls} = (Dimensions.addEventListener as jest.Mock).mock;
-      const onChange = calls[calls.length - 1][1];
-      act(() => {
-        onChange({window: {width: 768, height: 1024}});
-      });
+    });
+
+    it('renders with tablet-specific style when dimensions are bigger', async () => {
+      mockUseWindowDimensions.mockReturnValue({width: 768, height: 1024});
+      const {root} = render(
+        <ThemeProvider theme={theme}>
+          <Component opacity={{phone: 0.5, tablet: 0.8}} />
+        </ThemeProvider>,
+      );
       expect(root.findByType(View).props).toStrictEqual({
         style: [{opacity: 0.8}],
       });
+      await new Promise(resolve => setTimeout(resolve, 0));
     });
 
     it('forwards refs', () => {
