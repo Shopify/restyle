@@ -37,7 +37,7 @@ type BaseBoxProps<Theme extends BaseTheme> = BackgroundColorProps<Theme> &
 
 export type BoxProps<
   Theme extends BaseTheme,
-  EnableShorthand extends boolean = true
+  EnableShorthand extends boolean = true,
 > = BaseBoxProps<Theme> & EnableShorthand extends true
   ? BaseBoxProps<Theme> &
       SpacingShorthandProps<Theme> &
@@ -60,7 +60,7 @@ export const boxRestyleFunctions = [
 const createBox = <
   Theme extends BaseTheme,
   Props = React.ComponentProps<typeof View> & {children?: React.ReactNode},
-  EnableShorthand extends boolean = true
+  EnableShorthand extends boolean = true,
 >(
   BaseComponent: React.ComponentType<any> = View,
 ) => {

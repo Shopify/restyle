@@ -51,6 +51,6 @@ function Screen() {
 describe('Use restyle', () => {
   it('creates a button', () => {
     const button = Screen();
-    expect(button.props.title).toStrictEqual('test');
+    expect(button.props.title).toBe('test');
   });
 });

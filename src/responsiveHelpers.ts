@@ -11,7 +11,7 @@ import {getKeys} from './typeHelpers';
 export type StyleTransformFunction<
   Theme extends BaseTheme,
   K extends keyof Theme | undefined,
-  TVal
+  TVal,
 > = (params: {
   value: TVal | undefined | null;
   theme: Theme;
@@ -75,7 +75,7 @@ export const isResponsiveObjectValue = <Theme extends BaseTheme, TVal>(
 export const getResponsiveValue = <
   TVal extends PropValue,
   Theme extends BaseTheme,
-  K extends keyof Theme | undefined
+  K extends keyof Theme | undefined,
 >(
   propValue: ResponsiveValue<TVal, Theme>,
   {
@@ -104,7 +104,9 @@ export const getResponsiveValue = <
   if (transform) return transform({value: val, theme, themeKey});
   if (isThemeKey(theme, themeKey)) {
     if (val && theme[themeKey][val as string] === undefined)
-      throw new Error(`Value '${val}' does not exist in theme['${themeKey}']`);
+      throw new Error(
+        `Value '${val}' does not exist in theme['${String(themeKey)}']`,
+      );
 
     return val ? theme[themeKey][val as string] : val;
   }

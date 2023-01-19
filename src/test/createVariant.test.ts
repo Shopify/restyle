@@ -1,6 +1,7 @@
 import createVariant from '../createVariant';
+import {BaseTheme} from '../types';
 
-const theme = {
+const theme: BaseTheme = {
   colors: {
     black: '#111111',
     white: '#EEEEEE',

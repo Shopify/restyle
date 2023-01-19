@@ -1,16 +1,9 @@
-const {defaults: tsjPreset} = require('ts-jest/presets');
-
 module.exports = {
-  ...tsjPreset,
+  verbose: true,
   preset: 'react-native',
-  transform: {
-    ...tsjPreset.transform,
-    '\\.js$': '<rootDir>/node_modules/react-native/jest/preprocessor.js',
-  },
-  globals: {
-    'ts-jest': {
-      babelConfig: true,
-    },
-  },
-  cacheDirectory: '.jest/cache',
+  testEnvironment: 'node',
+  testMatch: ['<rootDir>/src/test/**/*.(test|spec).(ts|tsx|js)'],
+  transformIgnorePatterns: [
+    '<rootDir>/node_modules/(?!((jest-)?react-native|@react-native(-community)?)/)',
+  ],
 };
