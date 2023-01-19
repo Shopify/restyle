@@ -35,7 +35,7 @@
     "prettier": "^2.4.1",
     "react": "18.2.0",
     "react-native": "0.71.0",
-    "react-test-renderer": "18.2.0",
+    "react-test-renderer": "^18.2.0",
     "typescript": "4.8.4"
   },
   "peerDependencies": {
