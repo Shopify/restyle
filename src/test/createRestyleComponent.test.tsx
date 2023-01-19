@@ -64,6 +64,10 @@ const Component = createRestyleComponent<
 const cardVariant = createVariant<ThemeWithVariant, 'cardVariants'>({
   themeKey: 'cardVariants',
 });
+const cardVariantRenamed = createVariant({
+  themeKey: 'cardVariants',
+  property: 'size',
+});
 const ComponentWithVariant = createRestyleComponent<
   BackgroundColorProps<ThemeWithVariant> &
     SpacingProps<ThemeWithVariant> &
@@ -72,6 +76,14 @@ const ComponentWithVariant = createRestyleComponent<
     ViewProps,
   ThemeWithVariant
 >([backgroundColor, spacing, opacity, cardVariant]);
+const ComponentWithRenamedVariant = createRestyleComponent<
+  BackgroundColorProps<ThemeWithVariant> &
+    SpacingProps<ThemeWithVariant> &
+    OpacityProps<ThemeWithVariant> &
+    VariantProps<ThemeWithVariant, 'cardVariants', 'size'> &
+    ViewProps,
+  ThemeWithVariant
+>([backgroundColor, spacing, opacity, cardVariantRenamed]);
 
 describe('createRestyleComponent', () => {
   describe('creates a component that', () => {
@@ -163,7 +175,35 @@ describe('createRestyleComponent', () => {
       );
     });
 
-    it('passes styles from default variant when no variant prop is defined', () => {
+    it('passes styles from default variant', () => {
+      const {root} = render(
+        <ThemeProvider theme={themeWithVariant}>
+          <ComponentWithVariant />
+        </ThemeProvider>,
+      );
+      expect(root.findByType(View).props.style).toStrictEqual([
+        {
+          alignItems: 'flex-start',
+          backgroundColor: '#FFB6C1',
+        },
+      ]);
+    });
+
+    it('passes styles from specified default variant', () => {
+      const {root} = render(
+        <ThemeProvider theme={themeWithVariant}>
+          <ComponentWithVariant variant="regular" />
+        </ThemeProvider>,
+      );
+      expect(root.findByType(View).props.style).toStrictEqual([
+        {
+          alignItems: 'center',
+          backgroundColor: '#E0FFFF',
+        },
+      ]);
+    });
+
+    it('passes styles from default variant with style prop', () => {
       const {root} = render(
         <ThemeProvider theme={themeWithVariant}>
           <ComponentWithVariant margin="s" />
@@ -178,10 +218,68 @@ describe('createRestyleComponent', () => {
       ]);
     });
 
-    it('passes styles from the defined variant', () => {
+    it('passes styles from the specified variant with style prop', () => {
       const {root} = render(
         <ThemeProvider theme={themeWithVariant}>
           <ComponentWithVariant variant="regular" margin="s" />
+        </ThemeProvider>,
+      );
+      expect(root.findByType(View).props.style).toStrictEqual([
+        {
+          alignItems: 'center',
+          backgroundColor: '#E0FFFF',
+          margin: 8,
+        },
+      ]);
+    });
+
+    it('passes styles from renamed default variant', () => {
+      const {root} = render(
+        <ThemeProvider theme={themeWithVariant}>
+          <ComponentWithRenamedVariant />
+        </ThemeProvider>,
+      );
+      expect(root.findByType(View).props.style).toStrictEqual([
+        {
+          alignItems: 'flex-start',
+          backgroundColor: '#FFB6C1',
+        },
+      ]);
+    });
+
+    it('passes styles from specified renamed variant', () => {
+      const {root} = render(
+        <ThemeProvider theme={themeWithVariant}>
+          <ComponentWithRenamedVariant size="regular" />
+        </ThemeProvider>,
+      );
+      expect(root.findByType(View).props.style).toStrictEqual([
+        {
+          alignItems: 'center',
+          backgroundColor: '#E0FFFF',
+        },
+      ]);
+    });
+
+    it('passes styles from renamed default variant with style prop', () => {
+      const {root} = render(
+        <ThemeProvider theme={themeWithVariant}>
+          <ComponentWithRenamedVariant margin="s" />
+        </ThemeProvider>,
+      );
+      expect(root.findByType(View).props.style).toStrictEqual([
+        {
+          alignItems: 'flex-start',
+          backgroundColor: '#FFB6C1',
+          margin: 8,
+        },
+      ]);
+    });
+
+    it('passes styles from specified renamed variant with style prop', () => {
+      const {root} = render(
+        <ThemeProvider theme={themeWithVariant}>
+          <ComponentWithRenamedVariant size="regular" margin="s" />
         </ThemeProvider>,
       );
       expect(root.findByType(View).props.style).toStrictEqual([

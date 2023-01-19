@@ -1,21 +1,29 @@
 import {useMemo} from 'react';
 import {StyleProp, useWindowDimensions} from 'react-native';
 
-import {BaseTheme, RNStyle, Dimensions} from '../types';
+import {
+  BaseTheme,
+  RNStyle,
+  Dimensions,
+  RestyleFunctionContainer,
+} from '../types';
 import {getKeys} from '../typeHelpers';
 
 import useTheme from './useTheme';
 
 const filterRestyleProps = <
   TRestyleProps,
-  TProps extends Record<string, unknown> & TRestyleProps
+  TProps extends Record<string, unknown> & TRestyleProps,
+  Theme extends BaseTheme
 >(
   componentProps: TProps,
   omitPropertiesMap: Record<keyof TProps, boolean>,
+  variant: RestyleFunctionContainer<TProps, Theme>['property'],
 ) => {
-  const props = omitPropertiesMap.variant
-    ? {variant: 'defaults', ...componentProps}
+  const props = omitPropertiesMap[variant]
+    ? {[variant]: 'defaults', ...componentProps}
     : componentProps;
+
   return getKeys(props).reduce(
     ({cleanProps, restyleProps, serializedRestyleProps}, key) => {
       if (omitPropertiesMap[key as keyof TProps]) {
@@ -58,6 +66,7 @@ const useRestyle = <
     ) => RNStyle;
     properties: (keyof TProps)[];
     propertiesMap: Record<keyof TProps, boolean>;
+    variantProp: RestyleFunctionContainer<TProps, Theme>['property'];
   },
   props: TProps,
 ) => {
@@ -67,6 +76,7 @@ const useRestyle = <
   const {cleanProps, restyleProps, serializedRestyleProps} = filterRestyleProps(
     props,
     composedRestyleFunction.propertiesMap,
+    composedRestyleFunction.variantProp,
   );
 
   const calculatedStyle = useMemo(() => {
