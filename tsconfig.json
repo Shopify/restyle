@@ -1,22 +1,10 @@
 {
   "compilerOptions": {
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "isolatedModules": false,
-    "jsx": "react",
-    "lib": ["es6", "es2015", "es2016", "es2017", "es2018"],
-    "noUnusedParameters": true,
-    "declaration": true,
-    "noUnusedLocals": true,
-    "moduleResolution": "node",
-    "strict": true,
-    "target": "es5",
-    "skipLibCheck": true,
     "outDir": "./dist",
     "baseUrl": "./src",
-    "rootDir": "./src"
+    "rootDir": "./src",
   },
+  "extends": "./shared/tsconfig.base.json",
   "include": ["./src/**/*.ts", "./src/**/*.tsx"],
   "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx"]
 }

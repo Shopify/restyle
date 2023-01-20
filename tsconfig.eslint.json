@@ -1,12 +1,14 @@
-{
-  "extends": "./tsconfig.json",
-  "include": [
-    "./src/**/*.ts",
-    "./src/**/*.tsx",
-    "**/*.test.ts",
-    "**/*.test.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
-}
+// {
+//   "extends": "./tsconfig.json",
+//   "include": [
+//     "./src/**/*.ts",
+//     "./src/**/*.tsx",
+//     "**/*.test.ts",
+//     "**/*.test.tsx",
+//     "./fixture/**/*.ts",
+//     "./fixture/**/*.tsx",
+//   ],
+//   "exclude": [
+//     "node_modules"
+//   ]
+// }

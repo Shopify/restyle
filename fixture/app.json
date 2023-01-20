@@ -1,0 +1,20 @@
+{
+    "name": "fixture",
+    "displayName": "fixture",
+    "components": [
+      {
+        "appKey": "fixture",
+        "displayName": "fixture"
+      }
+    ],
+    "resources": {
+      "android": [
+        "dist/res",
+        "dist/main.android.jsbundle"
+      ],
+      "ios": [
+        "dist/assets",
+        "dist/main.ios.jsbundle"
+      ]
+    }
+  }

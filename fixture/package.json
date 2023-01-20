@@ -1,0 +1,39 @@
+{
+  "name": "fixture",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "build:android": "mkdirp dist/res && react-native bundle --entry-file index.js --platform android --dev true --bundle-output dist/main.android.jsbundle --assets-dest dist/res",
+    "build:ios": "mkdirp dist && react-native bundle --entry-file index.js --platform ios --dev true --bundle-output dist/main.ios.jsbundle --assets-dest dist",
+    "ios": "react-native run-ios",
+    "lint": "eslint .",
+    "start": "react-native start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@shopify/restyle": "link:../",
+    "react": "18.1.0",
+    "react-native": "0.70.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/runtime": "^7.12.5",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "@tsconfig/react-native": "^2.0.3",
+    "@types/jest": "^29.2.6",
+    "@types/react": "^18.0.27",
+    "@types/react-test-renderer": "^18.0.0",
+    "babel-jest": "^26.6.3",
+    "eslint": "^7.32.0",
+    "jest": "^26.6.3",
+    "metro-react-native-babel-preset": "0.72.3",
+    "mkdirp": "^1.0.0",
+    "react-native-test-app": "^2.3.1",
+    "react-test-renderer": "18.1.0",
+    "typescript": "^4.9.4"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
