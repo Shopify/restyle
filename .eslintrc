@@ -23,6 +23,7 @@
     "id-length": "off",
     "@shopify/restrict-full-import": ["error", "lodash"],
     "no-process-env": "off",
+    "@shopify/jsx-no-hardcoded-content": "off",
     "@typescript-eslint/naming-convention": [
       "off",
       {
