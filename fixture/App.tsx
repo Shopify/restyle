@@ -28,14 +28,14 @@ const App = () => {
     <ThemeProvider theme={selectedTheme}>
       <Box backgroundColor="background" flex={1}>
         <SafeAreaView style={{flex: 1}}>
-          <Box flex={1} paddingHorizontal="m">
+          <Box flex={1} paddingHorizontal="m" gap="s">
             <Text variant="header">Welcome</Text>
-            <Card variant="primary" margin="s">
+            <Card variant="primary">
               <Text variant="body">
                 This is a simple example displaying how to use Restyle
               </Text>
             </Card>
-            <Card variant="secondary" margin="s">
+            <Card variant="secondary">
               <Text variant="body">
                 You can find the theme in theme.ts. Update the theme values to
                 see how it changes this screen
@@ -43,7 +43,6 @@ const App = () => {
             </Card>
             <Card
               variant="primary"
-              margin="s"
               flexDirection="row"
               justifyContent="space-between"
               alignItems="center"
