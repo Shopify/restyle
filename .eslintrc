@@ -21,10 +21,8 @@
     "func-style": "off",
     "react/display-name": "off",
     "id-length": "off",
-    "@shopify/restrict-full-import": [
-      "error",
-      "lodash"
-    ],
+    "@shopify/restrict-full-import": ["error", "lodash"],
+    "no-process-env": "off",
     "@typescript-eslint/naming-convention": [
       "off",
       {
@@ -34,5 +32,8 @@
       }
     ]
   },
-  "ignorePatterns": ["node_modules", "dist"]
+  "ignorePatterns": ["node_modules", "dist"],
+  "env": {
+    "node": true
+  }
 }

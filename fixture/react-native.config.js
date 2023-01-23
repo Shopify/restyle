@@ -1,10 +1,9 @@
-const path = require("path");
+const path = require('path');
 
-const root = path.resolve(__dirname, "../");
+const root = path.resolve(__dirname, '../');
 
 const project = (() => {
   const fs = require('fs');
-  const path = require('path');
   try {
     const {
       androidManifestPath,
@@ -32,8 +31,8 @@ const project = (() => {
 module.exports = {
   ...(project ? {project} : undefined),
   dependencies: {
-    "@shopify/restyle": {
-      root
+    '@shopify/restyle': {
+      root,
     },
   },
 };
