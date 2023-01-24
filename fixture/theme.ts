@@ -5,7 +5,6 @@ const palette = {
   green: '#099C77',
   black: '#101010',
   white: '#FFF',
-  gray: '#EEE',
 };
 
 export const theme = createTheme({
