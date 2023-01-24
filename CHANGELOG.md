@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Next
 
+## 2.2.0 - 2023-01-24
+
 - Upgrade React Native to 0.71 in [#207](https://github.com/Shopify/restyle/pull/207) by [mattfrances](https://github.com/mattfrances)
 - Add support of gap properties in [#188](https://github.com/Shopify/restyle/pull/188) by [mlecoq](https://github.com/mlecoq)
 
