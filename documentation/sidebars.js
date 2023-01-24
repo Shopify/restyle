@@ -61,6 +61,7 @@ module.exports = {
       collapsed: true,
       items: [
         'guides/dark-mode',
+        'guides/fixture-app',
         'guides/shopify-design-system',
         'guides/migrating-to-v2',
       ],

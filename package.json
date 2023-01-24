@@ -13,7 +13,7 @@
     "lint-fix": "eslint --fix '**/*.{ts,tsx}'",
     "prepublishOnly": "yarn run build",
     "up": "yarn && yarn fixture-up",
-    "fixture-up": "cd fixture && yarn && pod install --project-directory=ios",
+    "fixture-up": "yarn build && cd fixture && yarn && pod install --project-directory=ios",
     "start": "cd fixture && react-native start",
     "run-ios": "cd fixture && yarn react-native run-ios",
     "run-android": "cd fixture && yarn react-native run-android",
