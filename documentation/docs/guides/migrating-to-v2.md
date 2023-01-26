@@ -1,4 +1,7 @@
-## Migrating to restyle v2
+---
+id: migrating-to-v2
+title: Migrating to Restyle V2
+---
 
 v2 of this library introduces breaking changes in the usage of the `useRestyle` hook.
 If you are not using `useRestyle` in your project, then you don't need to address any breaking change and can upgrade the library right away.
