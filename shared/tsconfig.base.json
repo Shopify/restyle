@@ -13,11 +13,6 @@
     "strict": true,
     "target": "es5",
     "skipLibCheck": true,
-    "outDir": "./dist",
-    "baseUrl": "./src",
-    "rootDir": "./src",
   },
-  "extends": "./shared/tsconfig.base.json",
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
-  "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx"]
+  "typeRoots": ["../node_modules/@types"]
 }
