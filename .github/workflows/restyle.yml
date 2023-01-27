@@ -72,7 +72,6 @@ jobs:
           ruby-version: ${{ env.RUBY_VERSION }}
           bundler-cache: true
       - run: |
-          bundle install
           cd fixture
           yarn
           cd android
