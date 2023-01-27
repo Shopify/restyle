@@ -32,6 +32,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
       - run: |
           yarn
+          yarn build
           cd fixture
           yarn
           yarn build:android
