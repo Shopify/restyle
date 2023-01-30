@@ -12,6 +12,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@shopify/flash-list": "^1.4.1",
     "@shopify/restyle": "link:../",
     "react": "18.1.0",
     "react-native": "^0.71.1"
