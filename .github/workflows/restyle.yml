@@ -59,6 +59,8 @@ jobs:
       - run: |
           yarn
           yarn test --forceExit
+  # Note that we decided not to build the iOS fixture app as it would take around 30 minutes. Since updates to the fixture app
+  # will generally not contain native code changes, the build is not entirely necessary and can be added in the future if needed.
   build-android:
     name: 'Build Android'
     runs-on: ubuntu-latest
