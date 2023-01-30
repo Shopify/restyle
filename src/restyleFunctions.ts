@@ -48,8 +48,8 @@ const spacingPropertiesShorthand = {
   ps: 'paddingStart',
   pe: 'paddingEnd',
   g: 'gap',
-  rG: 'rowGap',
-  cG: 'columnGap',
+  rg: 'rowGap',
+  cg: 'columnGap',
 };
 
 const typographyProperties = {

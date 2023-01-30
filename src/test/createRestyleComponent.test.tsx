@@ -211,7 +211,7 @@ describe('createRestyleComponent', () => {
     it('passes gap shorthands as gap values', () => {
       const {root} = render(
         <ThemeProvider theme={theme}>
-          <Component g="s" cG="s" rG="s" />
+          <Component g="s" cg="s" rg="s" />
         </ThemeProvider>,
       );
       expect(root.findByType(View).props).toStrictEqual({
