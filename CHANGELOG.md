@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Next
 
+## 2.3.0 - 2023-01-30
+
 - Renamed gap shorthands to be lowercase [#218](https://github.com/Shopify/restyle/pull/218) by [mlecoq](https://github.com/mlecoq)
 - Better TypeScript type support [#216](https://github.com/Shopify/restyle/pull/216) by [FranzMoreno](https://github.com/FranzMoreno) & [fortmarek](https://github.com/fortmarek)
 
