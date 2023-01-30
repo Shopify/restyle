@@ -1,7 +1,11 @@
 ---
-id: predefined-restyle-functions
-title: Predefined Restyle functions
+id: restyle-functions
+title: Restyle functions
 ---
+
+Restyle functions are the bread and butter of Restyle. They specify how props should be mapped to values in a resulting style object, that can then be passed down to a React Native component. The props support responsive values and can be mapped to values in your theme.
+
+## Predefined Restyle functions
 
 The Restyle library comes with a number of predefined Restyle functions for your convenience. Properties within brackets are aliases / shorthands for the preceding prop name.
 
@@ -23,3 +27,27 @@ The Restyle library comes with a number of predefined Restyle functions for your
 | textShadow       | textShadowOffset, textShadowRadius                                                                                                                                                                                                                                                                                                                                           | _none_      |
 | textShadow       | textShadowColor                                                                                                                                                                                                                                                                                                                                                              | colors      |
 | typography       | fontFamily, fontSize, fontStyle, fontWeight, letterSpacing, lineHeight, textAlign, textDecorationLine, textDecorationStyle, textTransform                                                                                                                                                                                                                                    | _none_      |
+
+## Custom Restyle functions
+
+To define your own Restyle function, use the `createRestyleFunction` helper:
+
+```ts
+import {createRestyleFunction, createRestyleComponent} from '@shopify/restyle'
+const transparency = createRestyleFunction({
+  property: 'transparency',
+  styleProperty: 'opacity',
+  transform: ({value}: {value: number}) => 1 - value,
+});
+
+const TransparentComponent = createRestyleComponent([transparency])
+
+<TransparentComponent transparency={0.5} />
+```
+
+Arguments:
+
+- `property`: The name of the component prop that the function will receive the value of.
+- `styleProperty`: The name of the property in the style object to map to. Defaults to the value of `property`.
+- `transform({value, theme, themeKey})`: An optional function that transforms the value of the prop to the value that will be inserted into the style object.
+- `themeKey`: An optional key in the theme to map values from, e.g. `colors`.

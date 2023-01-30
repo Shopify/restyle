@@ -4,7 +4,7 @@ title: Custom components
 ---
 
 If you want to create your own component similar to `Box` or `Text`, but decide
-yourself which [predefined Restyle functions](/fundamentals/restyle-functions/predefined-restyle-functions) to use, use the
+yourself which [predefined Restyle functions](/fundamentals/restyle-functions#predefined-restyle-functions) to use, use the
 `createRestyleComponent` helper:
 
 ```ts

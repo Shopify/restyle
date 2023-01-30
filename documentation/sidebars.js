@@ -5,7 +5,7 @@ module.exports = {
   // Uncomment this if not using the auto sidebar above
   // Uses the docusaurus/docs directory by default as the root of the docs
 
-  // This is an example of what the manual sidebar should look like
+  // Manual sidebar below
   docs: [
     {
       type: 'doc',
@@ -31,6 +31,7 @@ module.exports = {
         'fundamentals/breakpoints',
         'fundamentals/responsive-values',
         'fundamentals/overriding-styles',
+        'fundamentals/restyle-functions',
         {
           type: 'category',
           label: 'Components',
@@ -44,23 +45,6 @@ module.exports = {
           items: [
             'fundamentals/components/predefined-components',
             'fundamentals/components/custom-components',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'Restyle functions',
-          link: {
-            type: 'generated-index',
-            title: 'Restyle Functions',
-            description:
-              'Restyle functions are the bread and butter of Restyle. They specify how props should be mapped to values in a resulting style object, that can then be passed down to a React Native component. The props support responsive values and can be mapped to values in your theme.',
-            slug: 'fundamentals/restyle-functions',
-          },
-          collapsible: true,
-          collapsed: true,
-          items: [
-            'fundamentals/restyle-functions/predefined-restyle-functions',
-            'fundamentals/restyle-functions/custom-restyle-functions',
           ],
         },
       ],
