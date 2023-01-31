@@ -16,7 +16,8 @@
     "fixture-up": "cd fixture && yarn && pod install --project-directory=ios",
     "start": "cd fixture && react-native start",
     "run-ios": "cd fixture && yarn react-native run-ios",
-    "run-android": "cd fixture && yarn react-native run-android"
+    "run-android": "cd fixture && yarn react-native run-android",
+    "deploy:documentation": "gh-pages -d documentation/build"
   },
   "publishConfig": {
     "access": "public",
@@ -27,7 +28,6 @@
     "type": "git",
     "url": "git+https://github.com/Shopify/restyle.git"
   },
-  "dependencies": {},
   "devDependencies": {
     "@shopify/eslint-plugin": "^42.0.3",
     "@types/jest": "^29.2.1",
@@ -36,6 +36,7 @@
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.2.1",
     "eslint": "^8.32.0",
+    "gh-pages": "^5.0.0",
     "jest": "^29.2.1",
     "prettier": "^2.4.1",
     "react": "^18.2.0",

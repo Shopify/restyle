@@ -1,0 +1,32 @@
+name: Deploy documentation
+on:
+  push:
+    branches:
+      - master
+
+env:
+  RUBY_VERSION: 3.0.3
+  NODE_VERSION: 19.14.0
+
+jobs:
+  release:
+    name: Deploy documentation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Install dependencies
+        run: yarn
+      - name: Install documentation dependencies and build
+        run: |
+          cd documentation
+          yarn
+          yarn build
+      - name: Publish documentation
+        run: |
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          yarn deploy:documentation -u "github-actions-bot <support+actions@github.com>"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
