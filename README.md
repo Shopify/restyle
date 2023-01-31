@@ -751,13 +751,12 @@ Read more about migration to v2 [here](./docs/MIGRATING_TO_V2.md)
 
 ### Running the Documentation website locally
 
-To run the Documentation website, you need to be on node version 16.14.0. This is caused by an internal issue we are working to resolve. To check your node version, run `node -v` in your terminal. To temporary switch to the correct version, we recommend using [nvm](https://github.com/nvm-sh/nvm). Once [installed](https://github.com/nvm-sh/nvm#installing-and-updating), you can run `nvm install 16.14.0` to set the correct node version in your current terminal. With the right node version, you can then run the following command:
+To run the Documentation website locally, please follow the steps below:
 
-```bash
-yarn start
-```
-
-The documentation site will now be visible by going to http://localhost:3000/.
+1. `cd documentation`
+2. `yarn`
+3. `yarn start`
+4. Go to http://localhost:3000/ to see the documentation site
 
 ### Inspiration
 
