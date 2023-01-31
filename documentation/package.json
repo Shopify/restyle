@@ -18,7 +18,6 @@
     "@docusaurus/preset-classic": "2.2.0",
     "@easyops-cn/docusaurus-search-local": "^0.33.6",
     "@mdx-js/react": "^1.6.22",
-    "@shopify/docusaurus-shopify-theme": "^0.4.3",
     "clsx": "^1.2.1",
     "prism-react-renderer": "^1.3.5",
     "react": "^17.0.2",

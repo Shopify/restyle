@@ -18,6 +18,10 @@ module.exports = {
     },
     navbar: {
       title: 'Restyle',
+      logo: {
+        alt: 'Shopify Logo',
+        src: 'img/shopify-logo.svg',
+      },
       items: [
         {
           href: 'https://github.com/shopify/restyle',
@@ -70,7 +74,6 @@ module.exports = {
       },
     ],
   ],
-  themes: ['@shopify/docusaurus-shopify-theme'],
   presets: [
     [
       '@docusaurus/preset-classic',
