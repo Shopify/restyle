@@ -1,11 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import {useMemo} from 'react';
 import {StyleProp, useWindowDimensions} from 'react-native';
 
 import {BaseTheme, RNStyle, Dimensions} from '../types';
-import {getKeys} from '../typeHelpers';
 
 import useTheme from './useTheme';
 
@@ -16,10 +12,6 @@ const filterRestyleProps = <
   componentProps: TProps,
   omitPropertiesMap: {[key in keyof TProps]: boolean},
 ) => {
-  const props = omitPropertiesMap.variant
-    ? {variant: 'defaults', ...componentProps}
-    : componentProps;
-  const keys = getKeys(props);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const cleanProps: TProps = {};
@@ -27,12 +19,17 @@ const filterRestyleProps = <
   // @ts-ignore
   const restyleProps: TProps = {};
   let serializedRestyleProps = '';
-  for (const key of keys) {
+  if (omitPropertiesMap.variant) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    restyleProps.variant = componentProps.variant ?? 'defaults';
+  }
+  for (const key in componentProps) {
     if (omitPropertiesMap[key as keyof TProps]) {
-      restyleProps[key] = props[key];
-      serializedRestyleProps += `${String(key)}:${props[key]};`;
+      restyleProps[key] = componentProps[key];
+      serializedRestyleProps += `${String(key)}:${componentProps[key]};`;
     } else {
-      cleanProps[key] = props[key];
+      cleanProps[key] = componentProps[key];
     }
   }
 
