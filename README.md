@@ -366,24 +366,24 @@ Restyle functions are the bread and butter of Restyle. They specify how props sh
 
 The Restyle library comes with a number of predefined Restyle functions for your convenience. Properties within brackets are aliases / shorthands for the preceding prop name.
 
-| Restyle Function | Props                                                                                                                                                                                                                                                                                                                                  | Theme Key   |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| backgroundColor  | backgroundColor [bg]                                                                                                                                                                                                                                                                                                                   | colors      |
-| color            | color                                                                                                                                                                                                                                                                                                                                  | colors      |
-| opacity          | opacity                                                                                                                                                                                                                                                                                                                                | _none_      |
-| visible          | display (maps `true` / `false` to `flex` / `none`)                                                                                                                                                                                                                                                                                     | _none_      |
+| Restyle Function | Props                                                                                                                                                                                                                                                                                                                                                                        | Theme Key   |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| backgroundColor  | backgroundColor [bg]                                                                                                                                                                                                                                                                                                                                                         | colors      |
+| color            | color                                                                                                                                                                                                                                                                                                                                                                        | colors      |
+| opacity          | opacity                                                                                                                                                                                                                                                                                                                                                                      | _none_      |
+| visible          | display (maps `true` / `false` to `flex` / `none`)                                                                                                                                                                                                                                                                                                                           | _none_      |
 | spacing          | margin [m], marginTop [mt], marginRight [mr], marginBottom [mb], marginLeft [ml], marginStart [ms], marginEnd[me], marginHorizontal [mx], marginVertical [my], padding [p], paddingTop [pt], paddingRight [pr], paddingBottom [pb], paddingLeft [pl], paddingStart [ps], paddingEnd [pe], paddingHorizontal [px], paddingVertical [py], gap [g], rowGap [rg], columnGap [cg] | spacing     |
-| layout           | width, height, minWidth, maxWidth, minHeight, maxHeight, overflow, aspectRatio, alignContent, alignItems, alignSelf, justifyContent, flex, flexBasis, flexDirection, flexGrow, flexShrink, flexWrap                                                                                                                                    | _none_      |
-| position         | position, top, right, bottom, left, start, end                                                                                                                                                                                                                                                                                         | _none_      |
-| position         | zIndex                                                                                                                                                                                                                                                                                                                                 | zIndices    |
-| border           | borderBottomWidth, borderLeftWidth, borderRightWidth, borderStartWidth, borderEndWidth, borderStyle, borderTopWidth, borderWidth                                                                                                                                                                                                       | _none_      |
-| border           | borderColor, borderTopColor, borderRightColor, borderLeftColor, borderStartColor, borderEndColor, borderBottomColor                                                                                                                                                                                                                    | colors      |
-| border           | borderRadius, borderBottomLeftRadius, borderBottomRightRadius, borderBottomStartRadius, borderBottomEndRadius, borderTopLeftRadius, borderTopRightRadius, borderTopStartRadius, borderTopEndRadius                                                                                                                                     | borderRadii |
-| shadow           | shadowOpacity, shadowOffset, shadowRadius, elevation                                                                                                                                                                                                                                                                                   | _none_      |
-| shadow           | shadowColor                                                                                                                                                                                                                                                                                                                            | colors      |
-| textShadow       | textShadowOffset, textShadowRadius                                                                                                                                                                                                                                                                                                     | _none_      |
-| textShadow       | textShadowColor                                                                                                                                                                                                                                                                                                                        | colors      |
-| typography       | fontFamily, fontSize, fontStyle, fontWeight, letterSpacing, lineHeight, textAlign, textDecorationLine, textDecorationStyle, textTransform                                                                                                                                                                                              | _none_      |
+| layout           | width, height, minWidth, maxWidth, minHeight, maxHeight, overflow, aspectRatio, alignContent, alignItems, alignSelf, justifyContent, flex, flexBasis, flexDirection, flexGrow, flexShrink, flexWrap                                                                                                                                                                          | _none_      |
+| position         | position, top, right, bottom, left, start, end                                                                                                                                                                                                                                                                                                                               | _none_      |
+| position         | zIndex                                                                                                                                                                                                                                                                                                                                                                       | zIndices    |
+| border           | borderBottomWidth, borderLeftWidth, borderRightWidth, borderStartWidth, borderEndWidth, borderStyle, borderTopWidth, borderWidth                                                                                                                                                                                                                                             | _none_      |
+| border           | borderColor, borderTopColor, borderRightColor, borderLeftColor, borderStartColor, borderEndColor, borderBottomColor                                                                                                                                                                                                                                                          | colors      |
+| border           | borderRadius, borderBottomLeftRadius, borderBottomRightRadius, borderBottomStartRadius, borderBottomEndRadius, borderTopLeftRadius, borderTopRightRadius, borderTopStartRadius, borderTopEndRadius                                                                                                                                                                           | borderRadii |
+| shadow           | shadowOpacity, shadowOffset, shadowRadius, elevation                                                                                                                                                                                                                                                                                                                         | _none_      |
+| shadow           | shadowColor                                                                                                                                                                                                                                                                                                                                                                  | colors      |
+| textShadow       | textShadowOffset, textShadowRadius                                                                                                                                                                                                                                                                                                                                           | _none_      |
+| textShadow       | textShadowColor                                                                                                                                                                                                                                                                                                                                                              | colors      |
+| typography       | fontFamily, fontSize, fontStyle, fontWeight, letterSpacing, lineHeight, textAlign, textDecorationLine, textDecorationStyle, textTransform                                                                                                                                                                                                                                    | _none_      |
 
 #### Custom Restyle Functions
 
@@ -539,11 +539,13 @@ const Button = ({
   const bgColor = textColorProp === 'purple' ? 'lightPurple' : 'lightBlue';
 
   return (
-    <BaseButton flexDirection="row" columnGap="s" backgroundColor={bgColor} {...props}>
-      <Text
-        variant="buttonLabel"
-        color={color}
-      >
+    <BaseButton
+      flexDirection="row"
+      columnGap="s"
+      backgroundColor={bgColor}
+      {...props}
+    >
+      <Text variant="buttonLabel" color={color}>
         {label}
       </Text>
       {isLoading ? (
@@ -746,6 +748,15 @@ Now you can easily style your components with [Shopify Polaris](https://polaris.
 ### Migrating to restyle v2
 
 Read more about migration to v2 [here](./docs/MIGRATING_TO_V2.md)
+
+### Running the Documentation website locally
+
+To run the Documentation website locally, please follow the steps below:
+
+1. `cd documentation`
+2. `yarn`
+3. `yarn start`
+4. Go to http://localhost:3000/ to see the documentation site
 
 ### Inspiration
 

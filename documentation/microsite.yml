@@ -1,0 +1,11 @@
+# Please do not remove this file as it is required to populate the `catalog.docs.shopify.io` page
+
+title: Restyle
+
+description: >
+  A type-enforced system for building UI components in React Native with TypeScript.
+
+repository:
+  home: https://github.com/Shopify/restyle
+  branch: master
+  blob_url: '%home%/blob/%branch%/%path%'
