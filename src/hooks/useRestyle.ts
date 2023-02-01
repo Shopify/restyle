@@ -89,10 +89,10 @@ const useRestyle = <
     composedRestyleFunction,
   ]);
 
-  return {
-    ...cleanProps,
-    style: calculatedStyle,
-  };
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  cleanProps.style = calculatedStyle;
+  return cleanProps;
 };
 
 export default useRestyle;
