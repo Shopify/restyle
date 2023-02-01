@@ -1,14 +1,14 @@
 import {useWindowDimensions} from 'react-native';
 
-import {BaseTheme, PropValue, ResponsiveValue} from '../types';
-import {
-  getValueForScreenSize,
-  isResponsiveObjectValue,
-} from '../responsiveHelpers';
+import {PropValue, ResponsiveBaseTheme, ResponsiveValue} from '../types';
+import {getValueForScreenSize, isResponsiveObjectValue} from '../utilities';
 
 import useTheme from './useTheme';
 
-const useResponsiveProp = <Theme extends BaseTheme, TVal extends PropValue>(
+const useResponsiveProp = <
+  Theme extends ResponsiveBaseTheme,
+  TVal extends PropValue,
+>(
   propValue: ResponsiveValue<TVal, Theme['breakpoints']>,
 ) => {
   const theme = useTheme<Theme>();

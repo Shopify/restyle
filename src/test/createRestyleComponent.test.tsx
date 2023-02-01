@@ -47,6 +47,9 @@ const themeWithVariant = {
     },
   },
 };
+
+const {breakpoints, ...themeWithoutBreakpoints} = theme;
+
 type Theme = typeof theme;
 type ThemeWithVariant = typeof themeWithVariant;
 
@@ -86,6 +89,15 @@ describe('createRestyleComponent', () => {
     it('passes styles based on the given props', () => {
       const {root} = render(
         <ThemeProvider theme={theme}>
+          <Component opacity={0.5} />
+        </ThemeProvider>,
+      );
+      expect(root.findByType(View).props.style).toStrictEqual([{opacity: 0.5}]);
+    });
+
+    it('passes styles based on the given props for theme without breakpoints', () => {
+      const {root} = render(
+        <ThemeProvider theme={themeWithoutBreakpoints}>
           <Component opacity={0.5} />
         </ThemeProvider>,
       );

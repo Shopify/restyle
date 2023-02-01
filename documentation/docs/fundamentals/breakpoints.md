@@ -19,4 +19,4 @@ const theme = createTheme({
 });
 ```
 
-See the [Responsive Values](/fundamentals/responsive-values) section to see how these can be used.
+See the [Responsive Values](/fundamentals/responsive-values) section to see how these can be used. Defining `breakpoints` is optional and we recommend defining it only if you plan to use them due to a performance hit (up to 10 % worse average FPS when scrolling in a list) responsive values incur.

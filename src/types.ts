@@ -1,5 +1,21 @@
 import {ImageStyle, TextStyle, ViewStyle, StyleProp} from 'react-native';
 
+export interface ResponsiveBaseTheme extends BaseTheme {
+  breakpoints: {
+    [key: string]: Breakpoint;
+  };
+}
+
+export type StyleTransformFunction<
+  Theme extends BaseTheme,
+  K extends keyof Theme | undefined,
+  TVal,
+> = (params: {
+  value: TVal | undefined | null;
+  theme: Theme;
+  themeKey?: K;
+}) => TVal | undefined | null;
+
 export type AtLeastOneResponsiveValue<
   Value,
   B extends BaseTheme['breakpoints'],
@@ -22,7 +38,7 @@ export interface KnownBaseTheme {
   spacing: {
     [key: string]: number | string;
   };
-  breakpoints: {
+  breakpoints?: {
     [key: string]: Breakpoint;
   };
   zIndices?: {
@@ -62,7 +78,7 @@ export type RestyleFunction<
   S extends keyof any = string,
 > = (
   props: TProps,
-  context: {theme: Theme; dimensions: Dimensions},
+  context: {theme: Theme; dimensions: Dimensions | null},
 ) => {
   [key in S]?: any;
 };
