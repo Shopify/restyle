@@ -1,6 +1,8 @@
 import {BaseTheme, RestyleFunction, RNStyleProperty} from './types';
 import {getResponsiveValue, StyleTransformFunction} from './responsiveHelpers';
 
+// const memoizedMap = new Map();
+
 const createRestyleFunction = <
   Theme extends BaseTheme = BaseTheme,
   TProps extends {[key: string]: any} = {[key: string]: any},

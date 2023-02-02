@@ -49,13 +49,25 @@ const composeRestyleFunctions = <
       dimensions: Dimensions;
     },
   ): RNStyle => {
-    const styles = Object.keys(props).reduce(
-      (styleObj, propKey) => ({
-        ...styleObj,
-        ...funcsMap[propKey as keyof TProps](props, {theme, dimensions}),
-      }),
-      {},
-    );
+    const styles = {};
+    const options = {theme, dimensions};
+    // eslint-disable-next-line guard-for-in
+    for (const key in props) {
+      const mappedProps = funcsMap[key](props, options);
+      // eslint-disable-next-line guard-for-in
+      for (const mappedKey in mappedProps) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        styles[mappedKey as keyof TProps] = mappedProps[mappedKey];
+      }
+    }
+    // const styles = Object.keys(props).reduce(
+    //   (styleObj, propKey) => ({
+    //     ...styleObj,
+    //     ...funcsMap[propKey as keyof TProps](props, {theme, dimensions}),
+    //   }),
+    //   {},
+    // );
     const {stylesheet} = StyleSheet.create({stylesheet: styles});
     return stylesheet;
   };
