@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkrestyle=self.webpackChunkrestyle||[]).push([[404],{4594:e=>{e.exports=JSON.parse('{"title":"Guides","slug":"guides","permalink":"/guides","navigation":{"previous":{"title":"Custom components","permalink":"/fundamentals/components/custom-components"},"next":{"title":"Implementing dark mode","permalink":"/guides/dark-mode"}}}')}}]);
