@@ -2,8 +2,8 @@ module.exports = {
   title: 'Restyle',
   tagline:
     'A type-enforced system for building UI components in React Native with TypeScript.',
-  url: 'https://restyle.docs.shopify.io',
-  baseUrl: '/',
+  url: 'https://shopify.github.io/restyle',
+  baseUrl: '/restyle/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/shopify-logo.svg',
