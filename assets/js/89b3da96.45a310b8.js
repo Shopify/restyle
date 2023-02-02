@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkrestyle=self.webpackChunkrestyle||[]).push([[830],{9206:e=>{e.exports=JSON.parse('{"title":"Fundamentals","slug":"/fundamentals","permalink":"/restyle/fundamentals","navigation":{"previous":{"title":"Getting started","permalink":"/restyle/"},"next":{"title":"Defining your theme","permalink":"/restyle/fundamentals/defining-your-theme"}}}')}}]);
