@@ -1,8 +1,6 @@
 import {BaseTheme, RestyleFunction, RNStyleProperty} from './types';
 import {getResponsiveValue, StyleTransformFunction} from './responsiveHelpers';
 
-// const memoizedMap = new Map();
-
 const createRestyleFunction = <
   Theme extends BaseTheme = BaseTheme,
   TProps extends {[key: string]: any} = {[key: string]: any},
@@ -26,6 +24,22 @@ const createRestyleFunction = <
     props,
     {theme, dimensions},
   ) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const unsafeTheme: Theme & {
+      unsafeMemoizedMap: {[key: string]: any} | null;
+    } = theme;
+    if (unsafeTheme.unsafeMemoizedMap == null) {
+      unsafeTheme.unsafeMemoizedMap = {};
+    }
+    const memoizedMapHashKey = `${dimensions.height}x${
+      dimensions.width
+    }-${String(themeKey)}-${String(property)}-${String(props[property])}}`;
+    const memoizedValue = unsafeTheme.unsafeMemoizedMap[memoizedMapHashKey];
+    if (memoizedValue != null) {
+      return {[styleProp]: memoizedValue} as {[key in S | P]?: typeof value};
+    }
+
     const value = getResponsiveValue(props[property], {
       theme,
       dimensions,
@@ -33,6 +47,8 @@ const createRestyleFunction = <
       transform,
     });
     if (value === undefined) return {};
+
+    unsafeTheme.unsafeMemoizedMap[memoizedMapHashKey] = value;
 
     return {
       [styleProp]: value,
