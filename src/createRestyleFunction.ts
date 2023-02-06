@@ -3,12 +3,13 @@ import {getResponsiveValue, StyleTransformFunction} from './responsiveHelpers';
 import {tracerInstance} from './tracer';
 
 const getMemoizedMapHashKey = (
-  dimensions: Dimensions,
+  dimensions: Dimensions | null,
   themeKey?: string,
   property?: string,
   value?: string | number | boolean,
 ) => {
-  const dimensionsString = `${dimensions.height}x${dimensions.width}`;
+  const dimensionsString =
+    dimensions === null ? '' : `${dimensions.height}x${dimensions.width}`;
   if (themeKey == null || property == null || value == null) {
     return null;
   }
@@ -36,6 +37,7 @@ const createRestyleFunction = <
 
   const func: RestyleFunction<TProps, Theme, S | P> = (
     props,
+    type: 1 | 2 = 1,
     {theme, dimensions},
   ) => {
     tracerInstance.start('createRestyleFunction cached');
@@ -43,52 +45,59 @@ const createRestyleFunction = <
     // @ts-ignore
     const unsafeTheme: Theme & {
       unsafeMemoizedMap: {[key: string]: any} | null;
-      hit: number;
-      miss: number;
+      unsafeMemoizedMapTwo: {[key: string]: any} | null;
     } = theme;
     if (unsafeTheme.unsafeMemoizedMap == null) {
       unsafeTheme.unsafeMemoizedMap = {};
-      unsafeTheme.hit = 0;
-      unsafeTheme.miss = 0;
+    }
+    if (unsafeTheme.unsafeMemoizedMapTwo == null) {
+      unsafeTheme.unsafeMemoizedMapTwo = {};
     }
 
-    // console.log('memoizedMapHashKey', memoizedMapHashKey);
     let memoizedMapHashKey;
-    tracerInstance.start('cached function 1');
 
-    tracerInstance.start('cached function 1', 'casting version');
     memoizedMapHashKey = getMemoizedMapHashKey(
       dimensions,
       String(themeKey),
       String(property),
       String(props[property]),
     );
-    tracerInstance.stop('cached function 1', 'casting version');
 
-    if (typeof themeKey === 'string' && typeof property === 'string') {
+    if (
+      typeof themeKey === 'string' &&
+      typeof property === 'string' &&
+      themeKey != null &&
+      property != null &&
+      props[property] != null
+    ) {
       memoizedMapHashKey = getMemoizedMapHashKey(
         dimensions,
         themeKey,
         property,
         props[property],
       );
-      tracerInstance.stop('cached function 1');
 
       if (memoizedMapHashKey != null) {
-        tracerInstance.start('cached function 2');
         const memoizedValue = unsafeTheme.unsafeMemoizedMap[memoizedMapHashKey];
-        tracerInstance.stop('cached function 2');
 
-        if (memoizedValue != null) {
-          tracerInstance.start('cached function 3');
-          const result = {[styleProp]: memoizedValue} as {
-            [key in S | P]?: typeof value;
-          };
-          tracerInstance.stop('cached function 3');
-          return result;
+        // let resulta;
+
+        if (type === 1) {
+          if (memoizedValue != null) {
+            const result = {[styleProp]: memoizedValue} as {
+              [key in S | P]?: typeof value;
+            };
+            return result;
+          }
+        } else {
+          const memoizedValueTwo =
+            unsafeTheme.unsafeMemoizedMapTwo[memoizedMapHashKey];
+          if (memoizedValueTwo != null) {
+            return memoizedValueTwo;
+          }
         }
+        // return resulta;
       }
-      tracerInstance.stop('cached function 1');
     }
     const value = getResponsiveValue(props[property], {
       theme,
@@ -99,9 +108,14 @@ const createRestyleFunction = <
     if (value === undefined) return {};
 
     if (memoizedMapHashKey != null) {
-      unsafeTheme.unsafeMemoizedMap[memoizedMapHashKey] = value;
+      if (type === 1) {
+        unsafeTheme.unsafeMemoizedMap[memoizedMapHashKey] = value;
+      } else {
+        unsafeTheme.unsafeMemoizedMapTwo[memoizedMapHashKey] = {
+          [styleProp]: value,
+        };
+      }
     }
-    tracerInstance.stop('createRestyleFunction cached');
     return {
       [styleProp]: value,
     } as {[key in S | P]?: typeof value};

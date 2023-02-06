@@ -1,3 +1,4 @@
+import {tracerInstance} from './tracer';
 import {
   AtLeastOneResponsiveValue,
   BaseTheme,
@@ -80,13 +81,13 @@ export const getResponsiveValue = <
   propValue: ResponsiveValue<TVal, Theme['breakpoints']>,
   {
     theme,
-    transform,
+    // transform,
     dimensions,
     themeKey,
   }: {
     theme: Theme;
     transform?: StyleTransformFunction<Theme, K, TVal>;
-    dimensions: Dimensions;
+    dimensions: Dimensions | null;
     themeKey?: K;
   },
 ):
@@ -94,14 +95,29 @@ export const getResponsiveValue = <
   | TVal
   | null
   | undefined => {
-  const val = isResponsiveObjectValue(propValue, theme)
+  let val;
+
+  tracerInstance.start('responsiveValue');
+
+  val = isResponsiveObjectValue(propValue, theme)
     ? getValueForScreenSize({
         responsiveValue: propValue,
         breakpoints: theme.breakpoints,
-        dimensions,
+        dimensions: dimensions || {width: 0, height: 0},
       })
     : propValue;
-  if (transform) return transform({value: val, theme, themeKey});
+  tracerInstance.stop('responsiveValue');
+  tracerInstance.start('responsiveValue', 'null check');
+  val =
+    dimensions !== null && isResponsiveObjectValue(propValue, theme)
+      ? getValueForScreenSize({
+          responsiveValue: propValue,
+          breakpoints: theme.breakpoints,
+          dimensions,
+        })
+      : propValue;
+  tracerInstance.stop('responsiveValue', 'null check');
+  // if (transform) return transform({value: val, theme, themeKey});
   if (isThemeKey(theme, themeKey)) {
     if (val && theme[themeKey][val as string] === undefined)
       throw new Error(
@@ -111,6 +127,8 @@ export const getResponsiveValue = <
     return val ? theme[themeKey][val as string] : val;
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   return val;
 };
 

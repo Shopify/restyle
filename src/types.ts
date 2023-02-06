@@ -62,7 +62,8 @@ export type RestyleFunction<
   S extends keyof any = string,
 > = (
   props: TProps,
-  context: {theme: Theme; dimensions: Dimensions},
+  type: 1 | 2,
+  context: {theme: Theme; dimensions: Dimensions | null},
 ) => {
   [key in S]?: any;
 };

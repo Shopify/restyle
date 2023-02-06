@@ -18,16 +18,12 @@ const createRestyleComponent = <
 ) => {
   const composedRestyleFunction = composeRestyleFunctions(restyleFunctions);
 
-  tracerInstance.start('RestyleComponent');
-  const RestyleComponent = React.forwardRef(({props}: Props, ref) => {
-      tracerInstance.start('useRestyle');
-
-      const passedProps = useRestyle(composedRestyleFunction, props);
-      tracerInstance.stop('useRestyle');
-      return <BaseComponent ref={ref} {...passedProps} />;
-    }),
-  };
-  tracerInstance.stop('RestyleComponent');
+  const RestyleComponent = React.forwardRef((props: Props, ref) => {
+    tracerInstance.start('useRestyle');
+    const passedProps = useRestyle(composedRestyleFunction, props);
+    tracerInstance.stop('useRestyle');
+    return <BaseComponent ref={ref} {...passedProps} />;
+  });
   type RestyleComponentType = typeof RestyleComponent;
   return RestyleComponent as RestyleComponentType & {
     defaultProps?: Partial<React.ComponentProps<RestyleComponentType>>;

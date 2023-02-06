@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 
+import {tracerInstance} from './tracer';
 import {
   RestyleFunctionContainer,
   BaseTheme,
@@ -8,7 +9,6 @@ import {
   RestyleFunction,
 } from './types';
 import {AllProps} from './restyleFunctions';
-import {tracerInstance} from './tracer';
 
 const composeRestyleFunctions = <
   Theme extends BaseTheme,
@@ -45,43 +45,25 @@ const composeRestyleFunctions = <
       dimensions,
     }: {
       theme: Theme;
-      dimensions: Dimensions;
+      dimensions: Dimensions | null;
     },
   ): RNStyle => {
-    // let styles;
-    // tracerInstance.start('composeRestyleFunctions buildStyle');
-
-    // // console.log('input', props);
-
-    // styles = Object.keys(props).reduce(
-    //   (styleObj, propKey) => ({
-    //     ...styleObj,
-    //     ...funcsMap[propKey as keyof TProps](props, {theme, dimensions}),
-    //   }),
-    //   {},
-    // );
-    // tracerInstance.stop('composeRestyleFunctions buildStyle');
-    // tracerInstance.start(
-    //   'composeRestyleFunctions buildStyle',
-    //   'marek variation',
-    // );
-    // tracerInstance.start('composeRestyleFunctions forloop');
     const styles = {};
-    tracerInstance.start('options');
     const options = {theme, dimensions};
-    tracerInstance.stop('options');
     // eslint-disable-next-line guard-for-in
     for (const key in props) {
-      tracerInstance.start('funcMap');
-      const mappedProps = funcsMap[key](props, options);
-      tracerInstance.stop('funcMap');
+      let mappedProps;
+      tracerInstance.start('map props');
+      mappedProps = funcsMap[key](props, 1, options);
+      tracerInstance.stop('map props');
+      tracerInstance.start('map props', 'storing object');
+      mappedProps = funcsMap[key](props, 2, options);
+      tracerInstance.stop('map props', 'storing object');
       // eslint-disable-next-line guard-for-in
       for (const mappedKey in mappedProps) {
-        tracerInstance.start('stylesMap');
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         styles[mappedKey as keyof TProps] = mappedProps[mappedKey];
-        tracerInstance.stop('stylesMap');
       }
     }
     // tracerInstance.stop('composeRestyleFunctions forloop');
@@ -91,9 +73,7 @@ const composeRestyleFunctions = <
     // );
     // console.log('output', styles);
 
-    tracerInstance.start('composeRestyleFunctions stylesheet');
     const {stylesheet} = StyleSheet.create({stylesheet: styles});
-    tracerInstance.stop('composeRestyleFunctions stylesheet');
     return stylesheet;
   };
   return {

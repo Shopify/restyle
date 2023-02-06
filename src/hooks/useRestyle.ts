@@ -1,5 +1,5 @@
 import {useMemo} from 'react';
-import {StyleProp, useWindowDimensions} from 'react-native';
+import {ScaledSize, StyleProp, useWindowDimensions} from 'react-native';
 
 import {BaseTheme, RNStyle, Dimensions} from '../types';
 import {tracerInstance} from '../tracer';
@@ -85,7 +85,7 @@ const useRestyle = <
         dimensions,
       }: {
         theme: Theme;
-        dimensions: Dimensions;
+        dimensions: Dimensions | null;
       },
     ) => RNStyle;
     properties: (keyof TProps)[];
@@ -93,19 +93,14 @@ const useRestyle = <
   },
   props: TProps,
 ) => {
-  tracerInstance.start('useTheme hook');
   const theme = useTheme<Theme>();
-  tracerInstance.stop('useTheme hook');
 
-  tracerInstance.start('useWindowDimensions hook');
-  let dimensions = {width: 0, height: 0};
+  let dimensions: ScaledSize | null = null;
   if (Object.keys(theme.breakpoints).length > 0) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     dimensions = useWindowDimensions();
   }
   // const dimensions = useWindowDimensions();
-
-  tracerInstance.stop('useWindowDimensions hook');
 
   const {cleanProps, restyleProps, serializedRestyleProps} = filterRestyleProps(
     props,
@@ -113,23 +108,16 @@ const useRestyle = <
   );
 
   const calculatedStyle = useMemo(() => {
-    tracerInstance.start('calculate style buildstyle');
     const style = composedRestyleFunction.buildStyle(restyleProps as TProps, {
       theme,
       dimensions,
     });
-    tracerInstance.stop('calculate style buildstyle');
 
-    tracerInstance.start('calculate style filter functions');
     const styleProp = props.style;
     if (typeof styleProp === 'function') {
       return (...args: any[]) => [style, styleProp(...args)].filter(Boolean);
     }
-    tracerInstance.stop('calculate style filter functions');
-
-    tracerInstance.start('calculate style filter booleans');
     const filteredStyle = [style, styleProp].filter(Boolean);
-    tracerInstance.stop('calculate style filter booleans');
 
     return filteredStyle;
 
