@@ -1,6 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 
+import {tracerInstance} from './tracer';
 import composeRestyleFunctions from './composeRestyleFunctions';
 import {BaseTheme, RestyleFunctionContainer} from './types';
 import useRestyle from './hooks/useRestyle';
@@ -17,10 +18,16 @@ const createRestyleComponent = <
 ) => {
   const composedRestyleFunction = composeRestyleFunctions(restyleFunctions);
 
-  const RestyleComponent = React.forwardRef((props: Props, ref) => {
-    const passedProps = useRestyle(composedRestyleFunction, props);
-    return <BaseComponent ref={ref} {...passedProps} />;
-  });
+  tracerInstance.start('RestyleComponent');
+  const RestyleComponent = React.forwardRef(({props}: Props, ref) => {
+      tracerInstance.start('useRestyle');
+
+      const passedProps = useRestyle(composedRestyleFunction, props);
+      tracerInstance.stop('useRestyle');
+      return <BaseComponent ref={ref} {...passedProps} />;
+    }),
+  };
+  tracerInstance.stop('RestyleComponent');
   type RestyleComponentType = typeof RestyleComponent;
   return RestyleComponent as RestyleComponentType & {
     defaultProps?: Partial<React.ComponentProps<RestyleComponentType>>;
