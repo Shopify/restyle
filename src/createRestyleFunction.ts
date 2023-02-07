@@ -37,7 +37,6 @@ const createRestyleFunction = <
 
   const func: RestyleFunction<TProps, Theme, S | P> = (
     props,
-    type: 1 | 2 = 1,
     {theme, dimensions},
   ) => {
     tracerInstance.start('createRestyleFunction cached');
@@ -78,25 +77,11 @@ const createRestyleFunction = <
       );
 
       if (memoizedMapHashKey != null) {
-        const memoizedValue = unsafeTheme.unsafeMemoizedMap[memoizedMapHashKey];
-
-        // let resulta;
-
-        if (type === 1) {
-          if (memoizedValue != null) {
-            const result = {[styleProp]: memoizedValue} as {
-              [key in S | P]?: typeof value;
-            };
-            return result;
-          }
-        } else {
-          const memoizedValueTwo =
-            unsafeTheme.unsafeMemoizedMapTwo[memoizedMapHashKey];
-          if (memoizedValueTwo != null) {
-            return memoizedValueTwo;
-          }
+        const memoizedValue =
+          unsafeTheme.unsafeMemoizedMapTwo[memoizedMapHashKey];
+        if (memoizedValue != null) {
+          return memoizedValue;
         }
-        // return resulta;
       }
     }
     const value = getResponsiveValue(props[property], {
@@ -108,13 +93,9 @@ const createRestyleFunction = <
     if (value === undefined) return {};
 
     if (memoizedMapHashKey != null) {
-      if (type === 1) {
-        unsafeTheme.unsafeMemoizedMap[memoizedMapHashKey] = value;
-      } else {
-        unsafeTheme.unsafeMemoizedMapTwo[memoizedMapHashKey] = {
-          [styleProp]: value,
-        };
-      }
+      unsafeTheme.unsafeMemoizedMapTwo[memoizedMapHashKey] = {
+        [styleProp]: value,
+      };
     }
     return {
       [styleProp]: value,

@@ -71,7 +71,7 @@ function tracerHelper() {
   };
 
   const print = (message: string) => {
-    console.log(message);
+    console.error(message);
   };
 
   return {

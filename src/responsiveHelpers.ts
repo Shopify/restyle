@@ -99,13 +99,14 @@ export const getResponsiveValue = <
 
   tracerInstance.start('responsiveValue');
 
-  val = isResponsiveObjectValue(propValue, theme)
-    ? getValueForScreenSize({
-        responsiveValue: propValue,
-        breakpoints: theme.breakpoints,
-        dimensions: dimensions || {width: 0, height: 0},
-      })
-    : propValue;
+  val =
+    dimensions !== null && isResponsiveObjectValue(propValue, theme)
+      ? getValueForScreenSize({
+          responsiveValue: propValue,
+          breakpoints: theme.breakpoints,
+          dimensions: dimensions || {width: 0, height: 0},
+        })
+      : propValue;
   tracerInstance.stop('responsiveValue');
   tracerInstance.start('responsiveValue', 'null check');
   val =

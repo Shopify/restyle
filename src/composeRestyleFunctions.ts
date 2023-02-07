@@ -1,6 +1,5 @@
 import {StyleSheet} from 'react-native';
 
-import {tracerInstance} from './tracer';
 import {
   RestyleFunctionContainer,
   BaseTheme,
@@ -52,13 +51,7 @@ const composeRestyleFunctions = <
     const options = {theme, dimensions};
     // eslint-disable-next-line guard-for-in
     for (const key in props) {
-      let mappedProps;
-      tracerInstance.start('map props');
-      mappedProps = funcsMap[key](props, 1, options);
-      tracerInstance.stop('map props');
-      tracerInstance.start('map props', 'storing object');
-      mappedProps = funcsMap[key](props, 2, options);
-      tracerInstance.stop('map props', 'storing object');
+      const mappedProps = funcsMap[key](props, options);
       // eslint-disable-next-line guard-for-in
       for (const mappedKey in mappedProps) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment

@@ -49,12 +49,8 @@ function createVariant<
     property,
     themeKey,
   });
-  const func: RestyleFunction<TProps, Theme> = (
-    props,
-    type,
-    {theme, dimensions},
-  ) => {
-    const expandedProps = styleFunction.func(props, type, {theme, dimensions})[
+  const func: RestyleFunction<TProps, Theme> = (props, {theme, dimensions}) => {
+    const expandedProps = styleFunction.func(props, {theme, dimensions})[
       property
     ];
 
