@@ -32,7 +32,7 @@
     "@shopify/eslint-plugin": "^42.0.3",
     "@types/jest": "^29.2.1",
     "@types/react": "^18.0.24",
-    "@types/react-native": "^0.71.0",
+    "@types/react-native": "^0.71.2",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.2.1",
     "eslint": "^8.32.0",
