@@ -18,17 +18,16 @@ function tracerHelper() {
   };
 
   const printResults = (dict: MappedTracedResults) => {
-    print('Printing results');
-    print(
-      `${paddedString('Name', 35)} | ${paddedString('Avg', 7)} | ${paddedString(
-        '#',
-        5,
-      )} | ${paddedString('Acc', 10)} | ${paddedString(
-        '% ⬆️',
-        9,
-      )} | Variation acc`,
-    );
-    print('-'.repeat(100));
+    let result = '';
+    result += 'Printing results';
+    result += `${paddedString('Name', 35)} | ${paddedString(
+      'Avg',
+      7,
+    )} | ${paddedString('#', 5)} | ${paddedString('Acc', 10)} | ${paddedString(
+      '% ⬆️',
+      9,
+    )} | Variation acc`;
+    result += '-'.repeat(100);
     Object.keys(dict)
       .sort((first, second) =>
         dict[first].control.accumulatedTime >
@@ -64,14 +63,18 @@ function tracerHelper() {
             `${Math.round((1 - percentage) * 100)}%`,
             7,
           );
-          print(`${message} ${paddedDifference} | ${variationAccumulated}ms`);
+          result += `${message} ${paddedDifference} | ${variationAccumulated}ms`;
         });
       });
-    print('-'.repeat(100));
+    result += '-'.repeat(100);
+    print(result);
   };
 
   const print = (message: string) => {
-    console.error(message);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    // eslint-disable-next-line no-alert
+    alert(message);
   };
 
   return {

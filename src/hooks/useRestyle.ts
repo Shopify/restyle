@@ -93,6 +93,7 @@ const useRestyle = <
   },
   props: TProps,
 ) => {
+  tracerInstance.start('useRestyle prepare');
   const theme = useTheme<Theme>();
 
   let dimensions: ScaledSize | null = null;
@@ -106,18 +107,23 @@ const useRestyle = <
     props,
     composedRestyleFunction.propertiesMap,
   );
+  tracerInstance.stop('useRestyle prepare');
 
   const calculatedStyle = useMemo(() => {
+    tracerInstance.start('buildStyle');
     const style = composedRestyleFunction.buildStyle(restyleProps as TProps, {
       theme,
       dimensions,
     });
+    tracerInstance.stop('buildStyle');
 
+    tracerInstance.start('filterStyle');
     const styleProp = props.style;
     if (typeof styleProp === 'function') {
       return (...args: any[]) => [style, styleProp(...args)].filter(Boolean);
     }
     const filteredStyle = [style, styleProp].filter(Boolean);
+    tracerInstance.stop('filterStyle');
 
     return filteredStyle;
 

@@ -1,4 +1,3 @@
-import {tracerInstance} from './tracer';
 import {
   AtLeastOneResponsiveValue,
   BaseTheme,
@@ -95,21 +94,7 @@ export const getResponsiveValue = <
   | TVal
   | null
   | undefined => {
-  let val;
-
-  tracerInstance.start('responsiveValue');
-
-  val =
-    dimensions !== null && isResponsiveObjectValue(propValue, theme)
-      ? getValueForScreenSize({
-          responsiveValue: propValue,
-          breakpoints: theme.breakpoints,
-          dimensions: dimensions || {width: 0, height: 0},
-        })
-      : propValue;
-  tracerInstance.stop('responsiveValue');
-  tracerInstance.start('responsiveValue', 'null check');
-  val =
+  const val =
     dimensions !== null && isResponsiveObjectValue(propValue, theme)
       ? getValueForScreenSize({
           responsiveValue: propValue,
@@ -117,7 +102,7 @@ export const getResponsiveValue = <
           dimensions,
         })
       : propValue;
-  tracerInstance.stop('responsiveValue', 'null check');
+
   // if (transform) return transform({value: val, theme, themeKey});
   if (isThemeKey(theme, themeKey)) {
     if (val && theme[themeKey][val as string] === undefined)

@@ -96,6 +96,7 @@ const createRestyleFunction = <
       unsafeTheme.unsafeMemoizedMapTwo[memoizedMapHashKey] = {
         [styleProp]: value,
       };
+      return unsafeTheme.unsafeMemoizedMapTwo[memoizedMapHashKey];
     }
     return {
       [styleProp]: value,
