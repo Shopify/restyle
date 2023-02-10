@@ -1,6 +1,7 @@
 import {useMemo} from 'react';
 import {ScaledSize, StyleProp, useWindowDimensions} from 'react-native';
 
+import {tracerInstance} from '../tracer';
 import {BaseTheme, RNStyle, Dimensions} from '../types';
 
 import useTheme from './useTheme';
@@ -24,6 +25,7 @@ const filterRestyleProps = <
     // @ts-ignore
     restyleProps.variant = componentProps.variant ?? 'defaults';
   }
+  tracerInstance.start('loop');
   for (const key in componentProps) {
     if (omitPropertiesMap[key as keyof TProps]) {
       restyleProps[key] = componentProps[key];
@@ -32,6 +34,7 @@ const filterRestyleProps = <
       cleanProps[key] = componentProps[key];
     }
   }
+  tracerInstance.stop('loop');
 
   const keys = {cleanProps, restyleProps, serializedRestyleProps};
   return keys;
@@ -58,6 +61,7 @@ const useRestyle = <
   },
   props: TProps,
 ) => {
+  tracerInstance.start('useRestyle prepare');
   const theme = useTheme<Theme>();
 
   let dimensions: ScaledSize | null = null;
@@ -65,14 +69,19 @@ const useRestyle = <
     // eslint-disable-next-line react-hooks/rules-of-hooks
     dimensions = useWindowDimensions();
   }
+  tracerInstance.stop('useRestyle prepare');
   // const dimensions = useWindowDimensions();
 
+  tracerInstance.start('filterRestyleProps');
   const {cleanProps, restyleProps, serializedRestyleProps} = filterRestyleProps(
     props,
     composedRestyleFunction.propertiesMap,
   );
+  tracerInstance.stop('filterRestyleProps');
 
+  tracerInstance.start('calculatedStyle memo');
   const calculatedStyle = useMemo(() => {
+    tracerInstance.start('buildStyle');
     const style = composedRestyleFunction.buildStyle(restyleProps as TProps, {
       theme,
       dimensions,
@@ -82,8 +91,8 @@ const useRestyle = <
     if (typeof styleProp === 'function') {
       return (...args: any[]) => [style, styleProp(...args)].filter(Boolean);
     }
+    tracerInstance.stop('buildStyle');
     return [style, styleProp].filter(Boolean);
-
     // We disable the exhaustive deps rule here in order to trigger the useMemo
     // when the serialized string of restyleProps changes instead of the object
     // reference which will change on every render.
@@ -95,6 +104,7 @@ const useRestyle = <
     serializedRestyleProps,
     composedRestyleFunction,
   ]);
+  tracerInstance.stop('calculatedStyle memo');
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore

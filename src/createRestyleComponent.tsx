@@ -1,6 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 
+import {tracerInstance} from './tracer';
 import composeRestyleFunctions from './composeRestyleFunctions';
 import {BaseTheme, RestyleFunctionContainer} from './types';
 import useRestyle from './hooks/useRestyle';
@@ -18,9 +19,11 @@ const createRestyleComponent = <
   const composedRestyleFunction = composeRestyleFunctions(restyleFunctions);
 
   const RestyleComponent = React.forwardRef((props: Props, ref) => {
+    tracerInstance.start('useRestyle');
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const passedProps = useRestyle(composedRestyleFunction, props);
+    tracerInstance.stop('useRestyle');
     return <BaseComponent ref={ref} {...passedProps} />;
   });
   type RestyleComponentType = typeof RestyleComponent;
