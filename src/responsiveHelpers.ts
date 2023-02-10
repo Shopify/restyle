@@ -86,7 +86,7 @@ export const getResponsiveValue = <
   }: {
     theme: Theme;
     transform?: StyleTransformFunction<Theme, K, TVal>;
-    dimensions: Dimensions;
+    dimensions: Dimensions | null;
     themeKey?: K;
   },
 ):
@@ -94,13 +94,17 @@ export const getResponsiveValue = <
   | TVal
   | null
   | undefined => {
-  const val = isResponsiveObjectValue(propValue, theme)
-    ? getValueForScreenSize({
-        responsiveValue: propValue,
-        breakpoints: theme.breakpoints,
-        dimensions,
-      })
-    : propValue;
+  const val =
+    dimensions !== null && isResponsiveObjectValue(propValue, theme)
+      ? getValueForScreenSize({
+          responsiveValue: propValue,
+          breakpoints: theme.breakpoints,
+          dimensions,
+        })
+      : propValue;
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   if (transform) return transform({value: val, theme, themeKey});
   if (isThemeKey(theme, themeKey)) {
     if (val && theme[themeKey][val as string] === undefined)
@@ -111,6 +115,8 @@ export const getResponsiveValue = <
     return val ? theme[themeKey][val as string] : val;
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   return val;
 };
 

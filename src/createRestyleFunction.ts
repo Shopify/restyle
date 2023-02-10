@@ -1,6 +1,20 @@
-import {BaseTheme, RestyleFunction, RNStyleProperty} from './types';
+import {BaseTheme, Dimensions, RestyleFunction, RNStyleProperty} from './types';
 import {getResponsiveValue, StyleTransformFunction} from './responsiveHelpers';
 
+const getMemoizedMapHashKey = (
+  dimensions: Dimensions | null,
+  themeKey?: string,
+  property?: string,
+  value?: string | number | boolean,
+) => {
+  const dimensionsString =
+    dimensions === null ? '' : `${dimensions.height}x${dimensions.width}`;
+  if (themeKey == null || property == null || value == null) {
+    return null;
+  }
+
+  return `${dimensionsString}-${themeKey}-${property}-${value}`;
+};
 const createRestyleFunction = <
   Theme extends BaseTheme = BaseTheme,
   TProps extends {[key: string]: any} = {[key: string]: any},
@@ -32,14 +46,37 @@ const createRestyleFunction = <
     if (unsafeTheme.unsafeMemoizedMap == null) {
       unsafeTheme.unsafeMemoizedMap = {};
     }
-    const memoizedMapHashKey = `${dimensions.height}x${
-      dimensions.width
-    }-${String(themeKey)}-${String(property)}-${String(props[property])}}`;
-    const memoizedValue = unsafeTheme.unsafeMemoizedMap[memoizedMapHashKey];
-    if (memoizedValue != null) {
-      return {[styleProp]: memoizedValue} as {[key in S | P]?: typeof value};
-    }
 
+    let memoizedMapHashKey;
+
+    memoizedMapHashKey = getMemoizedMapHashKey(
+      dimensions,
+      String(themeKey),
+      String(property),
+      String(props[property]),
+    );
+
+    if (
+      typeof themeKey === 'string' &&
+      typeof property === 'string' &&
+      themeKey != null &&
+      property != null &&
+      props[property] != null
+    ) {
+      memoizedMapHashKey = getMemoizedMapHashKey(
+        dimensions,
+        themeKey,
+        property,
+        props[property],
+      );
+
+      if (memoizedMapHashKey != null) {
+        const memoizedValue = unsafeTheme.unsafeMemoizedMap[memoizedMapHashKey];
+        if (memoizedValue != null) {
+          return memoizedValue;
+        }
+      }
+    }
     const value = getResponsiveValue(props[property], {
       theme,
       dimensions,
@@ -48,8 +85,12 @@ const createRestyleFunction = <
     });
     if (value === undefined) return {};
 
-    unsafeTheme.unsafeMemoizedMap[memoizedMapHashKey] = value;
-
+    if (memoizedMapHashKey != null) {
+      unsafeTheme.unsafeMemoizedMap[memoizedMapHashKey] = {
+        [styleProp]: value,
+      };
+      return unsafeTheme.unsafeMemoizedMap[memoizedMapHashKey];
+    }
     return {
       [styleProp]: value,
     } as {[key in S | P]?: typeof value};

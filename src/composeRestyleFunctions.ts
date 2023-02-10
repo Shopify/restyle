@@ -61,13 +61,7 @@ const composeRestyleFunctions = <
         styles[mappedKey as keyof TProps] = mappedProps[mappedKey];
       }
     }
-    // const styles = Object.keys(props).reduce(
-    //   (styleObj, propKey) => ({
-    //     ...styleObj,
-    //     ...funcsMap[propKey as keyof TProps](props, {theme, dimensions}),
-    //   }),
-    //   {},
-    // );
+
     const {stylesheet} = StyleSheet.create({stylesheet: styles});
     return stylesheet;
   };

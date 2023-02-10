@@ -18,6 +18,8 @@ const createRestyleComponent = <
   const composedRestyleFunction = composeRestyleFunctions(restyleFunctions);
 
   const RestyleComponent = React.forwardRef((props: Props, ref) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const passedProps = useRestyle(composedRestyleFunction, props);
     return <BaseComponent ref={ref} {...passedProps} />;
   });

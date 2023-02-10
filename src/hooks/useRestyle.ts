@@ -1,5 +1,5 @@
 import {useMemo} from 'react';
-import {StyleProp, useWindowDimensions} from 'react-native';
+import {ScaledSize, StyleProp, useWindowDimensions} from 'react-native';
 
 import {BaseTheme, RNStyle, Dimensions} from '../types';
 
@@ -33,7 +33,8 @@ const filterRestyleProps = <
     }
   }
 
-  return {cleanProps, restyleProps, serializedRestyleProps};
+  const keys = {cleanProps, restyleProps, serializedRestyleProps};
+  return keys;
 };
 
 const useRestyle = <
@@ -49,7 +50,7 @@ const useRestyle = <
         dimensions,
       }: {
         theme: Theme;
-        dimensions: Dimensions;
+        dimensions: Dimensions | null;
       },
     ) => RNStyle;
     properties: (keyof TProps)[];
@@ -58,7 +59,13 @@ const useRestyle = <
   props: TProps,
 ) => {
   const theme = useTheme<Theme>();
-  const dimensions = useWindowDimensions();
+
+  let dimensions: ScaledSize | null = null;
+  if (Object.keys(theme.breakpoints).length > 0) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    dimensions = useWindowDimensions();
+  }
+  // const dimensions = useWindowDimensions();
 
   const {cleanProps, restyleProps, serializedRestyleProps} = filterRestyleProps(
     props,
