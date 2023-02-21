@@ -37,6 +37,8 @@ const theme = createTheme({
     primaryCardText: palette.white,
     secondaryCardText: palette.black,
   },
+  breakpoints: {},
+  fonts: {},
   textVariants: {
     body: {
       fontSize: 16,

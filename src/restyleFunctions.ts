@@ -53,7 +53,6 @@ const spacingPropertiesShorthand = {
 };
 
 const typographyProperties = {
-  fontFamily: true,
   fontSize: true,
   fontStyle: true,
   fontWeight: true,
@@ -188,11 +187,17 @@ export const spacingShorthand = getKeys(spacingPropertiesShorthand).map(
   },
 );
 
-export const typography = getKeys(typographyProperties).map(property => {
-  return createRestyleFunction({
-    property,
-  });
-});
+export const typography = [
+  ...getKeys(typographyProperties).map(property => {
+    return createRestyleFunction({
+      property,
+    });
+  }),
+  createRestyleFunction({
+    property: 'fontFamily',
+    themeKey: 'fonts',
+  }),
+];
 
 export const layout = getKeys(layoutProperties).map(property => {
   return createRestyleFunction({
@@ -310,6 +315,11 @@ export type SpacingShorthandProps<Theme extends BaseTheme> = {
 export type TypographyProps<Theme extends BaseTheme> = {
   [Key in keyof typeof typographyProperties]?: ResponsiveValue<
     TextStyle[Key],
+    Theme['breakpoints']
+  >;
+} & {
+  fontFamily?: ResponsiveValue<
+    Theme['fonts'] extends object ? keyof Theme['fonts'] : string,
     Theme['breakpoints']
   >;
 };

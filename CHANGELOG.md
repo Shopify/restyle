@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Next
 
+- Add support for defining fonts in the theme. [#232](https://github.com/Shopify/restyle/pull/232) by [ergenekonyigit](https://github.com/ergenekonyigit) & [gokselpirnal](https://github.com/gokselpirnal)
+
 ## 2.4.0 - 2023-02-21
 
 - Improve restyle performance [#220](https://github.com/Shopify/restyle/pull/220) by [fortmarek](https://github.com/fortmarek)
