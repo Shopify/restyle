@@ -4,7 +4,6 @@ import {BaseTheme} from 'types';
 export const ThemeContext = React.createContext({
   colors: {},
   spacing: {},
-  breakpoints: {},
 });
 
 export const ThemeProvider = ({

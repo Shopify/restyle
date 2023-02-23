@@ -34,10 +34,6 @@ const theme = createTheme({
     l: 24,
     xl: 40,
   },
-  breakpoints: {
-    phone: 0,
-    tablet: 768,
-  },
 });
 
 export type Theme = typeof theme;
