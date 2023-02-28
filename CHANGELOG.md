@@ -7,9 +7,6 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Next
 
-- Fix link to swap theme at runtime [#235](https://github.com/Shopify/restyle/pull/235) by [Randall71](https://github.com/Randall71)
-
-
 ## 2.4.0 - 2023-02-21
 
 - Improve restyle performance [#220](https://github.com/Shopify/restyle/pull/220) by [fortmarek](https://github.com/fortmarek)
