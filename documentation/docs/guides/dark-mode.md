@@ -38,6 +38,7 @@ const theme = createTheme({
     secondaryCardText: palette.black,
   },
   textVariants: {
+    defaults: {},
     body: {
       fontSize: 16,
       lineHeight: 24,
@@ -45,6 +46,7 @@ const theme = createTheme({
     },
   },
   cardVariants: {
+    defaults: {},
     primary: {
       backgroundColor: 'primaryCardBackground',
       shadowOpacity: 0.3,
