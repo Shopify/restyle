@@ -18,9 +18,7 @@ const getMemoizedMapHashKey = (
   return `${dimensions?.height}x${dimensions?.width}-${themeKey}-${property}-${value}`;
 };
 
-type ThemeWithMemoization<Theme extends BaseTheme> = Theme & {
-  unsafeMemoizedMap: {[key: string]: any} | null;
-};
+const memoizedThemes: WeakMap<BaseTheme, any> = new WeakMap();
 
 const createRestyleFunction = <
   Theme extends BaseTheme = BaseTheme,
@@ -45,11 +43,8 @@ const createRestyleFunction = <
     props,
     {theme, dimensions},
   ) => {
-    // We reuse the theme object for saving the memoized values.
-    const unsafeTheme: ThemeWithMemoization<Theme> =
-      theme as ThemeWithMemoization<Theme>;
-    if (unsafeTheme.unsafeMemoizedMap == null) {
-      unsafeTheme.unsafeMemoizedMap = {};
+    if (memoizedThemes.get(theme) == null) {
+      memoizedThemes.set(theme, {});
     }
 
     const memoizedMapHashKey = (() => {
@@ -72,7 +67,7 @@ const createRestyleFunction = <
     })();
 
     if (memoizedMapHashKey != null) {
-      const memoizedValue = unsafeTheme.unsafeMemoizedMap[memoizedMapHashKey];
+      const memoizedValue = memoizedThemes.get(theme)[memoizedMapHashKey];
       if (memoizedValue != null) {
         return memoizedValue;
       }
@@ -93,10 +88,10 @@ const createRestyleFunction = <
     if (value === undefined) return {};
 
     if (memoizedMapHashKey != null) {
-      unsafeTheme.unsafeMemoizedMap[memoizedMapHashKey] = {
+      memoizedThemes.get(theme)[memoizedMapHashKey] = {
         [styleProp]: value,
       };
-      return unsafeTheme.unsafeMemoizedMap[memoizedMapHashKey];
+      return memoizedThemes.get(theme)[memoizedMapHashKey];
     }
     return {
       [styleProp]: value,
