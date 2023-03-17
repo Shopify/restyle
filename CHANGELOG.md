@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Next
 
+- Fixed: Variant with breakpoints memoizing separate values into the same hash key by deconstructing breakpoint objects into strings [#241](https://github.com/Shopify/restyle/pull/241) by [mattfrances](https://github.com/mattfrances)
+
 ## 2.4.1 - 2023-03-02
 
 - Fixed: New property error when using `react-native-reanimated` `v3.0.0` by memoizing style values in a separate `WeakMap` [#237](https://github.com/Shopify/restyle/pull/237) by [fortmarek](https://github.com/fortmarek)
