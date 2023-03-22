@@ -8,6 +8,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ## Next
 
 - Fixed: Variant with breakpoints memoizing separate values into the same hash key by deconstructing breakpoint objects into strings [#241](https://github.com/Shopify/restyle/pull/241) by [mattfrances](https://github.com/mattfrances)
+- Added: Missing typography properties from React Native's Text Style Props [#249](https://github.com/Shopify/restyle/pull/249) by [mattfrances](https://github.com/mattfrances)
 
 ## 2.4.1 - 2023-03-02
 
