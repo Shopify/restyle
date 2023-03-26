@@ -9,7 +9,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## 2.4.1 - 2023-03-02
 
-- Added missing `label` prop to the [custom components documentation](https://shopify.github.io/restyle/fundamentals/components/custom-components) by [tarikpnr](https://github.com/tarikpnr).
+- Added missing `label` prop to the `Button` component in [custom components documentation](https://shopify.github.io/restyle/fundamentals/components/custom-components) by [tarikpnr](https://github.com/tarikpnr).
 - Fixed: New property error when using `react-native-reanimated` `v3.0.0` by memoizing style values in a separate `WeakMap` [#237](https://github.com/Shopify/restyle/pull/237) by [fortmarek](https://github.com/fortmarek)
 
 ## 2.4.0 - 2023-02-21
