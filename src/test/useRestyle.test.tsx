@@ -1,56 +1,63 @@
-import React, {ComponentPropsWithoutRef} from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import React from 'react';
+import {View} from 'react-native';
+import {create as render} from 'react-test-renderer';
 
-import useRestyle from '../hooks/useRestyle';
-import {position, PositionProps} from '../restyleFunctions';
-import createVariant, {VariantProps} from '../createVariant';
-import composeRestyleFunctions from '../composeRestyleFunctions';
+import {ThemeProvider} from '../context';
 
-const theme = {
-  colors: {},
-  spacing: {},
-  buttonVariants: {
-    defaults: {},
-  },
-  breakpoints: {
-    phone: 0,
-    tablet: 376,
-  },
-  zIndices: {
-    phone: 5,
-  },
-};
-type Theme = typeof theme;
-
-type Props = VariantProps<Theme, 'buttonVariants'> &
-  PositionProps<Theme> &
-  ComponentPropsWithoutRef<typeof TouchableOpacity>;
-
-const restyleFunctions = [
-  position,
-  createVariant<Theme>({themeKey: 'buttonVariants'}),
-];
-
-const composedRestyleFunction = composeRestyleFunctions<Theme, Props>(
-  restyleFunctions,
-);
-
-function Button({title, ...rest}: Props & {title: string}) {
-  const props = useRestyle(composedRestyleFunction, rest);
-  return (
-    <TouchableOpacity {...props}>
-      <Text>{title}</Text>
-    </TouchableOpacity>
-  );
-}
-
-function Screen() {
-  return <Button title="test" position="absolute" />;
-}
+import {Button} from './TestButton';
+import {Container, theme} from './TestContainer';
 
 describe('Use restyle', () => {
   it('creates a button', () => {
-    const button = Screen();
+    const button = <Button title="test" position="absolute" />;
     expect(button.props.title).toBe('test');
+  });
+
+  it('uses theme props', () => {
+    const {root} = render(
+      <ThemeProvider theme={theme}>
+        <Container backgroundColor="background" />
+      </ThemeProvider>,
+    );
+
+    expect(root.findByType(View).props.style).toStrictEqual([
+      {backgroundColor: '#5A31F4'},
+    ]);
+  });
+
+  it('uses theme props with variant', () => {
+    const {root} = render(
+      <ThemeProvider theme={theme}>
+        <Container variant="spacingParent" />
+      </ThemeProvider>,
+    );
+
+    expect(root.findByType(View).props.style).toStrictEqual([{padding: 0}]);
+  });
+
+  it('parent styles match theme', () => {
+    const {root} = render(
+      <ThemeProvider theme={theme}>
+        <Container variant="spacingParent">
+          <Container variant="spacingNested" />
+        </Container>
+      </ThemeProvider>,
+    );
+
+    expect(root.findByType(View).props.style).toStrictEqual([{padding: 0}]);
+  });
+
+  it('child styles match theme', () => {
+    const {root} = render(
+      <ThemeProvider theme={theme}>
+        <Container variant="spacingParent">
+          <Container variant="spacingNested" />
+        </Container>
+      </ThemeProvider>,
+    );
+
+    expect(root.findAllByType(View)[1].props.style).toStrictEqual([
+      {padding: 8},
+    ]);
   });
 });

@@ -4,14 +4,14 @@ import {RNStyle} from '../types';
 const theme = {
   colors: {},
   spacing: {},
-  breakpoints: {
-    phone: 0,
-    tablet: 376,
-  },
   opacities: {
     invisible: 0,
     barelyVisible: 0.1,
     almostOpaque: 0.9,
+  },
+  breakpoints: {
+    phone: 0,
+    tablet: 376,
   },
 };
 const dimensions = {
