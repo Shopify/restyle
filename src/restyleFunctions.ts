@@ -232,7 +232,7 @@ export const border = [
   ...getKeys(borderColorProperties).map(property => {
     return createRestyleFunction({
       property,
-      themeKey: 'colors',
+      themeKey: 'borderColors',
     });
   }),
   ...getKeys(borderRadiusProperties).map(property => {
@@ -355,7 +355,7 @@ export type BorderProps<Theme extends BaseTheme> = {
   >;
 } & {
   [Key in keyof typeof borderColorProperties]?: ResponsiveValue<
-    keyof Theme['colors'],
+    keyof Theme['borderColors'],
     Theme['breakpoints']
   >;
 } & {

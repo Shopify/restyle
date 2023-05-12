@@ -47,6 +47,9 @@ export interface KnownBaseTheme {
   borderRadii?: {
     [key: string]: number;
   };
+  borderColors?: {
+    [key: string]: string;
+  };
 }
 
 export interface BaseTheme extends KnownBaseTheme {
