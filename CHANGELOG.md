@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## next
+
+- Added: defining spacing in theme is now optional [#257](https://github.com/Shopify/restyle/pull/257) by [mlecoq](https://github.com/mlecoq)
+
 ## 2.4.2 - 2023-03-30
 
 - Fixed: Variant with breakpoints memoizing separate values into the same hash key by deconstructing breakpoint objects into strings [#241](https://github.com/Shopify/restyle/pull/241) by [mattfrances](https://github.com/mattfrances)

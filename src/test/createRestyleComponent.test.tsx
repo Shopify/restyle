@@ -48,10 +48,16 @@ const themeWithVariant = {
   },
 };
 
+const themeWithoutSpacing = {
+  ...theme,
+  spacing: undefined,
+};
+
 const {breakpoints, ...themeWithoutBreakpoints} = theme;
 
 type Theme = typeof theme;
 type ThemeWithVariant = typeof themeWithVariant;
+type ThemeWithoutSpacing = typeof themeWithoutSpacing;
 
 const mockUseWindowDimensions = jest.fn();
 
@@ -66,6 +72,14 @@ const Component = createRestyleComponent<
     OpacityProps<Theme> &
     ViewProps,
   Theme
+>([backgroundColor, spacing, spacingShorthand, opacity]);
+const ComponentWithoutSpacing = createRestyleComponent<
+  BackgroundColorProps<ThemeWithoutSpacing> &
+    SpacingProps<ThemeWithoutSpacing> &
+    SpacingShorthandProps<ThemeWithoutSpacing> &
+    OpacityProps<ThemeWithoutSpacing> &
+    ViewProps,
+  ThemeWithoutSpacing
 >([backgroundColor, spacing, spacingShorthand, opacity]);
 const cardVariant = createVariant<ThemeWithVariant, 'cardVariants'>({
   themeKey: 'cardVariants',
@@ -228,6 +242,33 @@ describe('createRestyleComponent', () => {
       );
       expect(root.findByType(View).props).toStrictEqual({
         style: [{gap: 8, columnGap: 8, rowGap: 8}],
+      });
+    });
+
+    it('passes gap values from the theme when no spacing prop is defined', () => {
+      const {root} = render(
+        <ThemeProvider theme={themeWithoutSpacing}>
+          <ComponentWithoutSpacing
+            gap={10}
+            columnGap={20}
+            rowGap={22}
+            marginTop={2}
+            marginLeft="auto"
+            paddingBottom={3}
+          />
+        </ThemeProvider>,
+      );
+      expect(root.findByType(View).props).toStrictEqual({
+        style: [
+          {
+            gap: 10,
+            columnGap: 20,
+            rowGap: 22,
+            marginTop: 2,
+            marginLeft: 'auto',
+            paddingBottom: 3,
+          },
+        ],
       });
     });
   });
