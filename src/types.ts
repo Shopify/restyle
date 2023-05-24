@@ -35,7 +35,7 @@ export interface KnownBaseTheme {
   colors: {
     [key: string]: string;
   };
-  spacing: {
+  spacing?: {
     [key: string]: number | string;
   };
   breakpoints?: {

@@ -310,14 +310,14 @@ export interface BackgroundColorShorthandProps<Theme extends BaseTheme> {
 
 export type SpacingProps<Theme extends BaseTheme> = {
   [Key in keyof typeof spacingProperties]?: ResponsiveValue<
-    keyof Theme['spacing'],
+    Theme['spacing'] extends object ? keyof Theme['spacing'] : number | string,
     Theme['breakpoints']
   >;
 };
 
 export type SpacingShorthandProps<Theme extends BaseTheme> = {
   [Key in keyof typeof spacingPropertiesShorthand]?: ResponsiveValue<
-    keyof Theme['spacing'],
+    Theme['spacing'] extends object ? keyof Theme['spacing'] : number | string,
     Theme['breakpoints']
   >;
 };
