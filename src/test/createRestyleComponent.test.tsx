@@ -12,6 +12,9 @@ import {
   spacingShorthand,
   OpacityProps,
   opacity,
+  border,
+  BorderProps,
+  pointerEvents,
 } from '../restyleFunctions';
 import {ThemeProvider} from '../context';
 import createVariant, {VariantProps} from '../createVariant';
@@ -64,9 +67,10 @@ const Component = createRestyleComponent<
     SpacingProps<Theme> &
     SpacingShorthandProps<Theme> &
     OpacityProps<Theme> &
+    BorderProps<Theme> &
     ViewProps,
   Theme
->([backgroundColor, spacing, spacingShorthand, opacity]);
+>([backgroundColor, spacing, spacingShorthand, opacity, border, pointerEvents]);
 const cardVariant = createVariant<ThemeWithVariant, 'cardVariants'>({
   themeKey: 'cardVariants',
 });
@@ -119,12 +123,12 @@ describe('createRestyleComponent', () => {
     it('does not pass styling properties to the child', () => {
       const {root} = render(
         <ThemeProvider theme={theme}>
-          <Component opacity={0.5} pointerEvents="auto" />
+          <Component opacity={0.5} removeClippedSubviews />
         </ThemeProvider>,
       );
       expect(root.findByType(View).props).toStrictEqual({
         style: [{opacity: 0.5}],
-        pointerEvents: 'auto',
+        removeClippedSubviews: true,
       });
     });
 
@@ -228,6 +232,28 @@ describe('createRestyleComponent', () => {
       );
       expect(root.findByType(View).props).toStrictEqual({
         style: [{gap: 8, columnGap: 8, rowGap: 8}],
+      });
+    });
+
+    it('passes borderCurve', () => {
+      const {root} = render(
+        <ThemeProvider theme={theme}>
+          <Component borderCurve />
+        </ThemeProvider>,
+      );
+      expect(root.findByType(View).props).toStrictEqual({
+        style: [{borderCurve: true}],
+      });
+    });
+
+    it('passes pointerEvent', () => {
+      const {root} = render(
+        <ThemeProvider theme={theme}>
+          <Component pointerEvents="none" />
+        </ThemeProvider>,
+      );
+      expect(root.findByType(View).props).toStrictEqual({
+        style: [{pointerEvents: 'none'}],
       });
     });
   });

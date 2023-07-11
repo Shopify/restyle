@@ -110,6 +110,7 @@ const borderProperties = {
   borderStartWidth: true,
   borderEndWidth: true,
   borderWidth: true,
+  borderCurve: true,
 };
 
 const borderRadiusProperties = {
@@ -176,6 +177,10 @@ export const visible = createRestyleFunction({
   property: 'visible',
   styleProperty: 'display',
   transform: ({value}) => (value === false ? 'none' : 'flex'),
+});
+
+export const pointerEvents = createRestyleFunction({
+  property: 'pointerEvents',
 });
 
 export const spacing = getKeys(spacingProperties).map(property => {
@@ -293,6 +298,12 @@ export interface OpacityProps<Theme extends BaseTheme> {
   opacity?: ResponsiveValue<number, Theme['breakpoints']>;
 }
 
+export interface PointEventProps<Theme extends BaseTheme> {
+  pointerEvents?: ResponsiveValue<
+    ViewStyle['pointerEvents'],
+    Theme['breakpoints']
+  >;
+}
 export interface VisibleProps<Theme extends BaseTheme> {
   visible?: ResponsiveValue<boolean, Theme['breakpoints']>;
 }

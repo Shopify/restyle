@@ -18,6 +18,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - Improve restyle performance [#220](https://github.com/Shopify/restyle/pull/220) by [fortmarek](https://github.com/fortmarek)
 
+- Add support of borderCurve and pointerEvents style properties in [#228](https://github.com/Shopify/restyle/pull/228) by [mlecoq](https://github.com/mlecoq)
+
 ## 2.3.0 - 2023-01-30
 
 - Renamed gap shorthands to be lowercase [#218](https://github.com/Shopify/restyle/pull/218) by [mlecoq](https://github.com/mlecoq)
