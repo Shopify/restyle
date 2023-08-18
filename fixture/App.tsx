@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
+import {SafeAreaView, Switch} from 'react-native';
+
+import type {VariantProps} from './restyle';
 import {
   ThemeProvider,
   createBox,
   createText,
   createRestyleComponent,
   createVariant,
-  VariantProps,
-} from '@shopify/restyle';
-import {SafeAreaView, Switch} from 'react-native';
-
+} from './restyle';
 import {theme, darkTheme, Theme} from './theme';
 
 const Box = createBox<Theme>();
