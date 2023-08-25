@@ -4,7 +4,7 @@
 <a href="https://shopify.github.io/restyle/">Getting started</a> •
 <a href="https://shopify.github.io/restyle/#installation">Installation</a> •
 <a href="https://github.com/Shopify/restyle/tree/master/fixture">Playground</a> •
-<a href="https://discord.gg/njT6GY46">Discord</a>
+<a href="https://discord.gg/k2gzABTfav">Discord</a>
 </br></br>
 
 **Build a consistent, themed UI in minutes.**

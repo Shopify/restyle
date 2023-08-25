@@ -36,4 +36,4 @@ Taking the time to define these semantic meanings comes with a number of benefit
 - It's easy to understand where and in what context colors are applied throughout the app
 - If changes are made to the palette (e.g. the purple colors are changed to a shade of blue instead), we only have to update what the semantic names point to instead of updating all references to `purplePrimary` throughout the app.
 - Even though `cardPrimaryBackground` and `buttonPrimaryBackground` point to the same color in the example above, deciding that buttons should instead be green (while cards remain purple) becomes a trivial change.
-- A theme can easily be [swapped at runtime](/dark-mode).
+- A theme can easily be [swapped at runtime](/guides/dark-mode).

@@ -8,6 +8,16 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ## Next
 
 - Add support for defining fonts in the theme. [#232](https://github.com/Shopify/restyle/pull/232) by [ergenekonyigit](https://github.com/ergenekonyigit) & [gokselpirnal](https://github.com/gokselpirnal)
+- Fixed: clean up the project configuration for RN0.71, aligning some packages to the right version [#271](https://github.com/Shopify/restyle/pull/271) by [kelset](https://github.com/kelset) & [tido64](https://github.com/tido64)
+
+## 2.4.2 - 2023-03-30
+
+- Fixed: Variant with breakpoints memoizing separate values into the same hash key by deconstructing breakpoint objects into strings [#241](https://github.com/Shopify/restyle/pull/241) by [mattfrances](https://github.com/mattfrances)
+- Added: Missing typography properties from React Native's Text Style Props [#249](https://github.com/Shopify/restyle/pull/249) by [mattfrances](https://github.com/mattfrances)
+
+## 2.4.1 - 2023-03-02
+
+- Fixed: New property error when using `react-native-reanimated` `v3.0.0` by memoizing style values in a separate `WeakMap` [#237](https://github.com/Shopify/restyle/pull/237) by [fortmarek](https://github.com/fortmarek)
 
 ## 2.4.0 - 2023-02-21
 
@@ -17,6 +27,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - Renamed gap shorthands to be lowercase [#218](https://github.com/Shopify/restyle/pull/218) by [mlecoq](https://github.com/mlecoq)
 - Better TypeScript type support [#216](https://github.com/Shopify/restyle/pull/216) by [FranzMoreno](https://github.com/FranzMoreno) & [fortmarek](https://github.com/fortmarek)
+
 
 ## 2.2.0 - 2023-01-24
 

@@ -56,12 +56,17 @@ const typographyProperties = {
   fontSize: true,
   fontStyle: true,
   fontWeight: true,
+  includeFontPadding: true,
+  fontVariant: true,
   letterSpacing: true,
   lineHeight: true,
   textAlign: true,
+  textAlignVertical: true,
   textDecorationLine: true,
   textDecorationStyle: true,
   textTransform: true,
+  verticalAlign: true,
+  writingDirection: true,
 };
 
 const layoutProperties = {
@@ -151,10 +156,16 @@ export const backgroundColorShorthand = createRestyleFunction({
   themeKey: 'colors',
 });
 
-export const color = createRestyleFunction({
-  property: 'color',
-  themeKey: 'colors',
-});
+export const color = [
+  createRestyleFunction({
+    property: 'color',
+    themeKey: 'colors',
+  }),
+  createRestyleFunction({
+    property: 'textDecorationColor',
+    themeKey: 'colors',
+  }),
+];
 
 export const opacity = createRestyleFunction({
   property: 'opacity',
@@ -278,6 +289,10 @@ export const all = [
 
 export interface ColorProps<Theme extends BaseTheme> {
   color?: ResponsiveValue<keyof Theme['colors'], Theme['breakpoints']>;
+  textDecorationColor?: ResponsiveValue<
+    keyof Theme['colors'],
+    Theme['breakpoints']
+  >;
 }
 export interface OpacityProps<Theme extends BaseTheme> {
   opacity?: ResponsiveValue<number, Theme['breakpoints']>;

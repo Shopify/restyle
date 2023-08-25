@@ -18,9 +18,7 @@ const getMemoizedMapHashKey = (
   return `${dimensions?.height}x${dimensions?.width}-${themeKey}-${property}-${value}`;
 };
 
-type ThemeWithMemoization<Theme extends BaseTheme> = Theme & {
-  unsafeMemoizedMap: {[key: string]: any} | null;
-};
+const memoizedThemes: WeakMap<BaseTheme, any> = new WeakMap();
 
 const createRestyleFunction = <
   Theme extends BaseTheme = BaseTheme,
@@ -45,11 +43,8 @@ const createRestyleFunction = <
     props,
     {theme, dimensions},
   ) => {
-    // We reuse the theme object for saving the memoized values.
-    const unsafeTheme: ThemeWithMemoization<Theme> =
-      theme as ThemeWithMemoization<Theme>;
-    if (unsafeTheme.unsafeMemoizedMap == null) {
-      unsafeTheme.unsafeMemoizedMap = {};
+    if (memoizedThemes.get(theme) == null) {
+      memoizedThemes.set(theme, {});
     }
 
     const memoizedMapHashKey = (() => {
@@ -60,11 +55,37 @@ const createRestyleFunction = <
         typeof themeKey === 'string' &&
         typeof property === 'string'
       ) {
+        /*
+        The following code is required to ensure all variants that have different breakpoint objects are turned into unique strings. By simply retuning String(props[property]), two different variants with breakpoints will return the same string.
+        For example, if we have the following variant:
+          spacingVariant: {
+            defaults: {},
+            noPadding: {
+              phone: 'none',
+              tablet: 'none',
+            },
+            mediumPadding: {
+              phone: 'm',
+              tablet: 'm',
+            }
+          }
+        using String(props[property]) will turn both variants into [object Object], making them equivalent and resulting in separate styles being memoized into the same hash key.
+        By building the propertyValue string ourselves from the breakpoints, we can format the variants to be "phone:nonetablet:none" and "phone:mtablet:m" respectively, making each memoized hash key unique.
+        */
+        let propertyValue = '';
+        if (typeof props[property] === 'object') {
+          for (const [breakpoint, value] of Object.entries(props[property])) {
+            propertyValue += `${breakpoint}:${value}`;
+          }
+        } else {
+          propertyValue = String(props[property]);
+        }
+
         return getMemoizedMapHashKey(
           dimensions,
           String(themeKey),
           String(property),
-          String(props[property]),
+          propertyValue,
         );
       } else {
         return null;
@@ -72,7 +93,7 @@ const createRestyleFunction = <
     })();
 
     if (memoizedMapHashKey != null) {
-      const memoizedValue = unsafeTheme.unsafeMemoizedMap[memoizedMapHashKey];
+      const memoizedValue = memoizedThemes.get(theme)[memoizedMapHashKey];
       if (memoizedValue != null) {
         return memoizedValue;
       }
@@ -93,10 +114,10 @@ const createRestyleFunction = <
     if (value === undefined) return {};
 
     if (memoizedMapHashKey != null) {
-      unsafeTheme.unsafeMemoizedMap[memoizedMapHashKey] = {
+      memoizedThemes.get(theme)[memoizedMapHashKey] = {
         [styleProp]: value,
       };
-      return unsafeTheme.unsafeMemoizedMap[memoizedMapHashKey];
+      return memoizedThemes.get(theme)[memoizedMapHashKey];
     }
     return {
       [styleProp]: value,

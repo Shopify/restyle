@@ -12,7 +12,8 @@
     "moduleResolution": "node",
     "strict": true,
     "target": "es5",
-    "skipLibCheck": true,
+    "skipLibCheck": true
   },
-  "typeRoots": ["../node_modules/@types"]
+  "typeRoots": ["../node_modules/@types"],
+  "extends": "@tsconfig/react-native/tsconfig.json"
 }
