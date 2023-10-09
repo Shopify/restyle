@@ -49,7 +49,7 @@ const theme = createTheme({
 
 import {createVariant, createRestyleComponent, VariantProps} from '@shopify/restyle'
 import {Theme} from './theme';
-const variant = createVariant<Theme>({themeKey: 'cardVariants', defaults: {
+const variant = createVariant<Theme, 'cardVariant'>({themeKey: 'cardVariants', defaults: {
   margin: {
     phone: 's',
     tablet: 'm',
