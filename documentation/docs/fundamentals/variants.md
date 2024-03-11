@@ -49,17 +49,45 @@ const theme = createTheme({
 
 import {createVariant, createRestyleComponent, VariantProps} from '@shopify/restyle'
 import {Theme} from './theme';
-const variant = createVariant<Theme>({themeKey: 'cardVariants', defaults: {
-  margin: {
-    phone: 's',
-    tablet: 'm',
-  },
-  backgroundColor: 'cardRegularBackground',
-}})
 
-const Card = createRestyleComponent<VariantProps<Theme, 'cardVariants'>, Theme>([variant])
+const variant = createVariant<Theme, 'cardVariants'>({
+  themeKey: 'cardVariants',
+  defaults: {
+    margin: {
+      phone: 's',
+      tablet: 'm',
+    },
+    backgroundColor: 'cardRegularBackground',
+  },
+})
+
+const Card = createRestyleComponent<
+  VariantProps<Theme, 'cardVariants'> & BoxProps<Theme>,
+  Theme,
+>([variant], Box)
 
 <Card variant="elevated" />
+
+// createVariant and createRestyleComponent are often combined into a single
+// call, which improves the type hinting as well:
+const Card = createRestyleComponent<
+  VariantProps<Theme, 'cardVariants'> & BoxProps<Theme>,
+  Theme
+>(
+  [
+    createVariant({
+      themeKey: 'cardVariants',
+      defaults: {
+        margin: {
+          phone: 's',
+          tablet: 'm',
+        },
+        backgroundColor: 'cardRegularBackground',
+      },
+    }),
+  ],
+  Box,
+);
 ```
 
 Arguments:
