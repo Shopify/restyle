@@ -17,7 +17,21 @@ const Text = createText<Theme>();
 const Card = createRestyleComponent<
   VariantProps<Theme, 'cardVariants'> & React.ComponentProps<typeof Box>,
   Theme
->([createVariant({themeKey: 'cardVariants'})], Box);
+>(
+  [
+    createVariant({
+      themeKey: 'cardVariants',
+      defaults: {
+        margin: {
+          phone: 's',
+          tablet: 'm',
+        },
+        backgroundColor: 'cardPrimaryBackground',
+      },
+    }),
+  ],
+  Box,
+);
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
