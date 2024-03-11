@@ -15,7 +15,7 @@ const theme = createTheme({
     l: 24,
   },
   colors: {
-    cardRegularBackground: '#EEEEEE',
+    cardPrimaryBackground: '#EEEEEE',
   },
   breakpoints: {
     phone: 0,
@@ -57,7 +57,7 @@ const variant = createVariant<Theme, 'cardVariants'>({
       phone: 's',
       tablet: 'm',
     },
-    backgroundColor: 'cardRegularBackground',
+    backgroundColor: 'cardPrimaryBackground',
   },
 })
 
@@ -71,7 +71,7 @@ const Card = createRestyleComponent<
 // createVariant and createRestyleComponent are often combined into a single
 // call, which improves the type hinting as well:
 const Card = createRestyleComponent<
-  VariantProps<Theme, 'cardVariants'> & BoxProps<Theme>,
+  VariantProps<Theme, 'cardVariants'> & React.ComponentProps<typeof Box>,
   Theme
 >(
   [
@@ -82,7 +82,7 @@ const Card = createRestyleComponent<
           phone: 's',
           tablet: 'm',
         },
-        backgroundColor: 'cardRegularBackground',
+        backgroundColor: 'cardPrimaryBackground',
       },
     }),
   ],
