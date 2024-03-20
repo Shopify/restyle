@@ -120,6 +120,8 @@ describe('createText', () => {
           textTransform="capitalize"
           verticalAlign="top"
           writingDirection="rtl"
+          flex={1}
+          maxWidth={250}
         >
           Some text
         </Text>
@@ -148,6 +150,8 @@ describe('createText', () => {
         textTransform: 'capitalize',
         verticalAlign: 'top',
         writingDirection: 'rtl',
+        flex: 1,
+        maxWidth: 250,
       },
     ]);
   });
