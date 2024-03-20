@@ -44,6 +44,9 @@ export interface KnownBaseTheme {
   zIndices?: {
     [key: string]: number;
   };
+  fonts?: {
+    [key: string]: string;
+  };
   borderRadii?: {
     [key: string]: number;
   };
