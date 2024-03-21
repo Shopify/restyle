@@ -3,26 +3,16 @@ const path = require('path');
 const root = path.resolve(__dirname, '../');
 
 const project = (() => {
-  const fs = require('fs');
   try {
-    const {
-      androidManifestPath,
-      iosProjectPath,
-      windowsProjectPath,
-    } = require('react-native-test-app');
-    const iosProject = iosProjectPath('ios');
-    return {
+    const {configureProjects} = require('react-native-test-app');
+    return configureProjects({
       android: {
         sourceDir: 'android',
-        manifestPath: androidManifestPath(path.join(__dirname, 'android')),
       },
-      windows: fs.existsSync('windows/fixture-app.sln') && {
-        sourceDir: 'windows',
-        solutionFile: 'fixture-app.sln',
-        project: windowsProjectPath(path.join(__dirname, 'windows')),
+      ios: {
+        sourceDir: 'ios',
       },
-      ...(iosProject ? {ios: {project: iosProject}} : undefined),
-    };
+    });
   } catch (_) {
     return undefined;
   }
