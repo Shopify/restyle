@@ -1,7 +1,9 @@
 const path = require('path');
 
 const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
+// eslint-disable-next-line import/no-extraneous-dependencies
 const exclusionList = require('metro-config/src/defaults/exclusionList');
+// eslint-disable-next-line import/no-extraneous-dependencies
 const escape = require('escape-string-regexp');
 
 const packages = require('../package.json');
