@@ -7,6 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Next
 
+- Add support for defining fonts in the theme. [#232](https://github.com/Shopify/restyle/pull/232) by [ergenekonyigit](https://github.com/ergenekonyigit) & [gokselpirnal](https://github.com/gokselpirnal)
 - Fixed: clean up the project configuration for RN0.71, aligning some packages to the right version [#271](https://github.com/Shopify/restyle/pull/271) by [kelset](https://github.com/kelset) & [tido64](https://github.com/tido64)
 - Added: Add layout props to createText function [#262](https://github.com/Shopify/restyle/pull/262) by [robrechtme](https://github.com/robrechtme)
 
@@ -27,6 +28,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - Renamed gap shorthands to be lowercase [#218](https://github.com/Shopify/restyle/pull/218) by [mlecoq](https://github.com/mlecoq)
 - Better TypeScript type support [#216](https://github.com/Shopify/restyle/pull/216) by [FranzMoreno](https://github.com/FranzMoreno) & [fortmarek](https://github.com/fortmarek)
+
 
 ## 2.2.0 - 2023-01-24
 
