@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Next
 
+## 2.4.3 - 2023-04-18
+
 - Fixed: clean up the project configuration for RN0.71, aligning some packages to the right version [#271](https://github.com/Shopify/restyle/pull/271) by [kelset](https://github.com/kelset) & [tido64](https://github.com/tido64)
 - Added: Add layout props to createText function [#262](https://github.com/Shopify/restyle/pull/262) by [robrechtme](https://github.com/robrechtme)
 
