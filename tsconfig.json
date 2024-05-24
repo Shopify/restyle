@@ -3,7 +3,8 @@
     "composite": true,
     "outDir": "./dist",
     "baseUrl": "./src",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "noEmit": false
   },
   "extends": "./shared/tsconfig.base.json",
   "include": ["./src/**/*.ts", "./src/**/*.tsx"],
