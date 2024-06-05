@@ -7,14 +7,15 @@ import useTheme from './useTheme';
 
 const filterRestyleProps = <
   TRestyleProps,
-  TProps extends {[key: string]: unknown} & TRestyleProps,
+  TProps extends {[key: string]: unknown} & TRestyleProps & {variant?: unknown},
 >(
   componentProps: TProps,
   omitPropertiesMap: {[key in keyof TProps]: boolean},
 ) => {
-  const cleanProps: TProps = {} as TProps;
-  const restyleProps: TProps & {variant?: unknown} = {} as TProps;
+  const cleanProps: Partial<TProps> = {};
+  const restyleProps: Partial<TProps> = {};
   let serializedRestyleProps = '';
+
   if (omitPropertiesMap.variant) {
     restyleProps.variant = componentProps.variant ?? 'defaults';
   }
@@ -27,6 +28,9 @@ const filterRestyleProps = <
     }
   }
 
+  if (restyleProps.variant) {
+    cleanProps.variant = restyleProps.variant;
+  }
   const keys = {cleanProps, restyleProps, serializedRestyleProps};
   return keys;
 };
