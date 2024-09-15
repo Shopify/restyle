@@ -75,6 +75,7 @@ const restyleFunctions = composeRestyleFunctions<Theme, RestyleProps>([spacing, 
 
 type Props = RestyleProps & {
   onPress: () => void;
+  label: string
 };
 
 const Button = ({onPress, label, ...rest}: Props) => {
