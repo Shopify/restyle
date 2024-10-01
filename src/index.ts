@@ -6,6 +6,8 @@ export * from './createText';
 
 export {default as createVariant} from './createVariant';
 export {default as createBox} from './createBox';
+export {default as createBaseButton} from './components/createBaseButton'
+export {default as createTextInput} from './components/createTextInput'
 export {default as createText} from './createText';
 export {ThemeProvider, ThemeContext} from './context';
 export {default as useTheme} from './hooks/useTheme';

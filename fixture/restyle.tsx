@@ -4,7 +4,9 @@ export {
   ThemeProvider,
   createBox,
   createText,
+  createBaseButton,
   createTheme,
+  createTextInput,
   createRestyleComponent,
   createVariant,
 } from '@shopify/restyle/src/index';
