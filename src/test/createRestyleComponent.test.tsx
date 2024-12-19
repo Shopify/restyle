@@ -25,6 +25,12 @@ const theme = {
   spacing: {
     s: 8,
   },
+  fontSizes: {
+    xs: 14,
+    s: 16,
+    m: 20,
+    l: 24,
+  },
   breakpoints: {
     phone: 0,
     tablet: 376,

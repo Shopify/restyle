@@ -9,6 +9,12 @@ import composeRestyleFunctions from '../composeRestyleFunctions';
 const theme = {
   colors: {},
   spacing: {},
+  fontSizes: {
+    xs: 14,
+    s: 16,
+    m: 20,
+    l: 24,
+  },
   buttonVariants: {
     defaults: {},
   },
