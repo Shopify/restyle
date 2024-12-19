@@ -184,11 +184,6 @@ export const spacing = getKeys(spacingProperties).map(property => {
   });
 });
 
-export const fontSize = createRestyleFunction({
-  property: 'fontSize',
-  themeKey: 'fontSizes',
-});
-
 export const spacingShorthand = getKeys(spacingPropertiesShorthand).map(
   property => {
     const styleProperty = spacingPropertiesShorthand[
@@ -203,11 +198,17 @@ export const spacingShorthand = getKeys(spacingPropertiesShorthand).map(
   },
 );
 
-export const typography = getKeys(typographyProperties).map(property => {
-  return createRestyleFunction({
-    property,
-  });
-});
+export const typography = [
+  ...getKeys(typographyProperties).map(property => {
+    return createRestyleFunction({
+      property,
+    });
+  }),
+  createRestyleFunction({
+    property: 'fontSize',
+    themeKey: 'fontSizes',
+  }),
+];
 
 export const layout = getKeys(layoutProperties).map(property => {
   return createRestyleFunction({
@@ -276,7 +277,6 @@ export const all = [
   opacity,
   backgroundColor,
   backgroundColorShorthand,
-  fontSize,
   ...spacing,
   ...spacingShorthand,
   ...typography,
