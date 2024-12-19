@@ -54,7 +54,6 @@ const spacingPropertiesShorthand = {
 
 const typographyProperties = {
   fontFamily: true,
-  fontSize: true,
   fontStyle: true,
   fontWeight: true,
   includeFontPadding: true,
@@ -185,6 +184,11 @@ export const spacing = getKeys(spacingProperties).map(property => {
   });
 });
 
+export const fontSize = createRestyleFunction({
+  property: 'fontSize',
+  themeKey: 'fontSizes',
+});
+
 export const spacingShorthand = getKeys(spacingPropertiesShorthand).map(
   property => {
     const styleProperty = spacingPropertiesShorthand[
@@ -272,6 +276,7 @@ export const all = [
   opacity,
   backgroundColor,
   backgroundColorShorthand,
+  fontSize,
   ...spacing,
   ...spacingShorthand,
   ...typography,
@@ -321,6 +326,10 @@ export type SpacingShorthandProps<Theme extends BaseTheme> = {
     Theme['breakpoints']
   >;
 };
+
+export interface FontSizeProps<Theme extends BaseTheme> {
+  fontSize?: ResponsiveValue<keyof Theme['fontSizes'], Theme['breakpoints']>;
+}
 
 export type TypographyProps<Theme extends BaseTheme> = {
   [Key in keyof typeof typographyProperties]?: ResponsiveValue<
@@ -392,6 +401,7 @@ export type AllProps<Theme extends BaseTheme> = BackgroundColorProps<Theme> &
   OpacityProps<Theme> &
   SpacingProps<Theme> &
   SpacingShorthandProps<Theme> &
+  FontSizeProps<Theme> &
   TypographyProps<Theme> &
   LayoutProps<Theme> &
   PositionProps<Theme> &

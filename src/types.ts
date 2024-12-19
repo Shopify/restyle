@@ -38,6 +38,9 @@ export interface KnownBaseTheme {
   spacing: {
     [key: string]: number | string;
   };
+  fontSizes: {
+    [key: string]: number;
+  };
   breakpoints?: {
     [key: string]: Breakpoint;
   };
