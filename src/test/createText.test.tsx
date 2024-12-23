@@ -11,6 +11,15 @@ const palette = {
   grey: '#808080',
 };
 
+const fontSizes = {
+  xs: 12,
+  s: 14,
+  m: 18,
+  l: 20,
+  xl: 24,
+  xxl: 48,
+};
+
 const theme = createTheme({
   colors: {
     black: palette.black,
@@ -20,17 +29,18 @@ const theme = createTheme({
     s: 4,
     m: 8,
   },
+  fontSizes,
   textVariants: {
     defaults: {
       color: 'black',
     },
     title: {
-      fontSize: 48,
+      fontSize: 'xxl',
       fontWeight: 'bold',
       color: 'black',
     },
     subtitle: {
-      fontSize: 16,
+      fontSize: 'm',
       color: 'grey',
     },
   },
@@ -61,6 +71,21 @@ describe('createText', () => {
     expect(root.findByType(RNText).props.style).toStrictEqual([
       {
         color: palette.black,
+      },
+    ]);
+  });
+
+  it('uses a font size from the theme', () => {
+    const {root} = render(
+      <ThemeProvider theme={theme}>
+        <Text fontSize="m">Some text</Text>
+      </ThemeProvider>,
+    );
+
+    expect(root.findByType(RNText).props.style).toStrictEqual([
+      {
+        color: palette.black,
+        fontSize: fontSizes.m,
       },
     ]);
   });
@@ -102,7 +127,7 @@ describe('createText', () => {
         <Text
           color="grey"
           fontFamily="Roboto"
-          fontSize={18}
+          fontSize="m"
           fontStyle="italic"
           fontWeight="800"
           includeFontPadding

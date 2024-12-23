@@ -4,6 +4,7 @@ import {RNStyle} from '../types';
 const theme = {
   colors: {},
   spacing: {},
+  fontSizes: {},
   opacities: {
     invisible: 0,
     barelyVisible: 0.1,

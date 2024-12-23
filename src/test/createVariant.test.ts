@@ -11,6 +11,13 @@ const theme: BaseTheme = {
     m: 16,
     l: 24,
   },
+  fontSizes: {
+    xs: 12,
+    s: 14,
+    m: 16,
+    l: 20,
+    xl: 24,
+  },
   breakpoints: {
     phone: 0,
     tablet: 376,
@@ -21,19 +28,19 @@ const theme: BaseTheme = {
   },
   textVariants: {
     body: {
-      fontSize: 14,
+      fontSize: 's',
       lineHeight: 18,
     },
     subheader: {
-      fontSize: 16,
+      fontSize: 'm',
       color: 'black',
     },
     header: {
       margin: 's',
       fontSize: {
-        phone: 22,
-        tablet: 28,
-        specific: 34,
+        phone: 's',
+        tablet: 'm',
+        specific: 'l',
       },
       fontWeight: 'bold',
       color: {
@@ -45,8 +52,8 @@ const theme: BaseTheme = {
   boxVariants: {
     defaults: {
       fontSize: {
-        phone: 12,
-        tablet: 24,
+        phone: 'xs',
+        tablet: 'xl',
       },
       backgroundColor: {
         phone: 'black',
@@ -77,12 +84,12 @@ describe('createVariant', () => {
     const variant = createVariant({
       themeKey: 'textVariants',
       defaults: {
-        fontSize: 10,
+        fontSize: 'xs',
         opacity: 0.5,
       },
     });
     expect(variant.func({}, {theme, dimensions})).toStrictEqual({
-      fontSize: 10,
+      fontSize: 12,
       opacity: 0.5,
     });
   });
@@ -101,7 +108,7 @@ describe('createVariant', () => {
     const variant = createVariant({
       themeKey: 'boxVariants',
       defaults: {
-        fontSize: 10,
+        fontSize: 'xl',
         opacity: 0.5,
       },
     });
@@ -117,7 +124,7 @@ describe('createVariant', () => {
     const variant = createVariant({
       themeKey: 'boxVariants',
       defaults: {
-        fontSize: 10,
+        fontSize: 'xl',
         opacity: 0.5,
       },
     });
@@ -150,7 +157,7 @@ describe('createVariant', () => {
     const variant = createVariant({
       themeKey: 'textVariants',
       defaults: {
-        fontSize: 10,
+        fontSize: 'xl',
         opacity: 0.5,
       },
     });
@@ -193,7 +200,7 @@ describe('createVariant', () => {
         {theme, dimensions: {width: 768, height: 300}},
       ),
     ).toStrictEqual({
-      fontSize: 28,
+      fontSize: 16,
       margin: 8,
       fontWeight: 'bold',
       color: '#EEEEEE',
@@ -208,7 +215,7 @@ describe('createVariant', () => {
         {theme, dimensions: {width: 768, height: 1024}},
       ),
     ).toStrictEqual({
-      fontSize: 34,
+      fontSize: 20,
       margin: 8,
       fontWeight: 'bold',
       color: '#EEEEEE',
@@ -223,7 +230,7 @@ describe('createVariant', () => {
         {theme, dimensions: {width: 375, height: 1024}},
       ),
     ).toStrictEqual({
-      fontSize: 22,
+      fontSize: 14,
       margin: 8,
       fontWeight: 'bold',
       color: '#111111',

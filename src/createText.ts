@@ -13,6 +13,7 @@ import {
   ColorProps,
   OpacityProps,
   SpacingProps,
+  FontSizeProps,
   TextShadowProps,
   TypographyProps,
   VisibleProps,
@@ -27,6 +28,7 @@ type BaseTextProps<Theme extends BaseTheme> = ColorProps<Theme> &
   OpacityProps<Theme> &
   VisibleProps<Theme> &
   TypographyProps<Theme> &
+  FontSizeProps<Theme> &
   SpacingProps<Theme> &
   LayoutProps<Theme> &
   TextShadowProps<Theme> &

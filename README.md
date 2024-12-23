@@ -1,3 +1,9 @@
+<div align="center">
+
+**_This fork introduces support for defining and referencing font sizes_**
+
+</div>
+
 ![Restyle Image](./Restyle.png)
 
 <div align="center">

@@ -27,6 +27,12 @@ export const theme = {
     none: 0,
     m: 8,
   },
+  fontSizes: {
+    xs: 14,
+    s: 16,
+    m: 20,
+    l: 24,
+  },
   breakpoints: {
     phone: 320,
     tablet: 768,
