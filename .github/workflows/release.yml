@@ -1,0 +1,39 @@
+name: Create version packages PR or release
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch: # Allow manual triggering of the workflow
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Set tag name
+        id: set-tag
+        run: echo "TAG_NAME=${{ github.event.release.tag_name || github.ref_name }}" >> $GITHUB_ENV
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Use the tag associated with the release
+          ref: ${{ env.TAG_NAME }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node from .nvmrc
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Publish to NPM
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
