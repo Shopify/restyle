@@ -7,6 +7,11 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Next
 
+## 2.4.5 - 2025-03-19
+
+- Fixed: dist folder not being generated when building the project [#302](https://github.com/Shopify/restyle/pull/302) by [kelset](https://github.com/naqvitalha)
+- Chore: Bump Node to 20 and allow releasing from GH Actions [#312](https://github.com/Shopify/restyle/pull/312) by [gvarandas](https://github.com/gvarandas)
+
 ## 2.4.3 - 2023-04-18
 
 - Fixed: clean up the project configuration for RN0.71, aligning some packages to the right version [#271](https://github.com/Shopify/restyle/pull/271) by [kelset](https://github.com/kelset) & [tido64](https://github.com/tido64)
