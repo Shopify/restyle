@@ -28,15 +28,15 @@ const composeRestyleFunctions = <
   const properties = flattenedRestyleFunctions.map(styleFunc => {
     return styleFunc.property;
   });
-  const propertiesMap = properties.reduce(
-    (acc, prop) => ({...acc, [prop]: true}),
-    {} as {[key in keyof TProps]: true},
-  );
+  const propertiesMap = properties.reduce((acc, prop) => {
+    acc[prop] = true;
+    return acc;
+  }, {} as {[key in keyof TProps]: true});
 
-  const funcsMap = flattenedRestyleFunctions.reduce(
-    (acc, each) => ({[each.property]: each.func, ...acc}),
-    {} as {[key in keyof TProps]: RestyleFunction<TProps, Theme, string>},
-  );
+  const funcsMap = flattenedRestyleFunctions.reduce((acc, each) => {
+    acc[each.property] = each.func;
+    return acc;
+  }, {} as {[key in keyof TProps]: RestyleFunction<TProps, Theme, string>});
 
   // TInputProps is a superset of TProps since TProps are only the Restyle Props
   const buildStyle = (
