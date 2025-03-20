@@ -179,36 +179,6 @@ describe('createRestyleComponent', () => {
       );
     });
 
-    it('passes styles from default variant when no variant prop is defined', () => {
-      const {root} = render(
-        <ThemeProvider theme={themeWithVariant}>
-          <ComponentWithVariant margin="s" />
-        </ThemeProvider>,
-      );
-      expect(root.findByType(View).props.style).toStrictEqual([
-        {
-          alignItems: 'flex-start',
-          backgroundColor: '#FFB6C1',
-          margin: 8,
-        },
-      ]);
-    });
-
-    it('passes styles from the defined variant', () => {
-      const {root} = render(
-        <ThemeProvider theme={themeWithVariant}>
-          <ComponentWithVariant variant="regular" margin="s" />
-        </ThemeProvider>,
-      );
-      expect(root.findByType(View).props.style).toStrictEqual([
-        {
-          alignItems: 'center',
-          backgroundColor: '#E0FFFF',
-          margin: 8,
-        },
-      ]);
-    });
-
     it('uses gap values from the theme', () => {
       const {root} = render(
         <ThemeProvider theme={theme}>
@@ -228,6 +198,55 @@ describe('createRestyleComponent', () => {
       );
       expect(root.findByType(View).props).toStrictEqual({
         style: [{gap: 8, columnGap: 8, rowGap: 8}],
+      });
+    });
+
+    describe('variant', () => {
+      it('does not pass variant prop if no variant is created', () => {
+        const {root} = render(
+          <ThemeProvider theme={theme}>
+            <Component opacity={0.5} />
+          </ThemeProvider>,
+        );
+        expect(root.findByType(View).props).toStrictEqual({
+          style: [{opacity: 0.5}],
+        });
+      });
+
+      it('passes styles from default variant when no variant prop is defined', () => {
+        const {root} = render(
+          <ThemeProvider theme={themeWithVariant}>
+            <ComponentWithVariant margin="s" />
+          </ThemeProvider>,
+        );
+        expect(root.findByType(View).props).toStrictEqual({
+          variant: 'defaults',
+          style: [
+            {
+              alignItems: 'flex-start',
+              backgroundColor: '#FFB6C1',
+              margin: 8,
+            },
+          ],
+        });
+      });
+
+      it('passes styles from the defined variant', () => {
+        const {root} = render(
+          <ThemeProvider theme={themeWithVariant}>
+            <ComponentWithVariant variant="regular" margin="s" />
+          </ThemeProvider>,
+        );
+        expect(root.findByType(View).props).toStrictEqual({
+          variant: 'regular',
+          style: [
+            {
+              alignItems: 'center',
+              backgroundColor: '#E0FFFF',
+              margin: 8,
+            },
+          ],
+        });
       });
     });
   });
