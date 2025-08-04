@@ -70,7 +70,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: ruby setup
-        uses: ruby/setup-ruby@dffc446db9ba5a0c4446edb5bca1c5c473a806c5 # v1.235.0
+        uses: ruby/setup-ruby@2a7b30092b0caf9c046252510f9273b4875f3db9 # v1.254.0
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
           bundler-cache: true
