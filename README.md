@@ -60,7 +60,7 @@ Read more about migration to v2 [here](https://shopify.github.io/restyle/guides/
 
 ## Inspiration
 
-Restyle is heavily inspired by [https://styled-system.com](https://styled-system.com/).
+Restyle is heavily inspired by Styled System.
 
 ## Contributing
 
