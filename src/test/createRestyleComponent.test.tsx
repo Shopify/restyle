@@ -6,6 +6,8 @@ import createRestyleComponent from '../createRestyleComponent';
 import {
   backgroundColor,
   BackgroundColorProps,
+  border,
+  BorderProps,
   SpacingProps,
   spacing,
   SpacingShorthandProps,
@@ -24,6 +26,9 @@ const theme = {
   },
   spacing: {
     s: 8,
+  },
+  borderRadii: {
+    s: 4,
   },
   breakpoints: {
     phone: 0,
@@ -61,12 +66,13 @@ jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
 
 const Component = createRestyleComponent<
   BackgroundColorProps<Theme> &
+    BorderProps<Theme> &
     SpacingProps<Theme> &
     SpacingShorthandProps<Theme> &
     OpacityProps<Theme> &
     ViewProps,
   Theme
->([backgroundColor, spacing, spacingShorthand, opacity]);
+>([backgroundColor, border, spacing, spacingShorthand, opacity]);
 const cardVariant = createVariant<ThemeWithVariant, 'cardVariants'>({
   themeKey: 'cardVariants',
 });
@@ -229,6 +235,31 @@ describe('createRestyleComponent', () => {
       expect(root.findByType(View).props).toStrictEqual({
         style: [{gap: 8, columnGap: 8, rowGap: 8}],
       });
+    });
+
+    // react-native-reanimated 4.4+ re-renders settled animations with the
+    // resolved raw style values set as top-level props (bypassing TypeScript,
+    // hence the casts), e.g. borderRadius={13} on an animated restyle component
+    it('passes raw numeric values through for numeric theme scales', () => {
+      const {root} = render(
+        <ThemeProvider theme={theme}>
+          <Component borderRadius={13 as never} />
+        </ThemeProvider>,
+      );
+      expect(root.findByType(View).props.style).toStrictEqual([
+        {borderRadius: 13},
+      ]);
+    });
+
+    it('passes raw color strings through for the colors theme scale', () => {
+      const {root} = render(
+        <ThemeProvider theme={theme}>
+          <Component backgroundColor={'rgba(255, 209, 102, 1)' as never} />
+        </ThemeProvider>,
+      );
+      expect(root.findByType(View).props.style).toStrictEqual([
+        {backgroundColor: 'rgba(255, 209, 102, 1)'},
+      ]);
     });
   });
 });
