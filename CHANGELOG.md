@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Next
 
+- Fixed: pass raw numeric values and raw color strings through instead of throwing when they are not theme keys, restoring compatibility with `react-native-reanimated` 4.4+ settled animations [#355](https://github.com/Shopify/restyle/issues/355) by [KAMRONBEK](https://github.com/KAMRONBEK)
+
 ## 2.4.5 - 2025-03-19
 
 - Fixed: dist folder not being generated when building the project [#302](https://github.com/Shopify/restyle/pull/302) by [kelset](https://github.com/naqvitalha)
