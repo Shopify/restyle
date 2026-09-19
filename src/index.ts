@@ -7,6 +7,7 @@ export * from './createText';
 export {default as createVariant} from './createVariant';
 export {default as createBox} from './createBox';
 export {default as createText} from './createText';
+export {default as createAnimatedRestyleComponent} from './createAnimatedRestyleComponent';
 export {ThemeProvider, ThemeContext} from './context';
 export {default as useTheme} from './hooks/useTheme';
 export {default as useRestyle} from './hooks/useRestyle';

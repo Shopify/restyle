@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Next
 
+- Added: `createAnimatedRestyleComponent` helper and a guide explaining why animated Restyle components must nest the animated component inside Restyle (not the other way around) to stay compatible with `react-native-reanimated` 4.4+'s `FORCE_REACT_RENDER_FOR_SETTLED_ANIMATIONS` flag [#TBD](https://github.com/Shopify/restyle/pull/TBD) by [tothvoj-gl](https://github.com/tothvoj-gl)
+
 ## 2.4.5 - 2025-03-19
 
 - Fixed: dist folder not being generated when building the project [#302](https://github.com/Shopify/restyle/pull/302) by [kelset](https://github.com/naqvitalha)
