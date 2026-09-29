@@ -1,39 +1,69 @@
-name: Create version packages PR or release
+name: Release
 
 on:
   release:
     types: [published]
-  workflow_dispatch: # Allow manual triggering of the workflow
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: npm-release-${{ github.event.release.tag_name || github.ref_name }}
+  cancel-in-progress: false
 
 jobs:
-  release:
-    name: Release
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
+  build:
+    if: github.repository == 'Shopify/restyle' && startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-24.04
     steps:
-      - name: Set tag name
-        id: set-tag
-        run: echo "TAG_NAME=${{ github.event.release.tag_name || github.ref_name }}" >> $GITHUB_ENV
-
-      - name: Checkout repository
+      - name: Checkout release tag
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
-          # Use the tag associated with the release
-          ref: ${{ env.TAG_NAME }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.event.release.tag_name || github.ref_name }}
+          persist-credentials: false
 
-      - name: Setup Node from .nvmrc
+      - name: Setup Node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version-file: '.nvmrc'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: '24.21.0'
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Publish to NPM
-        run: npm publish --provenance --access public
+      - name: Build package
+        run: yarn build
+
+      - name: Pack package
+        run: npm pack --ignore-scripts
+
+      - name: Upload package
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: npm-package
+          path: shopify-restyle-*.tgz
+          if-no-files-found: error
+          retention-days: 1
+
+  publish:
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '24.21.0'
+
+      - name: Download package
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: npm-package
+
+      - name: Publish to npm
+        run: npm publish shopify-restyle-*.tgz --provenance --access public --ignore-scripts
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ''
+          NODE_AUTH_TOKEN: ''

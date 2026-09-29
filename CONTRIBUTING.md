@@ -35,3 +35,22 @@ To build the library for testing in other projects or environments, run:
 ```bash
 $ yarn build
 ```
+
+## Releasing
+
+Publishing uses [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/),
+not an npm token. Before enabling this workflow, a package owner must configure the
+trusted publisher for `@shopify/restyle` with organization `Shopify`, repository
+`restyle`, and workflow filename `release.yml` (no environment name).
+
+Create a release tag containing the updated workflow and publish its GitHub release,
+or manually dispatch `release.yml` against that tag. Branch dispatches do not
+publish. The build job installs dependencies and uploads a package tarball without
+OIDC permission. A separate job publishes that tarball without installing
+dependencies or running package lifecycle scripts. Its pinned Node version includes
+an npm CLI that supports trusted publishing.
+
+After verifying the first OIDC release, revoke the old publishing token in npm and
+remove the `NPM_TOKEN` secret from GitHub Actions. Workflow changes alone do not
+revoke an existing credential. Do not restore token authentication if OIDC fails;
+check the trusted publisher's case-sensitive repository and workflow settings.

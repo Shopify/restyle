@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Next
 
+- Chore: Use npm trusted publishing and isolate package builds from publishing permissions.
+
 ## 2.4.5 - 2025-03-19
 
 - Fixed: dist folder not being generated when building the project [#302](https://github.com/Shopify/restyle/pull/302) by [kelset](https://github.com/naqvitalha)
