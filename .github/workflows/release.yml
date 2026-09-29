@@ -64,3 +64,6 @@ jobs:
 
       - name: Publish to npm
         run: npm publish shopify-restyle-*.tgz --provenance --access public --ignore-scripts
+        env:
+          NPM_TOKEN: ''
+          NODE_AUTH_TOKEN: ''
