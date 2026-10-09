@@ -123,6 +123,20 @@ describe('createText', () => {
     ]);
   });
 
+  it('renders when the theme has no textVariants', () => {
+    const {textVariants, ...themeWithoutTextVariants} = theme;
+
+    const {root} = render(
+      <ThemeProvider theme={themeWithoutTextVariants}>
+        <Text color="black">Some text</Text>
+      </ThemeProvider>,
+    );
+
+    expect(root.findByType(RNText).props.style).toStrictEqual([
+      {color: palette.black},
+    ]);
+  });
+
   it('passes all React Native Text Style Props', () => {
     const {root} = render(
       <ThemeProvider theme={theme}>
