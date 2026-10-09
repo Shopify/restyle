@@ -54,7 +54,9 @@ const composeRestyleFunctions = <
     // We make the assumption that the props object won't have extra prototype keys.
     // eslint-disable-next-line guard-for-in
     for (const key in props) {
-      const mappedProps = funcsMap[key](props, options);
+      const func = funcsMap[key];
+      if (func === undefined) continue;
+      const mappedProps = func(props, options);
       // eslint-disable-next-line guard-for-in
       for (const mappedKey in mappedProps) {
         styles[mappedKey as keyof ViewStyle] = mappedProps[mappedKey];
