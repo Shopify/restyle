@@ -175,6 +175,28 @@ describe('createVariant', () => {
     expect(variant.func({}, {theme, dimensions})).toStrictEqual({});
   });
 
+  it('ignores variant values that are not restyle props', () => {
+    const themeWithNonRestyleProp = {
+      ...theme,
+      textVariants: {
+        ...theme.textVariants,
+        rotated: {
+          fontSize: 14,
+          transform: [{rotate: '45deg'}],
+        },
+      },
+    };
+    const variant = createVariant({themeKey: 'textVariants'});
+    expect(
+      variant.func(
+        {variant: 'rotated'},
+        {theme: themeWithNonRestyleProp, dimensions},
+      ),
+    ).toStrictEqual({
+      fontSize: 14,
+    });
+  });
+
   it('supports referencing other theme values in the variant', () => {
     const variant = createVariant({themeKey: 'textVariants'});
     expect(

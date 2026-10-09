@@ -7,6 +7,7 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Next
 
+- Fixed: Crash with `funcsMap[propKey] is not a function` when a variant contains style props that are not Restyle props.
 - Chore: Use npm trusted publishing and isolate package builds from publishing permissions.
 
 ## 2.4.5 - 2025-03-19

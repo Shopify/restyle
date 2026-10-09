@@ -96,6 +96,33 @@ describe('createText', () => {
     ]);
   });
 
+  it('ignores textVariant values that are not restyle props', () => {
+    const themeWithNonRestyleProp = createTheme({
+      ...theme,
+      textVariants: {
+        ...theme.textVariants,
+        title: {
+          ...theme.textVariants.title,
+          transform: [{rotate: '45deg'}],
+        },
+      },
+    });
+
+    const {root} = render(
+      <ThemeProvider theme={themeWithNonRestyleProp}>
+        <Text variant="title">Some text</Text>
+      </ThemeProvider>,
+    );
+
+    expect(root.findByType(RNText).props.style).toStrictEqual([
+      {
+        color: palette.black,
+        fontSize: 48,
+        fontWeight: 'bold',
+      },
+    ]);
+  });
+
   it('passes all React Native Text Style Props', () => {
     const {root} = render(
       <ThemeProvider theme={theme}>
